@@ -117,19 +117,32 @@ node prisma/seed.js
 
 ## 🚀 Langkah 4: Jalankan Node.js Service via aaPanel PM2
 
-1. Di dashboard aaPanel, masuk ke menu **App Store** di sidebar kiri.
-2. Cari dan pastikan **Node.js Version Manager** (atau **PM2 Manager**) sudah terinstal.
-   * Pilih Node.js versi **v18.x** atau **v20.x** (LTS).
-3. Buka **Node.js Project Manager** (atau PM2 Manager):
-   * Klik **Add Node Project**:
-     * **Project Name:** `kertas-kata-api`
-     * **Path:** `/www/wwwroot/kertaskata.my.id/server`
-     * **Run Opt:** `src/server.js`
-     * **Run User:** `www`
-     * **Port:** `5000`
-   * Klik **Submit**.
-4. Status proyek akan berubah menjadi **Running** (hijau).
-   * *Fitur ini menjamin jika server VPS restart atau aplikasi mengalami error, PM2 akan otomatis menyalakannya kembali secara mandiri.*
+1. Di dashboard aaPanel, pastikan **Node.js** (versi v18.x atau v20.x LTS) dan **PM2** sudah terpasang.
+2. Jalankan dua layanan menggunakan PM2:
+
+### A. Layanan 1: Backend API Express (Port 5000)
+Di terminal VPS:
+```bash
+cd /www/wwwroot/kertaskata.my.id/server
+npm install
+npx prisma generate
+pm2 start src/server.js --name "kertaskata-api"
+```
+
+### B. Layanan 2: Next.js Frontend App Router (Port 3000)
+Di root direktori repositori:
+```bash
+cd /www/wwwroot/kertaskata.my.id
+npm install
+npm run build
+pm2 start npm --name "kertaskata-next" -- start -- -p 3000
+```
+
+Simpan konfigurasi PM2 agar otomatis menyala saat server VPS restart:
+```bash
+pm2 save
+pm2 startup
+```
 
 ---
 
@@ -139,29 +152,31 @@ node prisma/seed.js
 2. Klik **Add site**:
    * **Domain:** `kertaskata.my.id`
    * **Root Directory:** `/www/wwwroot/kertaskata.my.id`
-   * **FTP & Database:** Tidak perlu dibuat ulang (karena database sudah dibuat di Langkah 1).
-   * **PHP Version:** `pure static` (karena frontend berupa HTML statis dan API dilayani Node.js).
+   * **PHP Version:** `pure static`
    * Klik **Submit**.
 
 3. **Pasang SSL Gratis (HTTPS)**:
    * Pada baris situs `kertaskata.my.id`, klik tautan **SSL**.
    * Pilih tab **Let's Encrypt**.
    * Centang nama domain `kertaskata.my.id`.
-   * Klik **Apply** -> Tunggu beberapa detik hingga sertifikat terbit.
-   * Aktifkan toggle **Force HTTPS**.
+   * Klik **Apply** -> Aktifkan toggle **Force HTTPS**.
 
-4. **Konfigurasi Nginx Reverse Proxy untuk API**:
-   * Masih pada pop-up setting situs `kertaskata.my.id`, pilih tab **Configuration file** (atau **URL rewrite / Reverse Proxy**).
-   * Tambahkan blok berikut tepat di dalam blok `server { ... }`:
+4. **Konfigurasi Nginx Reverse Proxy**:
+   * Masih pada pop-up setting situs `kertaskata.my.id`, pilih tab **Configuration file**.
+   * Ganti blok `location / { ... }` dengan proxy ke Next.js (Port 3000) dan Express (Port 5000):
 
-    ```nginx
-    # 1. Clean URL: Hilangkan trailing slash dan otomatis buka .html tanpa mengetik .html di browser
-    if (!-d $request_filename) {
-        rewrite ^/(.+)/$ /$1 permanent;
-    }
-
+```nginx
+    # 1. Reverse Proxy Utama ke Aplikasi Next.js (Port 3000)
     location / {
-        try_files $uri $uri/ $uri.html =404;
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
     }
 
     # 2. Reverse Proxy ke Backend API Express (Port 5000)
@@ -177,42 +192,38 @@ node prisma/seed.js
         proxy_cache_bypass $http_upgrade;
     }
 
-    # 3. Layanan File Unggahan (Cover, Naskah PDF, E-Book)
+    # 3. Layanan File Unggahan Fisik (Cover, Dokumen, E-Book)
     location /uploads/ {
         alias /www/wwwroot/kertaskata.my.id/server/uploads/;
         expires 30d;
         access_log off;
     }
-    ```
-    * Klik **Save**. Nginx akan otomatis memuat ulang konfigurasinya.
+```
+   * Klik **Save**. Nginx akan otomatis memuat ulang konfigurasinya.
 
 ---
 
 ## 🔐 Kredensial Akun Default (Hasil Seeding Awal)
 
-Setelah menjalankan `node prisma/seed.js`, akun berikut langsung dapat digunakan untuk login:
+Setelah menjalankan `node prisma/seed.js` di folder `server/`, akun berikut langsung dapat digunakan untuk login:
 
 | Peran | Email | Kata Sandi | Kegunaan |
 | :--- | :--- | :--- | :--- |
-| **Admin Utama** | `admin@kertaskata.my.id` | `AdminPassword2026!` | Akses penuh seluruh modul di `admin.html` & `kelola-*.html` |
-| **Mentor Literasi** | `mentor.dian@kertaskata.my.id` | `MentorPassword2026!` | Akses review tulisan, inline review, & moderasi komunitas |
-| **Anggota Sampel** | `rahmat.hidayat@gmail.com` | `MemberPassword2026!` | Akses `dashboard.html`, writing studio, & modul e-learning |
+| **Admin Utama** | `admin@kertaskata.my.id` | `AdminPassword2026!` | Akses portal kurasi `/admin` dan seluruh kelola menu `/kelola-*` |
+| **Mentor Literasi** | `mentor.dian@kertaskata.my.id` | `MentorPassword2026!` | Akses review tulisan, inline review AI, & moderasi komunitas |
+| **Anggota Sampel** | `rahmat.hidayat@gmail.com` | `MemberPassword2026!` | Akses `/dashboard`, studio `/menulis`, e-learning `/elearning` |
 
 ---
 
 ## 🩺 Pengujian & Verifikasi Setelah Deploy
 
 1. Buka browser dan kunjungi: **`https://kertaskata.my.id`**
-   * Halaman Landing Page publik harus terbuka cepat dengan gembok hijau HTTPS.
-2. Uji endpoint API di browser: **`https://kertaskata.my.id/api/health`**
-   * Output JSON yang benar:
-     ```json
-     {
-       "status": "ok",
-       "platform": "KERTAS KATA Kabupaten Tangerang API"
-     }
-     ```
-3. Login ke Dashboard:
-   * Klik tombol **Masuk** di navigasi `index.html`.
-   * Masukkan email `admin@kertaskata.my.id` dan sandi `AdminPassword2026!`.
-   * Sistem akan mengarahkan ke dashboard dengan token aktif!
+   * Landing Page terbuka dengan URL bersih tanpa `.html`.
+2. Buka Dashboard: **`https://kertaskata.my.id/dashboard`**
+   * Menampilkan data statistik tulisan riil dari database.
+3. Buka Portal Admin: **`https://kertaskata.my.id/admin`**
+   * Menampilkan antrean naskah masuk, analitik, dan tools kurasi AI.
+4. Buka Rute Kelola:
+   * **`https://kertaskata.my.id/kelola-komunitas`** atau **`https://kertaskata.my.id/admin/kelola-komunitas`**
+   * Kedua format URL terbuka sempurna.
+
