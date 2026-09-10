@@ -107,11 +107,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }, duration);
   }
 
-  // Update Bookmark Counters
+  // Update All Counters & Stats (Real-time dari Database)
   function updateBookmarkCounters() {
+    const totalCount = ebooksData.length;
+    const freeCount = ebooksData.filter(b => b.type === 'free').length;
+    const premiumCount = ebooksData.filter(b => b.type === 'premium').length;
     const bookmarkedCount = ebooksData.filter(b => b.isBookmarked).length;
-    if (bookmarkPillCount) bookmarkPillCount.textContent = bookmarkedCount;
+
+    // Stat Cards
+    const statTotal = document.getElementById('statTotalEbooks');
+    const statFree = document.getElementById('statFreeEbooks');
+    const statPremium = document.getElementById('statPremiumEbooks');
+    if (statTotal) statTotal.textContent = totalCount;
+    if (statFree) statFree.textContent = freeCount;
+    if (statPremium) statPremium.textContent = premiumCount;
     if (statBookmarkedEbooks) statBookmarkedEbooks.textContent = bookmarkedCount;
+
+    // Filter Pills
+    const pillAll = document.getElementById('pillCountAll');
+    const pillFree = document.getElementById('pillCountFree');
+    const pillPremium = document.getElementById('pillCountPremium');
+    if (pillAll) pillAll.textContent = totalCount;
+    if (pillFree) pillFree.textContent = freeCount;
+    if (pillPremium) pillPremium.textContent = premiumCount;
+    if (bookmarkPillCount) bookmarkPillCount.textContent = bookmarkedCount;
   }
 
   // Render Ebook Cards
@@ -526,6 +545,33 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.classList.remove('open');
       backdrop.classList.remove('show');
     });
+  }
+
+  // Sync user profile if logged in
+  if (window.KK_API && window.KK_API.auth.isLoggedIn()) {
+    const user = window.KK_API.auth.getCurrentUser();
+    if (user) {
+      const uName = user.name || 'Anggota Komunitas';
+      const initials = uName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+      const region = user.originRegion || 'Kabupaten Tangerang';
+      const role = user.role === 'admin' ? 'Administrator' : user.role === 'mentor' ? 'Mentor' : 'Anggota';
+
+      const userPillAvatar = document.getElementById('userPillAvatar');
+      const userPillName = document.getElementById('userPillName');
+      const userPillRole = document.getElementById('userPillRole');
+      const dropdownAvatar = document.getElementById('dropdownAvatar');
+      const dropdownUserName = document.getElementById('dropdownUserName');
+      const dropdownUserRole = document.getElementById('dropdownUserRole');
+      const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+
+      if (userPillAvatar) userPillAvatar.textContent = initials;
+      if (userPillName) userPillName.textContent = uName;
+      if (userPillRole) userPillRole.textContent = `${role} (${region})`;
+      if (dropdownAvatar) dropdownAvatar.textContent = initials;
+      if (dropdownUserName) dropdownUserName.textContent = uName;
+      if (dropdownUserRole) dropdownUserRole.textContent = `${role} (${region})`;
+      if (dropdownUserEmail) dropdownUserEmail.textContent = user.email || '';
+    }
   }
 
   // Initial render & API load

@@ -174,70 +174,48 @@
     }, 900);
   };
 
-  // 6. Instant Search Filtering
+  // 6. Instant Search Filtering (Terhubung ke Database Live)
   function initInstantSearch() {
     const searchInput = document.getElementById('instantSearchInput');
     const searchResults = document.getElementById('searchResultsContainer');
     if (!searchInput || !searchResults) return;
 
-    const sampleDatabase = [
-      {
-        title: 'Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng dan Denyut Literasi Warga',
-        cat: 'Sejarah & Budaya',
-        author: 'Rahmat Hidayat, S.Pd.',
-        url: 'baca-artikel.html'
-      },
-      {
-        title: 'Transformasi Digital dan Kebangkitan UMKM Pesisir Teluknaga',
-        cat: 'Opini Warga',
-        author: 'Nurul Fajriah, S.S.',
-        url: 'baca-artikel.html'
-      },
-      {
-        title: 'Pendekatan Kontekstual Berbasis Kearifan Lokal dalam Pembelajaran Sains',
-        cat: 'Pendidikan',
-        author: 'Hendra Gunawan, M.Pd.',
-        url: 'baca-artikel.html'
-      },
-      {
-        title: 'Misteri Siluet di Hutan Lindung Solear: Refleksi Ekologi',
-        cat: 'Cerpen',
-        author: 'Siti Aminah, M.Pd.',
-        url: 'baca-artikel.html'
-      },
-      {
-        title: 'Eksplorasi GenAI untuk Pengarsipan Naskah Kuno Pantura',
-        cat: 'Teknologi & AI',
-        author: 'Ahmad Fauzi, S.Pd.I',
-        url: 'baca-artikel.html'
-      }
-    ];
+    let debounceTimer;
 
     searchInput.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
+      clearTimeout(debounceTimer);
+      const q = e.target.value.trim();
+
       if (!q) {
         searchResults.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#94a3b8; font-size:0.875rem;">Ketik kata kunci judul, topik, atau nama penulis...</div>';
         return;
       }
 
-      const matches = sampleDatabase.filter(item => 
-        item.title.toLowerCase().includes(q) || 
-        item.author.toLowerCase().includes(q) || 
-        item.cat.toLowerCase().includes(q)
-      );
+      debounceTimer = setTimeout(async () => {
+        searchResults.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#64748b; font-size:0.875rem;">Mencari karya...</div>';
 
-      if (matches.length === 0) {
-        searchResults.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#64748b; font-size:0.875rem;">Tidak ditemukan karya yang cocok dengan pencarian Anda.</div>';
-        return;
-      }
+        try {
+          if (!window.KK_API) return;
+          const res = await window.KK_API.articles.getPublic({ search: q, limit: 6 });
+          const matches = res.data?.articles || [];
 
-      searchResults.innerHTML = matches.map(item => `
-        <a href="${item.url}" class="search-result-item" style="display:block; padding:0.85rem 1rem; border-radius:10px; text-decoration:none; color:#0f172a; border-bottom:1px solid #f1f5f9; transition:background 0.2s;">
-          <div style="font-size:0.75rem; color:#2563eb; font-weight:700; text-transform:uppercase; margin-bottom:0.2rem;">${item.cat}</div>
-          <div style="font-weight:700; font-size:0.9375rem; margin-bottom:0.25rem;">${item.title}</div>
-          <div style="font-size:0.75rem; color:#64748b;">Karya oleh <strong>${item.author}</strong></div>
-        </a>
-      `).join('');
+          if (matches.length === 0) {
+            searchResults.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#64748b; font-size:0.875rem;">Tidak ditemukan karya yang cocok dengan kata kunci "' + q + '".</div>';
+            return;
+          }
+
+          searchResults.innerHTML = matches.map(item => `
+            <a href="baca-artikel.html?slug=${item.slug}" class="search-result-item" style="display:block; padding:0.85rem 1rem; border-radius:10px; text-decoration:none; color:#0f172a; border-bottom:1px solid #f1f5f9; transition:background 0.2s;">
+              <div style="font-size:0.75rem; color:#2563eb; font-weight:700; text-transform:uppercase; margin-bottom:0.2rem;">${item.category}</div>
+              <div style="font-weight:700; font-size:0.9375rem; margin-bottom:0.25rem;">${item.title}</div>
+              <div style="font-size:0.75rem; color:#64748b;">Karya oleh <strong>${item.user?.name || 'Penulis Komunitas'}</strong></div>
+            </a>
+          `).join('');
+        } catch (err) {
+          console.warn('Gagal mencari artikel via API:', err);
+          searchResults.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#dc2626; font-size:0.875rem;">Gagal memuat hasil pencarian.</div>';
+        }
+      }, 300);
     });
   }
 
@@ -398,6 +376,114 @@
     }
   }
 
+  // 11. Load Platform Stats, Editorial Spotlight, & Hall of Fame from API
+  async function loadPlatformStatsFromApi() {
+    if (!window.KK_API || !window.KK_API.stats) return;
+
+    try {
+      const res = await window.KK_API.stats.getOverview();
+      if (!res || !res.success || !res.data) return;
+
+      const { counts, spotlight, hallOfFame } = res.data;
+
+      // Update Hero Stats
+      const statArticles = document.getElementById('statHeroArticles');
+      const statDistricts = document.getElementById('statHeroDistricts');
+      const statMembers = document.getElementById('statHeroMembers');
+      const archiveLabel = document.getElementById('archiveArticleCountLabel');
+
+      if (statArticles) statArticles.textContent = counts.articles > 0 ? `${counts.articles}+` : '0';
+      if (statDistricts) statDistricts.textContent = counts.districts || 28;
+      if (statMembers) statMembers.textContent = counts.members > 0 ? `${counts.members}+` : '0';
+      if (archiveLabel && counts.articles > 0) {
+        archiveLabel.textContent = `Lihat Arsip Seluruh Tulisan Terbit (${counts.articles})`;
+      }
+
+      // Update Editorial Spotlight jika ada artikel lolos kurasi
+      const spotlightContainer = document.getElementById('spotlightContainer');
+      if (spotlightContainer && spotlight) {
+        const cover = spotlight.coverUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1000&auto=format&fit=crop&q=80';
+        const authorName = spotlight.user?.name || 'Penulis Pilihan';
+        const initials = authorName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+        const region = spotlight.user?.originRegion || 'Kabupaten Tangerang';
+        const readMins = Math.max(1, Math.ceil((spotlight.wordCount || 200) / 200));
+
+        spotlightContainer.innerHTML = `
+          <div class="spotlight-card reveal in-view">
+            <div class="spotlight-media">
+              <img src="${cover}" alt="${spotlight.title}" class="spotlight-img">
+              <div class="spotlight-badge-curated">
+                <span>⭐</span>
+                <span>Pilihan Kurator Minggu Ini</span>
+              </div>
+            </div>
+            <div class="spotlight-body">
+              <div class="spotlight-meta-top">
+                <span class="category-tag">${spotlight.category || 'Opini'}</span>
+                <span class="reading-time">⏱️ ${readMins} menit baca</span>
+              </div>
+              <h2 class="spotlight-title">
+                <a href="baca-artikel.html?slug=${spotlight.slug}">${spotlight.title}</a>
+              </h2>
+              <p class="spotlight-excerpt">
+                ${spotlight.lead || (spotlight.content ? spotlight.content.replace(/<[^>]*>?/gm, ' ').slice(0, 200) + '...' : '')}
+              </p>
+              <div class="spotlight-author-bar">
+                <div class="author-chip">
+                  <div class="author-avatar-img">${initials}</div>
+                  <div>
+                    <div class="author-info-name">${authorName}</div>
+                    <div class="author-info-sub">${region}</div>
+                  </div>
+                </div>
+                <a href="baca-artikel.html?slug=${spotlight.slug}" class="btn-read-spotlight" id="spotlightReadBtn">
+                  <span>Baca Artikel Penuh</span>
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Update Hall of Fame jika ada penulis dengan artikel terbit
+      const hofContainer = document.getElementById('hofContainer');
+      if (hofContainer && Array.isArray(hallOfFame) && hallOfFame.length > 0) {
+        const medalEmojis = ['🥇', '🥈', '🥉', '🎖️', '🎖️'];
+        const gradients = [
+          'linear-gradient(135deg, #f59e0b, #d97706)',
+          'linear-gradient(135deg, #64748b, #475569)',
+          'linear-gradient(135deg, #b45309, #78350f)',
+          'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+          'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+        ];
+
+        hofContainer.innerHTML = hallOfFame.map((author, i) => `
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">${medalEmojis[i] || '🎖️'}</div>
+            <div class="hof-avatar-circle" style="background: ${gradients[i] || gradients[3]};">${author.initials}</div>
+            <div class="hof-name">${author.name}</div>
+            <div class="hof-org">${author.region}</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>${author.articleCount}</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>${author.totalViews >= 1000 ? (author.totalViews / 1000).toFixed(1) + 'K' : author.totalViews}</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    } catch (err) {
+      console.warn('Gagal memuat statistik platform:', err);
+    }
+  }
+
   // Initialization
   document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
@@ -408,6 +494,7 @@
     initKeyboardShortcuts();
     if (window.KK_API) {
       loadPublicArticlesFromApi();
+      loadPlatformStatsFromApi();
     }
   });
 

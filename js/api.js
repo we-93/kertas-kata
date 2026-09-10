@@ -280,6 +280,11 @@
       getMy: () => API.get('/certificates/my'),
       verify: (certNumber) => API.get(`/certificates/verify/${certNumber}`),
     },
+
+    // Statistik Platform
+    stats: {
+      getOverview: () => API.get('/stats/overview'),
+    },
   };
 
   // Expose ke window object global

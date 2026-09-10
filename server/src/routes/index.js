@@ -8,6 +8,7 @@ import libraryRoutes from './library.routes.js';
 import communityRoutes from './community.routes.js';
 import printRoutes from './print.routes.js';
 import certificateRoutes from './certificate.routes.js';
+import statsRoutes from './stats.routes.js';
 
 const router = Router();
 
@@ -20,6 +21,7 @@ router.use('/library', libraryRoutes);
 router.use('/community', communityRoutes);
 router.use('/print', printRoutes);
 router.use('/certificates', certificateRoutes);
+router.use('/stats', statsRoutes);
 
 // Health check route
 router.get('/health', (req, res) => {

@@ -160,10 +160,10 @@
           <!-- User Identity Pill & Dropdown -->
           <div class="user-dropdown-container">
             <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Anggota">
-              <div class="user-avatar-small">RH</div>
+              <div class="user-avatar-small" id="userPillAvatar">U</div>
               <div class="user-pill-info">
-                <span class="user-pill-name">Rahmat Hidayat</span>
-                <span class="user-pill-role">Anggota (Tigaraksa)</span>
+                <span class="user-pill-name" id="userPillName">Memuat...</span>
+                <span class="user-pill-role" id="userPillRole">Anggota Komunitas</span>
               </div>
               <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -173,11 +173,11 @@
             <!-- User Profile Dropdown Menu -->
             <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
               <div class="user-dropdown-header">
-                <div class="user-dropdown-avatar">RH</div>
+                <div class="user-dropdown-avatar" id="dropdownAvatar">U</div>
                 <div class="user-dropdown-info">
-                  <span class="user-dropdown-name">Rahmat Hidayat</span>
-                  <span class="user-dropdown-role">Anggota (Tigaraksa)</span>
-                  <span class="user-dropdown-email">rahmat.hidayat@gmail.com</span>
+                  <span class="user-dropdown-name" id="dropdownUserName">Memuat...</span>
+                  <span class="user-dropdown-role" id="dropdownUserRole">Anggota Komunitas</span>
+                  <span class="user-dropdown-email" id="dropdownUserEmail">-</span>
                 </div>
               </div>
               <div class="user-dropdown-items">
@@ -213,29 +213,11 @@
             <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;">Tandai semua dibaca</span>
           </div>
           <div class="popover-body">
-            <div class="popover-item unread">
-              <div class="notif-icon-box review">✏️</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Mentor Dian</strong> memberikan 2 catatan review pada draf artikel Anda.</div>
-                <div class="notif-time">15 menit yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item unread">
-              <div class="notif-icon-box forum">💬</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Siti Aminah</strong> mengundang Anda ke Forum Private: "Kajian Sejarah Pesisir Tangerang".</div>
-                <div class="notif-time">2 jam yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item">
-              <div class="notif-icon-box published">🎉</div>
-              <div class="notif-content">
-                <div class="notif-message">Artikel Anda <strong>"Menelusuri Jejak Sejarah Benteng"</strong> berhasil diterbitkan ke publik!</div>
-                <div class="notif-time">Kemarin, 14:20</div>
-              </div>
+            <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.8125rem;">
+              Belum ada notifikasi baru.
             </div>
           </div>
-          <a href="#notifikasi" class="popover-footer">Lihat Semua Notifikasi →</a>
+          <a href="dashboard.html" class="popover-footer">Pusat Notifikasi</a>
         </div>
       </header>
 
@@ -249,9 +231,9 @@
           <div class="banner-overlay-shape"></div>
           <div class="welcome-content">
             <div class="welcome-texts">
-              <h1><span id="dynamicGreeting">Selamat Datang,</span> Rahmat Hidayat! ✨</h1>
+              <h1><span id="dynamicGreeting">Selamat Datang,</span> <span id="welcomeUserName">Penulis</span>! ✨</h1>
               <p>
-                Mari wujudkan gagasan bernas untuk memajukan literasi masyarakat Kabupaten Tangerang. Modul belajar Anda siap dilanjutkan, dan pembaca menantikan karya terbaik Anda berikutnya.
+                Mari wujudkan gagasan bernas untuk memajukan literasi masyarakat Kabupaten Tangerang. Tuangkan ide Anda, dan terbitkan karya terbaik bersama komunitas.
               </p>
             </div>
             <div class="welcome-actions">
@@ -266,83 +248,78 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <span>Lanjut Belajar (Modul 5)</span>
+                <span>Mulai Belajar</span>
               </a>
             </div>
           </div>
         </section>
 
         <!-- ====================================================
-             ROW 2: 4 STAT CARDS (SESUAI WIREFRAME & PRD)
+             ROW 2: 4 STAT CARDS (DATA ASLI DARI DATABASE)
              ==================================================== -->
         <section class="stats-grid">
-          <!-- Card 1: Progress Belajar -->
-          <div class="stat-card">
-            <div class="stat-header">
-              <span class="stat-title">Progress Belajar</span>
-              <div class="stat-icon blue">
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-              </div>
-            </div>
-            <div class="stat-value">65%</div>
-            <div class="stat-sub">
-              <span>5 dari 8 Modul Selesai</span>
-            </div>
-            <div class="stat-progress-bar">
-              <div class="stat-progress-fill" style="width: 65%;"></div>
-            </div>
-          </div>
-
-          <!-- Card 2: Tulisan Diterbitkan -->
+          <!-- Card 1: Tulisan Diterbitkan -->
           <div class="stat-card">
             <div class="stat-header">
               <span class="stat-title">Tulisan Diterbitkan</span>
-              <div class="stat-icon orange">
+              <div class="stat-icon green">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
               </div>
             </div>
-            <div class="stat-value">3</div>
+            <div class="stat-value" id="statPublishedArticles">0</div>
             <div class="stat-sub">
-              <span class="trend-badge positive">✓ 3 Lolos Kurasi</span>
-              <span style="color: var(--text-light);">(1 sedang review)</span>
+              <span class="trend-badge positive">✓ Lolos Kurasi Resmi</span>
             </div>
           </div>
 
-          <!-- Card 3: Total Views -->
+          <!-- Card 2: Dalam Kurasi -->
           <div class="stat-card">
             <div class="stat-header">
-              <span class="stat-title">Total Views</span>
-              <div class="stat-icon green">
+              <span class="stat-title">Sedang Dikurasi</span>
+              <div class="stat-icon orange">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value" id="statInReviewArticles">0</div>
+            <div class="stat-sub">
+              <span>Dalam antrean tim reviewer</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Total Pembaca -->
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Total Pembaca</span>
+              <div class="stat-icon blue">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                 </svg>
               </div>
             </div>
-            <div class="stat-value">1.2K</div>
+            <div class="stat-value" id="statTotalViews">0</div>
             <div class="stat-sub">
-              <span class="trend-badge positive">↑ +18.4%</span>
-              <span>dari minggu lalu</span>
+              <span>Akumulasi pembaca karya</span>
             </div>
           </div>
 
-          <!-- Card 4: Komentar Diterima -->
+          <!-- Card 4: Draf Naskah -->
           <div class="stat-card">
             <div class="stat-header">
-              <span class="stat-title">Komentar Diterima</span>
+              <span class="stat-title">Draf Belum Dikirim</span>
               <div class="stat-icon purple">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                 </svg>
               </div>
             </div>
-            <div class="stat-value">45</div>
+            <div class="stat-value" id="statDraftArticles">0</div>
             <div class="stat-sub">
-              <span>8 interaksi diskusi aktif</span>
+              <span>Siap disempurnakan &amp; dikirim</span>
             </div>
           </div>
         </section>
@@ -361,15 +338,15 @@
             <div class="tab-nav">
               <button class="tab-btn" data-tab="draft" id="tabDraft">
                 <span>Draft</span>
-                <span class="tab-pill">2</span>
+                <span class="tab-pill" id="badgeDraft">0</span>
               </button>
               <button class="tab-btn" data-tab="in_review" id="tabInReview">
                 <span>In Review</span>
-                <span class="tab-pill">1</span>
+                <span class="tab-pill" id="badgeInReview">0</span>
               </button>
               <button class="tab-btn active" data-tab="published" id="tabPublished">
                 <span>Published</span>
-                <span class="tab-pill">3</span>
+                <span class="tab-pill" id="badgePublished">0</span>
               </button>
             </div>
           </div>

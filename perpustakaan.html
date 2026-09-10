@@ -160,10 +160,10 @@
           <!-- User Identity Pill & Dropdown -->
           <div class="user-dropdown-container">
             <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Anggota">
-              <div class="user-avatar-small">RH</div>
+              <div class="user-avatar-small" id="userPillAvatar">U</div>
               <div class="user-pill-info">
-                <span class="user-pill-name">Rahmat Hidayat</span>
-                <span class="user-pill-role">Anggota (Tigaraksa)</span>
+                <span class="user-pill-name" id="userPillName">Pengunjung</span>
+                <span class="user-pill-role" id="userPillRole">Anggota Komunitas</span>
               </div>
               <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -173,11 +173,11 @@
             <!-- User Profile Dropdown Menu -->
             <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
               <div class="user-dropdown-header">
-                <div class="user-dropdown-avatar">RH</div>
+                <div class="user-dropdown-avatar" id="dropdownAvatar">U</div>
                 <div class="user-dropdown-info">
-                  <span class="user-dropdown-name">Rahmat Hidayat</span>
-                  <span class="user-dropdown-role">Anggota (Tigaraksa)</span>
-                  <span class="user-dropdown-email">rahmat.hidayat@gmail.com</span>
+                  <span class="user-dropdown-name" id="dropdownUserName">Pengunjung</span>
+                  <span class="user-dropdown-role" id="dropdownUserRole">Anggota Komunitas</span>
+                  <span class="user-dropdown-email" id="dropdownUserEmail">-</span>
                 </div>
               </div>
               <div class="user-dropdown-items">
@@ -213,29 +213,11 @@
             <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;">Tandai semua dibaca</span>
           </div>
           <div class="popover-body">
-            <div class="popover-item unread">
-              <div class="notif-icon-box review">✏️</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Mentor Dian</strong> memberikan 2 catatan review pada draf artikel Anda.</div>
-                <div class="notif-time">15 menit yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item unread">
-              <div class="notif-icon-box forum">💬</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Siti Aminah</strong> mengundang Anda ke Forum Private: "Kajian Sejarah Pesisir Tangerang".</div>
-                <div class="notif-time">2 jam yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item">
-              <div class="notif-icon-box published">🎉</div>
-              <div class="notif-content">
-                <div class="notif-message">Artikel Anda <strong>"Menelusuri Jejak Sejarah Benteng"</strong> berhasil diterbitkan ke publik!</div>
-                <div class="notif-time">Kemarin, 14:20</div>
-              </div>
+            <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.8125rem;">
+              Belum ada notifikasi baru.
             </div>
           </div>
-          <a href="#notifikasi" class="popover-footer">Lihat Semua Notifikasi →</a>
+          <a href="perpustakaan.html" class="popover-footer">Pusat Notifikasi</a>
         </div>
       </header>
 
@@ -250,27 +232,27 @@
             <div class="perpustakaan-hero-text">
               <h1>Perpustakaan Digital KERTAS KATA</h1>
               <p>
-                Akses ratusan koleksi buku digital, antologi karya terpilih, modul literasi, dan materi pengayaan literasi bermutu tinggi untuk menumbuhkan budaya membaca.
+                Akses koleksi buku digital, antologi karya terpilih, modul literasi, dan materi pengayaan literasi bermutu tinggi untuk menumbuhkan budaya membaca.
               </p>
             </div>
           </div>
 
-          <!-- 4 Stat Cards Row -->
+          <!-- 4 Stat Cards Row (Dinamis dari Database) -->
           <div class="perpustakaan-stats-row">
             <div class="lib-stat-card">
-              <div class="lib-stat-val" id="statTotalEbooks">128</div>
+              <div class="lib-stat-val" id="statTotalEbooks">0</div>
               <div class="lib-stat-label">Total Koleksi Ebook</div>
             </div>
             <div class="lib-stat-card">
-              <div class="lib-stat-val" id="statFreeEbooks">94</div>
+              <div class="lib-stat-val" id="statFreeEbooks">0</div>
               <div class="lib-stat-label">Akses Gratis (Public)</div>
             </div>
             <div class="lib-stat-card">
-              <div class="lib-stat-val" id="statPremiumEbooks">34</div>
-              <div class="lib-stat-label">Koleksi Eksklusif & Premium</div>
+              <div class="lib-stat-val" id="statPremiumEbooks">0</div>
+              <div class="lib-stat-label">Koleksi Eksklusif &amp; Premium</div>
             </div>
             <div class="lib-stat-card">
-              <div class="lib-stat-val" id="statBookmarkedEbooks">12</div>
+              <div class="lib-stat-val" id="statBookmarkedEbooks">0</div>
               <div class="lib-stat-label">Rak Buku Saya</div>
             </div>
           </div>
@@ -279,10 +261,10 @@
         <!-- Filter Bar & Category Selector (LB-02 & LB-06) -->
         <section class="perpustakaan-filter-bar">
           <div class="lib-filter-tabs">
-            <button class="lib-filter-pill active" data-filter="all">Semua Koleksi (128)</button>
-            <button class="lib-filter-pill" data-filter="free">Buku Gratis (94)</button>
-            <button class="lib-filter-pill" data-filter="premium">Buku Premium (34)</button>
-            <button class="lib-filter-pill" data-filter="bookmark">Rak Buku Saya (<span id="bookmarkPillCount">12</span>)</button>
+            <button class="lib-filter-pill active" data-filter="all">Semua Koleksi (<span id="pillCountAll">0</span>)</button>
+            <button class="lib-filter-pill" data-filter="free">Buku Gratis (<span id="pillCountFree">0</span>)</button>
+            <button class="lib-filter-pill" data-filter="premium">Buku Premium (<span id="pillCountPremium">0</span>)</button>
+            <button class="lib-filter-pill" data-filter="bookmark">Rak Buku Saya (<span id="bookmarkPillCount">0</span>)</button>
           </div>
           <div class="lib-filter-actions">
             <select class="lib-category-select" id="categoryFilter" aria-label="Filter Berdasarkan Kategori">

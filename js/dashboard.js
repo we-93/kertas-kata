@@ -66,6 +66,35 @@ async function loadDashboardDataFromApi() {
   if (!window.KK_API) return;
   try {
     await window.KK_API.auth.ensureUserAuth('participant');
+
+    // Sinkronisasi info profil pengguna di header & banner sambutan
+    const currentUser = window.KK_API.auth.getCurrentUser();
+    if (currentUser) {
+      const uName = currentUser.name || 'Penulis Komunitas';
+      const initials = uName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+      const region = currentUser.originRegion || 'Kabupaten Tangerang';
+      const email = currentUser.email || '';
+      const roleLabel = currentUser.role === 'admin' ? 'Administrator' : currentUser.role === 'mentor' ? 'Mentor' : 'Anggota';
+
+      const userPillAvatar = document.getElementById('userPillAvatar');
+      const userPillName = document.getElementById('userPillName');
+      const userPillRole = document.getElementById('userPillRole');
+      const dropdownAvatar = document.getElementById('dropdownAvatar');
+      const dropdownUserName = document.getElementById('dropdownUserName');
+      const dropdownUserRole = document.getElementById('dropdownUserRole');
+      const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+      const welcomeUserName = document.getElementById('welcomeUserName');
+
+      if (userPillAvatar) userPillAvatar.textContent = initials;
+      if (userPillName) userPillName.textContent = uName;
+      if (userPillRole) userPillRole.textContent = `${roleLabel} (${region})`;
+      if (dropdownAvatar) dropdownAvatar.textContent = initials;
+      if (dropdownUserName) dropdownUserName.textContent = uName;
+      if (dropdownUserRole) dropdownUserRole.textContent = `${roleLabel} (${region})`;
+      if (dropdownUserEmail) dropdownUserEmail.textContent = email;
+      if (welcomeUserName) welcomeUserName.textContent = uName;
+    }
+
     const res = await window.KK_API.articles.getMy();
     if (res && res.success && res.data) {
       const { articles, counts } = res.data;
@@ -84,25 +113,25 @@ async function loadDashboardDataFromApi() {
         words: `${a.wordCount || 0} kata`,
       }));
 
-      // Update hero stat counters
-      const statEls = document.querySelectorAll('.stat-card-value');
-      if (statEls.length >= 3 && counts) {
-        statEls[0].textContent = counts.published || 0;
-        const totalViews = (articles || []).reduce((acc, it) => acc + (it.viewCount || 0), 0);
-        statEls[1].textContent = totalViews > 0 ? (totalViews >= 1000 ? (totalViews / 1000).toFixed(1) + 'K' : totalViews) : '0';
-      }
+      // Update 4 kartu statistik riil dari database
+      const statPublished = document.getElementById('statPublishedArticles');
+      const statInReview = document.getElementById('statInReviewArticles');
+      const statTotalViews = document.getElementById('statTotalViews');
+      const statDraft = document.getElementById('statDraftArticles');
 
-      // Update tab badges
-      const tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
-      tabBtns.forEach(btn => {
-        const tab = btn.getAttribute('data-tab');
-        const countSpan = btn.querySelector('.tab-badge');
-        if (countSpan) {
-          if (tab === 'published') countSpan.textContent = counts.published || 0;
-          else if (tab === 'in_review') countSpan.textContent = counts.in_review || 0;
-          else if (tab === 'draft') countSpan.textContent = counts.draft || 0;
-        }
-      });
+      const totalViews = (articles || []).reduce((acc, it) => acc + (it.viewCount || 0), 0);
+      if (statPublished) statPublished.textContent = counts?.published || 0;
+      if (statInReview) statInReview.textContent = counts?.in_review || 0;
+      if (statTotalViews) statTotalViews.textContent = totalViews >= 1000 ? (totalViews / 1000).toFixed(1) + 'K' : totalViews;
+      if (statDraft) statDraft.textContent = counts?.draft || 0;
+
+      // Update badge tab status
+      const badgeDraft = document.getElementById('badgeDraft');
+      const badgeInReview = document.getElementById('badgeInReview');
+      const badgePublished = document.getElementById('badgePublished');
+      if (badgeDraft) badgeDraft.textContent = counts?.draft || 0;
+      if (badgeInReview) badgeInReview.textContent = counts?.in_review || 0;
+      if (badgePublished) badgePublished.textContent = counts?.published || 0;
 
       const activeTab = document.querySelector('.tab-btn.active')?.getAttribute('data-tab') || 'published';
       renderArticles(activeTab);
