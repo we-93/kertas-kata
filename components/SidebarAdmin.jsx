@@ -97,17 +97,44 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
     },
   ];
 
+  const handleItemClick = () => {
+    const sidebar = document.getElementById('sidebarLeft');
+    if (sidebar) sidebar.classList.remove('open', 'active');
+    const backdrop = document.getElementById('mobileSidebarBackdrop');
+    if (backdrop) backdrop.remove();
+    if (onClose) onClose();
+  };
+
   return (
     <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
       {/* Brand Logo above sidebar navigation */}
-      <div className="sidebar-brand">
-        <Link href="/admin" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', width: '100%' }}>
+      <div className="sidebar-brand" style={{ minHeight: '78px', padding: '0 1.25rem', justifyContent: 'space-between' }}>
+        <Link href="/admin" onClick={handleItemClick} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <img
             src="/logo-kertas-kata.png"
             alt="KERTAS KATA"
-            style={{ height: '38px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+            style={{ height: '54px', width: 'auto', maxWidth: '185px', objectFit: 'contain' }}
           />
         </Link>
+        <button
+          type="button"
+          className="sidebar-close-btn"
+          aria-label="Tutup Menu"
+          onClick={handleItemClick}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#64748b',
+            cursor: 'pointer',
+            padding: '0.4rem',
+            display: 'none',
+            borderRadius: '6px'
+          }}
+        >
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigasi Admin">
@@ -120,7 +147,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
               key={item.href}
               href={item.href}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={onClose}
+              onClick={handleItemClick}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -142,7 +169,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
               key={item.href}
               href={item.href}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={onClose}
+              onClick={handleItemClick}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -150,21 +177,6 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
           );
         })}
       </nav>
-
-      {/* Mode Switcher to Member Dashboard */}
-      <div className="sidebar-switch-mode">
-        <Link
-          href="/dashboard"
-          className="btn-switch-mode"
-          id="switchModeMemberBtn"
-          onClick={onClose}
-        >
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          <span>Beralih Mode Anggota</span>
-        </Link>
-      </div>
     </aside>
   );
 }

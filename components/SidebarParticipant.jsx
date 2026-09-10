@@ -99,16 +99,43 @@ export default function SidebarParticipant({ isOpen, onClose }) {
     },
   ];
 
+  const handleItemClick = () => {
+    const sidebar = document.getElementById('sidebarLeft');
+    if (sidebar) sidebar.classList.remove('open', 'active');
+    const backdrop = document.getElementById('mobileSidebarBackdrop');
+    if (backdrop) backdrop.remove();
+    if (onClose) onClose();
+  };
+
   return (
     <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
-      <div className="sidebar-brand">
-        <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', width: '100%' }}>
+      <div className="sidebar-brand" style={{ minHeight: '78px', padding: '0 1.25rem', justifyContent: 'space-between' }}>
+        <Link href="/dashboard" onClick={handleItemClick} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <img
             src="/logo-kertas-kata.png"
             alt="KERTAS KATA Kabupaten Tangerang"
-            style={{ height: '38px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+            style={{ height: '50px', width: 'auto', maxWidth: '185px', objectFit: 'contain' }}
           />
         </Link>
+        <button
+          type="button"
+          className="sidebar-close-btn"
+          aria-label="Tutup Menu"
+          onClick={handleItemClick}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#64748b',
+            cursor: 'pointer',
+            padding: '0.4rem',
+            display: 'none',
+            borderRadius: '6px'
+          }}
+        >
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigasi Utama">
@@ -121,7 +148,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
               key={item.href}
               href={item.href}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={onClose}
+              onClick={handleItemClick}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -143,7 +170,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
               key={item.href}
               href={item.href}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={onClose}
+              onClick={handleItemClick}
             >
               {item.icon}
               <span>{item.label}</span>

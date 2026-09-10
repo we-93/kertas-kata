@@ -17,8 +17,11 @@ export default function AuthGuard({ children, requiredRole = "participant" }) {
         router.replace(`/login?redirect=${encodeURIComponent(pathname)}`);
       } else {
         if (requiredRole === "admin" && user.role !== "admin" && user.role !== "mentor") {
-          // Pengguna bukan admin dialihkan ke dashboard anggota
+          // Pengguna akun anggota dilarang keras akses admin -> alihkan ke dashboard anggota
           router.replace("/dashboard");
+        } else if (requiredRole === "participant" && (user.role === "admin" || user.role === "mentor")) {
+          // Pengguna akun admin dilarang keras akses anggota -> alihkan ke portal admin
+          router.replace("/admin");
         } else {
           setAuthorized(true);
         }

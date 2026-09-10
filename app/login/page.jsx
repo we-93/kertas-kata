@@ -31,7 +31,7 @@ function LoginForm() {
         if (res.user?.role === "admin" || res.user?.role === "mentor") {
           router.replace(redirectUrl.startsWith("/admin") ? redirectUrl : "/admin");
         } else {
-          router.replace(redirectUrl);
+          router.replace(redirectUrl.startsWith("/admin") ? "/dashboard" : redirectUrl);
         }
       } else {
         setErrorMessage(res.message || "Email atau kata sandi tidak cocok.");
@@ -56,7 +56,11 @@ function LoginForm() {
       setIsSubmitting(false);
 
       if (res.success) {
-        router.replace(redirectUrl);
+        if (res.user?.role === "admin" || res.user?.role === "mentor") {
+          router.replace(redirectUrl.startsWith("/admin") ? redirectUrl : "/admin");
+        } else {
+          router.replace(redirectUrl.startsWith("/admin") ? "/dashboard" : redirectUrl);
+        }
       } else {
         setErrorMessage(res.message || "Gagal masuk menggunakan Google.");
       }

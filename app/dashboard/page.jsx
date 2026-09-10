@@ -493,32 +493,6 @@ export default function DashboardPage() {
             Status: {counts.published >= 3 ? "Syarat Tulisan Terpenuhi (3/3) ✅" : `${counts.published}/3 Tulisan Terbit`}
           </div>
         </div>
-
-        {/* Mode Switcher to Admin if authorized */}
-        <div style={{ padding: "0.5rem 0" }}>
-          <Link
-            href="/admin"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.5rem",
-              padding: "0.75rem 1rem",
-              borderRadius: "10px",
-              background: "rgba(124, 58, 237, 0.08)",
-              color: "#7c3aed",
-              fontSize: "0.8125rem",
-              fontWeight: "700",
-              textDecoration: "none",
-              border: "1px solid rgba(124, 58, 237, 0.2)",
-            }}
-          >
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <span>Beralih ke Portal Admin</span>
-          </Link>
-        </div>
       </aside>
     </div>
     </AuthGuard>
