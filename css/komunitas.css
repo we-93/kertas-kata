@@ -1,0 +1,1000 @@
+/* ==========================================================================
+   KERTAS KATA - KOMUNITAS & FORUM DISKUSI STYLES
+   PRD v1.0 (Fitur KM-01 s/d KM-07) & Wireframe 4
+   ========================================================================== */
+
+/* Hero Banner Komunitas */
+.komunitas-hero-banner {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 55%, #2563eb 100%);
+  border-radius: 20px;
+  padding: 2.25rem 2.25rem 2rem;
+  color: var(--text-inverse);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25), 0 8px 10px -6px rgba(30, 58, 138, 0.2);
+  margin-bottom: 1.75rem;
+}
+
+.komunitas-hero-banner::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.komunitas-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.komunitas-hero-text h1 {
+  font-family: var(--font-heading);
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.komunitas-hero-text p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.btn-create-thread-hero {
+  background: var(--accent-500);
+  color: #0f172a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-create-thread-hero:hover {
+  background: var(--accent-600);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.45);
+}
+
+/* 4 Metrics Row */
+.komunitas-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.kom-stat-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 0.875rem 1.125rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.kom-stat-val {
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.kom-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================
+   FILTER BAR & SEARCH (KM-01 & KM-02)
+   ========================================================== */
+.komunitas-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.kom-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kom-filter-pill {
+  border: 1.5px solid transparent;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.kom-filter-pill:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.kom-filter-pill.active {
+  background: var(--primary-700);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+}
+
+.kom-filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.kom-category-select {
+  padding: 0.5rem 2rem 0.5rem 0.875rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-medium);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-main);
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* ==========================================================
+   2-COLUMN MAIN LAYOUT (FEED & SIDEBAR SPOTLIGHT)
+   ========================================================== */
+.komunitas-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+/* Left Feed: Thread Cards */
+.threads-feed-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.thread-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.thread-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-300);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+}
+
+.thread-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.thread-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.thread-author-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.thread-author-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.thread-author-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.thread-post-time {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 0.2rem;
+}
+
+.thread-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge-thread-type {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.badge-thread-type.public {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-thread-type.private {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-thread-category {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-100);
+}
+
+.thread-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.thread-card:hover .thread-title {
+  color: var(--primary-700);
+}
+
+.thread-excerpt {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Thread Card Footer */
+.thread-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.thread-participants-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stacked-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-stack-item {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  margin-left: -8px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.avatar-stack-item:first-child {
+  margin-left: 0;
+}
+
+.thread-meta-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-thread-stat {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem 0.625rem;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+}
+
+.btn-thread-stat:hover {
+  background: #f1f5f9;
+  color: var(--primary-700);
+}
+
+.btn-thread-stat.liked {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.btn-thread-stat.liked svg {
+  fill: #ef4444;
+  stroke: #ef4444;
+}
+
+.btn-open-thread {
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-200);
+  padding: 0.375rem 0.875rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-open-thread:hover {
+  background: var(--primary-700);
+  color: #ffffff;
+  border-color: var(--primary-700);
+}
+
+/* ==========================================================
+   RIGHT SIDEBAR WIDGETS (SPOTLIGHT & AUTHORS)
+   ========================================================== */
+.community-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.community-side-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.side-card-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Penulis Inspiratif List */
+.authors-follow-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.author-follow-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.author-item-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.author-item-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: #1e3a8a;
+  flex-shrink: 0;
+}
+
+.author-item-texts {
+  min-width: 0;
+}
+
+.author-item-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.author-item-spec {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-follow-toggle {
+  background: #f1f5f9;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-follow-toggle:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border-color: var(--primary-300);
+}
+
+.btn-follow-toggle.following {
+  background: #eff6ff;
+  border-color: var(--primary-600);
+  color: var(--primary-700);
+}
+
+/* Trending Topics Badges */
+.trending-topics-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trending-topic-tag {
+  background: #f8fafc;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.trending-topic-tag:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border-color: var(--primary-200);
+}
+
+/* Community Etiquette Rules */
+.etiquette-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.etiquette-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================
+   MODAL 1: BUAT DISKUSI BARU (KM-03 & KM-04)
+   ========================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 100%;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.create-thread-modal-card {
+  max-width: 680px;
+}
+
+.thread-detail-modal-card {
+  max-width: 780px;
+  height: 88vh;
+}
+
+.modal-header {
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.modal-body {
+  padding: 1.5rem 1.75rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  background: #f8fafc;
+}
+
+/* Radio Cards: Publik vs Private */
+.thread-type-radios {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.radio-type-card {
+  border: 1.5px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-type-card:hover {
+  border-color: var(--primary-400);
+  background: #f8fafc;
+}
+
+.radio-type-card.selected {
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+.radio-type-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.radio-type-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Form Inputs */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.form-input-text,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-medium);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-main);
+  background: #ffffff;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+.form-input-text:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Member Invitation Selector (KM-04) */
+.invite-members-box {
+  background: #f8fafc;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.invite-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.invite-chip {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+}
+
+.invite-chip:hover {
+  border-color: var(--primary-400);
+  background: var(--primary-50);
+}
+
+.invite-chip.selected {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+  color: #ffffff;
+}
+
+/* ==========================================================
+   MODAL 2: DETAIL DISKUSI & BALASAN (KM-05)
+   ========================================================== */
+.thread-detail-main {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.5rem;
+}
+
+.detail-content-text {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #334155;
+  margin: 1rem 0;
+  white-space: pre-line;
+}
+
+/* Thread Replies List */
+.replies-section-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.thread-replies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.reply-item-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.reply-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.reply-author-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.reply-author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1e3a8a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.reply-text {
+  font-size: 0.875rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* Toast feedback */
+.kom-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  border-left: 4px solid #059669;
+}
+
+.kom-toast.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ==========================================================
+   RESPONSIVENESS (TABLET & MOBILE)
+   ========================================================== */
+@media (max-width: 1024px) {
+  .komunitas-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .komunitas-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
+
+  .content-body {
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 1.25rem 1rem !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .komunitas-hero-banner {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .komunitas-hero-text h1 {
+    font-size: 1.4rem;
+  }
+
+  .btn-create-thread-hero {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .komunitas-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .komunitas-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    border-radius: 14px;
+    gap: 0.875rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .kom-filter-tabs {
+    display: flex;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .kom-filter-pill {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    padding: 0.45rem 0.875rem;
+  }
+
+  .kom-filter-actions {
+    width: 100%;
+  }
+
+  .kom-category-select {
+    width: 100%;
+  }
+
+  .thread-type-radios {
+    grid-template-columns: 1fr;
+  }
+}

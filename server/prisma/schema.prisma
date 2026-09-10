@@ -1,0 +1,340 @@
+// ========================================================
+// KERTAS KATA - PRISMA SCHEMA (DEV: SQLite / PROD: MySQL)
+// Mendukung penuh rancangan ERD KERTAS KATA Kabupaten Tangerang
+// ========================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// --------------------------------------------------------
+// 1. PENGGUNA & AUTENTIKASI
+// --------------------------------------------------------
+model User {
+  id              String         @id @default(uuid())
+  googleId        String?        @unique
+  name            String
+  email           String         @unique
+  password        String?        // Digunakan untuk akun admin / login manual
+  photoUrl        String?
+  bio             String?
+  originRegion    String?        // Contoh: Kecamatan Tigaraksa, Teluknaga, Curug, dll.
+  specialization  String?        // Contoh: Esai Pendidikan, Sejarah Lokal, Cerpen
+  role            String         @default("participant") // participant, mentor, admin
+  status          String         @default("active")      // active, suspended
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relasi
+  articles        Article[]
+  reviewsWritten  ArticleReview[] @relation("ReviewerRelation")
+  progress        UserProgress[]
+  ebookPurchases  EbookPurchase[]
+  forumThreads    ForumThread[]
+  forumReplies    ForumReply[]
+  printOrders     PrintOrder[]
+  badges          UserBadge[]
+  certificates    Certificate[]
+
+  @@map("users")
+}
+
+// --------------------------------------------------------
+// 2. PENULISAN & ARTIKEL
+// --------------------------------------------------------
+model Article {
+  id              String          @id @default(uuid())
+  userId          String
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  slug            String          @unique
+  lead            String?         // Ringkasan / Lead paragraf
+  content         String          // Isi lengkap artikel
+  category        String          // 10 Kategori resmi KERTAS KATA
+  coverUrl        String?
+  status          String          @default("draft") // draft, in_review, revision, published, rejected
+  wordCount       Int             @default(0)
+  plagiarismScore Int             @default(0)
+  viewCount       Int             @default(0)
+  isFeatured      Boolean         @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  // Relasi
+  reviews         ArticleReview[]
+  tags            ArticleTag[]
+
+  @@map("articles")
+}
+
+model Tag {
+  id        String       @id @default(uuid())
+  name      String       @unique
+  articles  ArticleTag[]
+
+  @@map("tags")
+}
+
+model ArticleTag {
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  tagId     String
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, tagId])
+  @@map("article_tags")
+}
+
+model ArticleReview {
+  id             String    @id @default(uuid())
+  articleId      String
+  article        Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  reviewerId     String?
+  reviewer       User?     @relation("ReviewerRelation", fields: [reviewerId], references: [id], onDelete: SetNull)
+  targetText     String?   // Potongan teks inline yang disorot
+  comment        String    // Catatan mentor/kurator
+  aiAnalysis     String?   // Hasil analisis AI (JSON String format)
+  statusDecision String?   // approved, revision, rejected
+  createdAt      DateTime  @default(now())
+
+  @@map("article_reviews")
+}
+
+// --------------------------------------------------------
+// 3. E-LEARNING
+// --------------------------------------------------------
+model Module {
+  id           String         @id @default(uuid())
+  title        String
+  slug         String         @unique
+  description  String?
+  orderIndex   Int            @default(1)
+  videoUrl     String?
+  duration     String?        // Contoh: "45 Menit"
+  passingScore Int            @default(80)
+  createdAt    DateTime       @default(now())
+
+  lessons      Lesson[]
+  quizzes      Quiz[]
+  progress     UserProgress[]
+
+  @@map("modules")
+}
+
+model Lesson {
+  id          String   @id @default(uuid())
+  moduleId    String
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title       String
+  orderIndex  Int      @default(1)
+  type        String   @default("text") // video, text
+  contentUrl  String?
+  textBody    String?
+  createdAt   DateTime @default(now())
+
+  @@map("lessons")
+}
+
+model Quiz {
+  id            String   @id @default(uuid())
+  moduleId      String
+  module        Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  question      String
+  optionsJson   String   // Array JSON: ["A", "B", "C", "D"]
+  correctAnswer String   // "A", "B", "C", atau "D"
+  explanation   String?
+  createdAt     DateTime @default(now())
+
+  @@map("quizzes")
+}
+
+model UserProgress {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleId    String
+  module      Module    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  isCompleted Boolean   @default(false)
+  quizScore   Int?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@unique([userId, moduleId])
+  @@map("user_progress")
+}
+
+// --------------------------------------------------------
+// 4. PERPUSTAKAAN DIGITAL (E-BOOK)
+// --------------------------------------------------------
+model Ebook {
+  id            String          @id @default(uuid())
+  title         String
+  slug          String          @unique
+  author        String
+  authorOrg     String?         // Organisasi / Kecamatan asal
+  category      String
+  isbn          String?
+  accessType    String          @default("free") // free, premium
+  price         Float           @default(0)
+  rating        Float           @default(4.9)
+  downloads     Int             @default(0)
+  pages         Int             @default(100)
+  fileFormat    String          @default("PDF")
+  fileSize      String?
+  coverUrl      String?
+  filePath      String?
+  synopsis      String?
+  sampleChapter String?
+  status        String          @default("published")
+  createdAt     DateTime        @default(now())
+
+  purchases     EbookPurchase[]
+
+  @@map("ebooks")
+}
+
+model EbookPurchase {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ebookId          String
+  ebook            Ebook    @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+  amount           Float
+  paymentProofUrl  String?
+  status           String   @default("pending") // pending, approved, rejected
+  createdAt        DateTime @default(now())
+
+  @@map("ebook_purchases")
+}
+
+// --------------------------------------------------------
+// 5. KOMUNITAS & RUANG DISKUSI
+// --------------------------------------------------------
+model ForumThread {
+  id         String        @id @default(uuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title      String
+  content    String
+  category   String
+  isPrivate  Boolean       @default(false)
+  isPinned   Boolean       @default(false)
+  viewCount  Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  replies    ForumReply[]
+  invites    ForumInvite[]
+
+  @@map("forum_threads")
+}
+
+model ForumReply {
+  id        String      @id @default(uuid())
+  threadId  String
+  thread    ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime    @default(now())
+
+  @@map("forum_replies")
+}
+
+model ForumInvite {
+  id            String      @id @default(uuid())
+  threadId      String
+  thread        ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  invitedUserId String
+  createdAt     DateTime    @default(now())
+
+  @@map("forum_invites")
+}
+
+// --------------------------------------------------------
+// 6. LAYANAN CETAK NASKAH
+// --------------------------------------------------------
+model PrintOrder {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type             String   @default("mandiri") // mandiri, bunga_rampai
+  programTitle     String?
+  bookTitle        String
+  authorName       String
+  bookSize         String   @default("A5")
+  paperType        String   @default("Bookpaper 72gsm")
+  coverFinishing   String   @default("Doff Lamination")
+  copies           Int      @default(50)
+  totalPages       Int      @default(100)
+  estimatedPrice   Float    @default(0)
+  manuscriptFileUrl String?
+  coverFileUrl     String?
+  proofOfPaymentUrl String?
+  status           String   @default("submitted") // submitted, payment_review, in_production, shipped, completed
+  trackingNumber   String?
+  courier          String?
+  shippingAddress  String?
+  createdAt        DateTime @default(now())
+
+  @@map("print_orders")
+}
+
+// --------------------------------------------------------
+// 7. LENCANA / GAMIFIKASI & SERTIFIKAT
+// --------------------------------------------------------
+model Badge {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  icon        String
+  criteria    String?
+  users       UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId   String
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  awardedAt DateTime @default(now())
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Certificate {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  certNumber String   @unique
+  title      String
+  category   String   // Kelulusan E-Learning, Penulis Terpilih Bunga Rampai
+  issueDate  DateTime @default(now())
+  fileUrl    String?
+  createdAt  DateTime @default(now())
+
+  @@map("certificates")
+}
+
+// --------------------------------------------------------
+// 8. PENGATURAN PLATFORM
+// --------------------------------------------------------
+model PlatformSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("platform_settings")
+}

@@ -1,0 +1,262 @@
+/* ==========================================================================
+   KERTAS KATA - KELOLA E-LEARNING (CURRICULUM & MODULE MANAGEMENT) CSS
+   Kabupaten Tangerang Digital Literacy Platform
+   PRD Section 7.3 (AD-03)
+   ========================================================================== */
+
+/* 1. Module Management Grid & Cards */
+.module-grid-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.module-admin-card {
+  background: var(--bg-surface);
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.module-admin-card:hover {
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.module-admin-card.locked {
+  background: #f8fafc;
+  border-style: dashed;
+}
+
+.module-left-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.module-order-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.module-admin-card.locked .module-order-badge {
+  background: #94a3b8;
+  box-shadow: none;
+}
+
+.module-text-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.module-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.module-title-row h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.badge-jp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-module-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-module-status.active {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-module-status.locked {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.module-meta-chips {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.meta-chip-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.module-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.btn-module-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-module-action:hover {
+  background: var(--bg-surface-subtle);
+  border-color: var(--primary-500);
+  color: var(--primary-700);
+}
+
+.btn-module-action.primary {
+  background: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+}
+
+.btn-module-action.primary:hover {
+  background: var(--primary-700);
+}
+
+/* 2. Quiz Management Modal Styles */
+.quiz-item-box {
+  background: #ffffff;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.quiz-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-number-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary-700);
+  background: var(--primary-50);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.quiz-option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.quiz-option-row.correct {
+  background: #ecfdf5;
+  color: #059669;
+  font-weight: 700;
+  border: 1px solid #a7f3d0;
+}
+
+/* 3. Responsive Rules */
+@media (max-width: 900px) {
+  .module-admin-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .module-actions-group {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 4 Kartu Metrik E-Learning tampil 2 kolom dalam 1 baris */
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .module-left-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .module-actions-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-module-action {
+    width: 100%;
+    justify-content: center;
+  }
+}

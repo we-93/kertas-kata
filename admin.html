@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin Kurator - KERTAS KATA Kab. Tangerang</title>
+  <meta name="description" content="Dashboard Kurasi dan Administrasi Platform Literasi Digital Komunitas KERTAS KATA Kabupaten Tangerang.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Core Design System & Admin Styles -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ====================================================================
+         1. SIDEBAR KIRI (ADMIN NAVIGATION)
+         ==================================================================== -->
+    <aside class="sidebar-left" id="sidebarLeft">
+      <!-- Brand Logo with Admin Badge -->
+      <div class="sidebar-brand">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">KERTAS<span>KATA</span></div>
+          <div class="admin-badge">PANEL ADMIN</div>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">MENU ADMIN</div>
+
+        <!-- 1. Overview / Dashboard Admin -->
+        <a href="admin.html" class="nav-item active" id="admin-nav-overview">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Overview Admin</span>
+        </a>
+
+        <!-- 2. Antrean Review Naskah -->
+        <a href="#antrean-review" class="nav-item" id="admin-nav-review">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Review Naskah</span>
+          <span class="nav-badge" style="background:#fee2e2; color:#b91c1c;">12 Baru</span>
+        </a>
+
+        <!-- 3. Kelola Anggota -->
+        <a href="kelola-anggota.html" class="nav-item" id="admin-nav-anggota">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <span>Kelola Anggota</span>
+        </a>
+
+        <!-- 4. Kelola E-Learning -->
+        <a href="kelola-elearning.html" class="nav-item" id="admin-nav-elearning">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span>Kelola E-Learning</span>
+        </a>
+
+        <!-- 5. Kelola Publikasi -->
+        <a href="kelola-publikasi.html" class="nav-item" id="admin-nav-publikasi">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <span>Kelola Publikasi</span>
+        </a>
+
+        <div class="nav-section-label">LAYANAN & DISTRIBUSI</div>
+
+        <!-- 6. Kelola Perpustakaan -->
+        <a href="kelola-perpustakaan.html" class="nav-item" id="admin-nav-perpustakaan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          <span>Kelola Perpustakaan</span>
+        </a>
+
+        <!-- 7. Kelola Komunitas -->
+        <a href="kelola-komunitas.html" class="nav-item" id="admin-nav-komunitas">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Kelola Komunitas</span>
+        </a>
+
+        <!-- 8. Kelola Cetak Naskah -->
+        <a href="kelola-cetak.html" class="nav-item" id="admin-nav-cetak">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          <span>Kelola Cetak & ISBN</span>
+        </a>
+
+        <!-- 9. Hall of Fame & Sertifikat -->
+        <a href="kelola-sertifikat.html" class="nav-item" id="admin-nav-sertifikat">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          <span>Sertifikat & Hall of Fame</span>
+        </a>
+
+        <!-- 10. Pengaturan Sistem -->
+        <a href="kelola-pengaturan.html" class="nav-item" id="admin-nav-pengaturan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Pengaturan Sistem</span>
+        </a>
+      </nav>
+
+      <!-- Bottom Mode Switcher to Member Dashboard -->
+      <div class="sidebar-switch-mode">
+        <a href="dashboard.html" class="btn-switch-mode" id="switchModeMemberBtn">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Beralih Mode Anggota</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper (Header + Content) -->
+    <div class="main-wrapper" style="margin-right: 0;">
+      
+      <!-- ====================================================================
+           2. HEADER GLOBAL (IDENTIK 100% SESUAI INSTRUKSI PENGGUNA)
+           ==================================================================== -->
+      <header class="top-header">
+        <div class="header-left">
+          <!-- Hamburger Button Mobile Toggle -->
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Buka navigasi">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          
+          <!-- Search Input Global -->
+          <div class="header-search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="headerSearchInput" placeholder="Cari naskah kurasi, nama anggota, nomor ISBN, atau judul..." aria-label="Pencarian">
+            <span class="search-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button with Badge 3 -->
+          <button id="notifBellBtn" class="header-action-btn" aria-label="Notifikasi">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="action-badge">3</span>
+          </button>
+
+          <!-- User Identity Pill & Dropdown (FI - Fajar Ilhami) -->
+          <div class="user-dropdown-container">
+            <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Admin">
+              <div class="user-avatar-small">FI</div>
+              <div class="user-pill-info">
+                <span class="user-pill-name">Fajar Ilhami</span>
+                <span class="user-pill-role">Admin Kurator</span>
+              </div>
+              <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- User Profile Dropdown Menu -->
+            <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar">FI</div>
+                <div class="user-dropdown-info">
+                  <span class="user-dropdown-name">Fajar Ilhami</span>
+                  <span class="user-dropdown-role">Admin Kurator (Kab. Tangerang)</span>
+                  <span class="user-dropdown-email">fajar.ilhami@kertaskata.id</span>
+                </div>
+              </div>
+              <div class="user-dropdown-items">
+                <a href="profil.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  <span>Profil Saya</span>
+                </a>
+                <a href="pengaturan.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>Pengaturan Sistem</span>
+                </a>
+                <a href="dashboard.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                  </svg>
+                  <span>Beralih Mode Anggota</span>
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <button type="button" class="user-dropdown-item logout" id="headerLogoutBtn" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Popover -->
+        <div id="notifPopover" class="notification-popover">
+          <div class="popover-header">
+            <span class="popover-title">Notifikasi Admin</span>
+            <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;" id="markAllNotifRead">Tandai semua dibaca</span>
+          </div>
+          <div class="popover-body">
+            <div class="popover-item unread">
+              <div class="notif-icon-box review">✏️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Rahmat Hidayat</strong> mengajukan naskah baru <em>"Strategi Diferensiasi Pembelajaran Digital di SMPN 1 Curug"</em>.</div>
+                <div class="notif-time">10 menit yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box forum">📚</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Nurul Fajriah</strong> mendaftarkan cerpen <em>"Lentera Pesisir Kronjo"</em> untuk antologi sastra.</div>
+                <div class="notif-time">1 jam yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box published">🖨️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Ahmad Fauzi</strong> mengonfirmasi pembayaran cetak mandiri 15 eksemplar buku ber-ISBN.</div>
+                <div class="notif-time">3 jam yang lalu</div>
+              </div>
+            </div>
+          </div>
+          <a href="#antrean-review" class="popover-footer">Buka Semua Antrean Review →</a>
+        </div>
+      </header>
+
+      <!-- ====================================================================
+           3. CONTENT BODY (ADMIN DASHBOARD OVERVIEW)
+           ==================================================================== -->
+      <main class="content-body" style="margin-right: 0; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 1.75rem;">
+        
+        <!-- A. HERO OVERVIEW BANNER ADMIN -->
+        <section class="admin-welcome-banner">
+          <div class="admin-banner-glow"></div>
+          <div class="admin-banner-content">
+            <div class="admin-banner-texts">
+              <h1>Portal Kurasi & Manajemen Literasi <span>Admin KERTAS KATA</span></h1>
+              <p>Kelola verifikasi naskah ilmiah & sastra anggota, integrasi AI koreksi PUEBI/KBBI, penerbitan ISBN buku bunga rampai, dan pemantauan analitik membaca se-Kabupaten Tangerang.</p>
+              <div class="admin-status-pill">
+                <span class="status-dot-pulse"></span>
+                <span>Sistem Operasional Normal &bull; AI Kurator Copilot Siap Digunakan</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="#antrean-review" class="btn btn-primary" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); border: none; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); padding: 0.75rem 1.25rem;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+                <span>Mulai Kurasi (12 Naskah)</span>
+              </a>
+              <button type="button" class="btn btn-secondary" id="btnHeroAntologi" style="background: rgba(255,255,255,0.12); color:#fff; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px);">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span>Buat Bunga Rampai</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- B. 4 STAT CARDS (WIREFRAME 5) -->
+        <section class="admin-stats-grid">
+          <!-- Stat 1: Total Anggota -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">1.248</div>
+                <div class="admin-stat-label">Total Anggota Terdaftar</div>
+              </div>
+              <div class="admin-stat-icon-wrap blue">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #059669; font-weight: 700;">&uarr; +18</span>
+              <span style="color: var(--text-muted);">anggota baru minggu ini</span>
+            </div>
+          </div>
+
+          <!-- Stat 2: Naskah Menunggu Review -->
+          <div class="admin-stat-card" style="border-left: 4px solid #f59e0b;">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val" style="color: #d97706;">12</div>
+                <div class="admin-stat-label">Menunggu Review</div>
+              </div>
+              <div class="admin-stat-icon-wrap amber">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #d97706; font-weight: 700;">8 Baru</span>
+              <span style="color: var(--text-muted);">&bull; 4 Revisi masuk</span>
+            </div>
+          </div>
+
+          <!-- Stat 3: Artikel Terbit -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">856</div>
+                <div class="admin-stat-label">Artikel Diterbitkan</div>
+              </div>
+              <div class="admin-stat-icon-wrap emerald">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #059669; font-weight: 700;">99.4%</span>
+              <span style="color: var(--text-muted);">kepatuhan standar PUEBI</span>
+            </div>
+          </div>
+
+          <!-- Stat 4: Anggota Aktif Hari Ini -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">342</div>
+                <div class="admin-stat-label">Aktif Hari Ini</div>
+              </div>
+              <div class="admin-stat-icon-wrap purple">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #7c3aed; font-weight: 700;">28 Kecamatan</span>
+              <span style="color: var(--text-muted);">Kabupaten Tangerang</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- C. QUICK ACTIONS BAR (WIREFRAME 5) -->
+        <section class="quick-actions-section">
+          <div class="section-title-wrap">
+            <h2>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary-600);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              Tindakan Cepat Kurator & Admin
+            </h2>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Akses langsung fitur penerbitan dan kelulusan program</span>
+          </div>
+
+          <div class="quick-actions-grid">
+            <!-- Action 1: Sertifikat 32 JP -->
+            <button type="button" class="btn-quick-card" id="btnQuickCert">
+              <div class="quick-card-icon" style="background:#fef3c7; color:#d97706;">🎓</div>
+              <strong>Generate Sertifikat 32 JP</strong>
+              <span>Terbitkan e-sertifikat bernomor resmi untuk 45 anggota yang tuntas modul.</span>
+            </button>
+
+            <!-- Action 2: Inisiasi Bunga Rampai -->
+            <button type="button" class="btn-quick-card" id="btnQuickAntologi">
+              <div class="quick-card-icon" style="background:#ede9fe; color:#7c3aed;">📖</div>
+              <strong>Inisiasi Proyek Antologi</strong>
+              <span>Buka kurasi buku ber-ISBN baru: "Inovasi Pembelajaran Digital 2026".</span>
+            </button>
+
+            <!-- Action 3: Upload E-Book -->
+            <button type="button" class="btn-quick-card" id="btnQuickEbook">
+              <div class="quick-card-icon" style="background:#eff6ff; color:#2563eb;">📚</div>
+              <strong>Unggah E-Book Komunitas</strong>
+              <span>Tambahkan literatur pegangan dan referensi literasi komunitas ke perpustakaan.</span>
+            </button>
+
+            <!-- Action 4: Hall of Fame -->
+            <button type="button" class="btn-quick-card" id="btnQuickHof">
+              <div class="quick-card-icon" style="background:#ecfdf5; color:#059669;">🏆</div>
+              <strong>Pembaruan Hall of Fame</strong>
+              <span>Tampilkan 5 penulis paling produktif dan berdedikasi bulan ini di beranda.</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- D. ANTREAN REVIEW NASKAH MASUK (WIREFRAME 5) -->
+        <section class="review-queue-card" id="antrean-review">
+          <div class="queue-header-bar">
+            <div>
+              <h2 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+                Antrean Naskah Masuk untuk Kurasi
+              </h2>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">
+                Klik tombol <strong>"Mulai Review"</strong> untuk membuka Editor Inline Review & Asisten AI Koreksi PUEBI/KBBI.
+              </p>
+            </div>
+
+            <!-- Filter Status Tabs -->
+            <div class="queue-filter-tabs">
+              <button type="button" class="queue-tab-btn active" data-filter="all">
+                <span>Semua</span>
+                <span class="queue-tab-badge">12</span>
+              </button>
+              <button type="button" class="queue-tab-btn" data-filter="pending">
+                <span>Menunggu Review</span>
+                <span class="queue-tab-badge" style="background:#fee2e2; color:#b91c1c;">8</span>
+              </button>
+              <button type="button" class="queue-tab-btn" data-filter="revision">
+                <span>Revisi Anggota</span>
+                <span class="queue-tab-badge" style="background:#fef3c7; color:#b45309;">3</span>
+              </button>
+              <button type="button" class="queue-tab-btn" data-filter="ready">
+                <span>Siap Terbit</span>
+                <span class="queue-tab-badge" style="background:#dcfce7; color:#15803d;">1</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Antrean -->
+          <div class="table-responsive-wrapper">
+            <table class="admin-data-table" id="reviewTable">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"><input type="checkbox" id="checkAllQueue" aria-label="Pilih semua naskah"></th>
+                  <th>Penulis & Asal Kecamatan</th>
+                  <th>Judul Naskah & Kategori</th>
+                  <th>Tanggal Masuk</th>
+                  <th>Skor Plagiarisme</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Aksi Kurasi</th>
+                </tr>
+              </thead>
+              <tbody id="reviewTableBody">
+                <!-- Dynamic Rows loaded via js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- E. RECENT ACTIVITY LOG FEED -->
+        <section class="admin-activity-card">
+          <div class="section-title-wrap">
+            <h2>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary-600);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Log Aktivitas & Audit Kurasi Terkini
+            </h2>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Riwayat keputusan editorial dan integrasi otomatis AI</span>
+          </div>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon-bubble" style="background: #eff6ff; color: #2563eb;">🤖</div>
+              <div class="activity-content">
+                <p><strong>AI Copilot & Turnitin Scanner</strong> menyelesaikan pemeriksaan plagiarisme naskah <em>"Strategi Diferensiasi Pembelajaran Digital di SMPN 1 Curug"</em> dengan skor <strong>12% (Aman)</strong>.</p>
+                <div class="activity-time">12 menit yang lalu &bull; Otomatis oleh Sistem</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon-bubble" style="background: #fef3c7; color: #d97706;">✏️</div>
+              <div class="activity-content">
+                <p><strong>Admin Fajar Ilhami</strong> mengirim 2 catatan revisi PUEBI dan diksi pada naskah cerpen <em>"Riwayat Nelayan Tanjung Pasir"</em> oleh Siti Aminah.</p>
+                <div class="activity-time">45 menit yang lalu &bull; Kurator Fajar Ilhami</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon-bubble" style="background: #ecfdf5; color: #059669;">✅</div>
+              <div class="activity-content">
+                <p><strong>Naskah Disetujui:</strong> <em>"Optimalisasi Pojok Baca Komunitas dalam Penguatan Literasi Awal di Wilayah Balaraja"</em> karya Dewi Sartika telah disetujui terbit ke Portal Publikasi.</p>
+                <div class="activity-time">2 jam yang lalu &bull; Kurator Fajar Ilhami</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon-bubble" style="background: #ede9fe; color: #7c3aed;">🖨️</div>
+              <div class="activity-content">
+                <p><strong>Pengajuan ISBN Baru:</strong> Admin mengajukan nomor ISBN resmi Perpusnas untuk Buku Antologi <em>"Merajut Asa di Ujung Barat Tangerang (35 Karya Anggota Terpilih)"</em>.</p>
+                <div class="activity-time">Kemarin, 16:30 &bull; Layanan Cetak & ISBN</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       4. INLINE REVIEW & AI ASSISTANT MODAL (WIREFRAME 6)
+       ==================================================================== -->
+  <div id="inlineReviewModal" class="inline-review-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalArticleTitle">
+    <div class="inline-review-card">
+      
+      <!-- Top Action Bar (Wireframe 6) -->
+      <div class="review-top-bar">
+        <div class="review-article-badge">
+          <button type="button" class="btn-close-modal" id="btnCloseReviewTop" aria-label="Tutup Editor Kurasi" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span id="modalCategoryBadge" style="font-size: 0.6875rem; font-weight: 700; background: #eff6ff; color: #1d4ed8; padding: 0.15rem 0.5rem; border-radius: 4px;">Artikel Ilmiah</span>
+              <span id="modalPlagBadge" class="plagiarism-badge safe">🛡️ 12% - Aman</span>
+            </div>
+            <div id="modalArticleAuthor" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+              Oleh: Rahmat Hidayat &bull; SMPN 1 Curug, Kab. Tangerang
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons Group (Wireframe 6) -->
+        <div class="review-actions-group">
+          <!-- Button Jalankan AI Koreksi (Special Purple Gradient) -->
+          <button type="button" class="btn-ai-koreksi" id="btnRunAiCorrection">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <span id="aiButtonText">✨ Jalankan AI Koreksi</span>
+          </button>
+
+          <!-- Setujui Terbit (Green) -->
+          <button type="button" class="btn-review-action approve" id="btnApproveArticle">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Setujui Terbit</span>
+          </button>
+
+          <!-- Minta Revisi (Amber) -->
+          <button type="button" class="btn-review-action revision" id="btnRequestRevision">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            <span>Minta Revisi</span>
+          </button>
+
+          <!-- Tolak Naskah (Red) -->
+          <button type="button" class="btn-review-action reject" id="btnRejectArticle">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            <span>Tolak</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Split Review Body (Wireframe 6: 60% Left / 40% Right) -->
+      <div class="review-split-body">
+        
+        <!-- Left Pane: Article Reader (60%) -->
+        <div class="review-article-pane" id="articleReaderPane">
+          <div class="article-review-header">
+            <h1 id="modalArticleTitle">Strategi Diferensiasi Pembelajaran Digital Berbasis Portofolio Siswa di SMPN 1 Curug</h1>
+            <div class="article-review-meta">
+              <span><strong>Kategori:</strong> Inovasi Pembelajaran (Best Practice)</span>
+              <span>&bull;</span>
+              <span><strong>Jumlah Kata:</strong> 1.420 kata</span>
+              <span>&bull;</span>
+              <span><strong>Diajukan:</strong> 06 September 2026</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Text with Highlights -->
+          <div class="article-review-text" id="manuscriptContent">
+            <p>
+              Tantangan pembelajaran di era kurikulum merdeka menuntut anggota untuk senantiasa 
+              <span class="highlight-ai yellow" data-id="sugg-1" title="Saran AI: Diksi tidak baku">merubah</span> 
+              paradigma pengajaran yang seragam menjadi pendekatan yang lebih adaptif dan responsif terhadap gaya belajar peserta didik.
+            </p>
+            <p>
+              Dalam penerapannya di ruang belajar Komunitas Curug, observasi awal menunjukkan bahwa keberagaman kecepatan pemahaman seringkali menjadi kendala utama apabila fasilitator hanya menggunakan metode ceramah konvensional. Oleh karena itu, penerapan strategi asesmen diagnostik berkala <span class="highlight-ai green" data-id="sugg-2" title="Saran AI: PUEBI Tanda Baca">adalah merupakan</span> langkah esensial untuk memetakan kesiapan belajar sebelum materi inti disampaikan.
+            </p>
+            <p>
+              Melalui platform digital KERTAS KATA, anggota diajak mendokumentasikan setiap kemajuan literasi menulis secara mandiri. Pendidik tidak lagi berperan sebagai satu-satunya sumber pengetahuan melainkan <span class="highlight-ai red" data-id="sugg-3" title="Saran Kurator: Tambahkan tanda koma sebelum melainkan">sebagai fasilitator</span> yang membimbing eksplorasi kritis.
+            </p>
+            <p>
+              Hasil evaluasi siklus kedua menunjukkan peningkatan signifikan pada skor ketuntasan belajar sebesar 28,4%. Selain itu, antusiasme siswa dalam menyelesaikan tugas proyek literasi meningkat drastis karena materi disajikan sesuai minat dan profil belajar masing-masing.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Pane: AI Assistant & Editorial Comments (40%) -->
+        <div class="review-side-pane">
+          <!-- Pane Tabs -->
+          <div class="side-pane-tabs">
+            <button type="button" class="side-pane-tab-btn active" id="tabAiSuggestions" data-pane="ai">
+              ✨ Asisten Koreksi AI (<span id="aiCount">3</span>)
+            </button>
+            <button type="button" class="side-pane-tab-btn editorial" id="tabCuratorNotes" data-pane="curator">
+              💬 Catatan Kurator (<span id="commentCount">2</span>)
+            </button>
+          </div>
+
+          <!-- Tab Content 1: AI Suggestions (Wireframe 6) -->
+          <div class="side-pane-content" id="paneAiContent">
+            <!-- AI Scanner Status -->
+            <div id="aiScanningIndicator" style="display: none; background: #faf5ff; border: 1px dashed #c084fc; border-radius: 10px; padding: 0.875rem; text-align: center;">
+              <div style="font-size: 0.8125rem; font-weight: 700; color: #7c3aed;">Sedang Menganalisis Naskah...</div>
+              <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.2rem;">Memeriksa keselarasan KBBI V, PUEBI, dan koherensi semantik</div>
+            </div>
+
+            <!-- Card 1: Typo / Ejaan -->
+            <div class="ai-suggestion-card" id="card-sugg-1">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="ai-card-badge vocab">Diksi &amp; KBBI</span>
+                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 1</span>
+              </div>
+              <div class="ai-suggestion-text">
+                Kata <strong>"merubah"</strong> tidak baku dalam KBBI. Kata dasar <em>ubah</em> mendapatkan awalan <em>me-</em> menjadi <strong>"mengubah"</strong>.
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-1', 'mengubah')">✓ Terapkan Koreksi</button>
+                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-1')">Abaikan</button>
+              </div>
+            </div>
+
+            <!-- Card 2: Keefektifan Kalimat -->
+            <div class="ai-suggestion-card" id="card-sugg-2">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="ai-card-badge structure">Kalimat Efektif</span>
+                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 2</span>
+              </div>
+              <div class="ai-suggestion-text">
+                Frasa <strong>"adalah merupakan"</strong> bersifat mubazir (pleonasme). Disarankan menggunakan salah satu: <strong>"merupakan"</strong> atau <strong>"adalah"</strong>.
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-2', 'merupakan')">✓ Terapkan Koreksi</button>
+                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-2')">Abaikan</button>
+              </div>
+            </div>
+
+            <!-- Card 3: PUEBI Tanda Baca -->
+            <div class="ai-suggestion-card" id="card-sugg-3">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="ai-card-badge grammar">PUEBI Konjungsi</span>
+                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 3</span>
+              </div>
+              <div class="ai-suggestion-text">
+                Sebelum konjungsi pertentangan <em>melainkan</em>, wajib didahului tanda koma (,). Ubah menjadi: <strong>", melainkan sebagai fasilitator"</strong>.
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-3', ', melainkan sebagai fasilitator')">✓ Terapkan Koreksi</button>
+                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-3')">Abaikan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content 2: Editorial Notes Feed (Wireframe 6) -->
+          <div class="side-pane-content" id="paneCuratorContent" style="display: none;">
+            <div class="manual-comment-card" id="comment-1">
+              <div class="comment-card-header">
+                <div class="comment-author-pill">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">FI</div>
+                  <span>Fajar Ilhami (Kurator)</span>
+                </div>
+                <button type="button" class="btn-mark-done" onclick="toggleCommentDone(this)">Selesai</button>
+              </div>
+              <div style="font-size: 0.8125rem; color: var(--text-main); line-height: 1.5;">
+                Tolong sertakan lampiran grafik atau diagram data ketuntasan belajar siklus I dan II agar bukti empiris best practice semakin kuat untuk pembaca.
+              </div>
+              <div style="font-size: 0.6875rem; color: var(--text-muted);">Hari ini, 09:15</div>
+            </div>
+
+            <div class="manual-comment-card" id="comment-2">
+              <div class="comment-card-header">
+                <div class="comment-author-pill">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">FI</div>
+                  <span>Fajar Ilhami (Kurator)</span>
+                </div>
+                <button type="button" class="btn-mark-done" onclick="toggleCommentDone(this)">Selesai</button>
+              </div>
+              <div style="font-size: 0.8125rem; color: var(--text-main); line-height: 1.5;">
+                Daftar pustaka perlu disesuaikan dengan format APA Style edisi ke-7, terutama untuk rujukan jurnal digital KERTAS KATA.
+              </div>
+              <div style="font-size: 0.6875rem; color: var(--text-muted);">Hari ini, 09:30</div>
+            </div>
+
+            <div id="additionalCommentsContainer"></div>
+          </div>
+
+          <!-- Bottom Comment Input Box (Wireframe 6) -->
+          <div class="comment-input-box">
+            <textarea id="newCommentInput" placeholder="Tulis catatan kurator baru untuk penulis..." aria-label="Catatan kurator"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.6875rem; color: var(--text-muted);">Akan dikirim ke notifikasi penulis</span>
+              <button type="button" class="btn-submit-comment" id="btnSubmitComment">Kirim Catatan</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       5. MODAL QUICK ACTIONS (SERTIFIKAT, BUNGA RAMPAI, UPLOAD EBOOK)
+       ==================================================================== -->
+  
+  <!-- Modal Generate Sertifikat -->
+  <div id="modalCert" class="inline-review-modal-overlay">
+    <div style="background:#fff; border-radius:18px; max-width:520px; width:90%; padding:1.75rem; box-shadow:var(--shadow-xl);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="font-family:var(--font-heading); font-size:1.2rem; font-weight:800; color:var(--text-main);">
+          🎓 Generate E-Sertifikat 32 JP
+        </h3>
+        <button type="button" class="btn-close-modal" onclick="closeModal('modalCert')" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">✕</button>
+      </div>
+      <p style="font-size:0.8125rem; color:var(--text-muted); line-height:1.5; margin-bottom:1.25rem;">
+        Sistem mendeteksi <strong>45 Anggota</strong> telah menuntaskan seluruh 5 modul E-Learning dan lulus kuis kepenulisan dengan nilai di atas batas KKM (80).
+      </p>
+      <div style="background:#f8fafc; border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; margin-bottom:1.25rem; font-size:0.8125rem;">
+        <div><strong>Nomor Seri:</strong> 421.2/KK-TNG/CERT/2026/IX</div>
+        <div style="margin-top:0.35rem;"><strong>Beban Jam Pelatihan:</strong> 32 Jam Pelajaran (JP)</div>
+        <div style="margin-top:0.35rem;"><strong>Tanda Tangan Digital:</strong> Kepala Dinas Pendidikan Kab. Tangerang</div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalCert')">Batal</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmGenerateCert" style="background:#059669;">
+          Terbitkan 45 Sertifikat Sekarang
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Inisiasi Bunga Rampai -->
+  <div id="modalAntologi" class="inline-review-modal-overlay">
+    <div style="background:#fff; border-radius:18px; max-width:560px; width:90%; padding:1.75rem; box-shadow:var(--shadow-xl);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="font-family:var(--font-heading); font-size:1.2rem; font-weight:800; color:var(--text-main);">
+          📖 Inisiasi Proyek Buku Bunga Rampai
+        </h3>
+        <button type="button" class="btn-close-modal" onclick="closeModal('modalAntologi')" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">✕</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:0.875rem; margin-bottom:1.25rem;">
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Judul Buku Bunga Rampai</label>
+          <input type="text" id="antologiTitleInput" value="Inovasi Pembelajaran Digital Anggota Komunitas Kabupaten Tangerang 2026" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Target Kuota Naskah</label>
+            <input type="number" id="antologiQuotaInput" value="25" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Batas Akhir Pengiriman</label>
+            <input type="date" id="antologiDeadlineInput" value="2026-10-31" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalAntologi')">Batal</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmPublishAntologi" style="background:#7c3aed;">
+          Publikasikan Proyek Antologi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified Header & Admin Logic Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

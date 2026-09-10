@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng dan Denyut Literasi Warga - Esai Sejarah dan Budaya Kabupaten Tangerang di Platform KERTAS KATA.">
+  <meta name="author" content="Rahmat Hidayat, S.Pd.">
+  <title>Merajut Harmoni di Tepian Cisadane | KERTAS KATA</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, & Lora for Classical Editorial Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/baca-artikel.css">
+</head>
+<body class="theme-light font-sans text-size-md">
+
+  <!-- ====================================================================
+       1. READING PROGRESS BAR
+       ==================================================================== -->
+  <div class="reading-progress-bar-wrap" id="readingProgressBar">
+    <div class="reading-progress-bar-fill" id="readingProgressFill"></div>
+  </div>
+
+  <!-- ====================================================================
+       2. STICKY READER TOPBAR
+       ==================================================================== -->
+  <header class="reader-topbar">
+    <div class="reader-topbar-inner">
+      <!-- Back to Landing Page -->
+      <a href="index.html" class="btn-back-home" id="btnBackToLanding">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        <span>KERTAS KATA</span>
+      </a>
+
+      <!-- In-Nav Article Title (Appears on Scroll) -->
+      <div class="reader-topbar-title" id="navArticleTitle">
+        Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng
+      </div>
+
+      <!-- Reader Controls -->
+      <div class="reader-topbar-actions">
+        <button type="button" class="btn-reader-tool" id="btnPrefTrigger" onclick="window.togglePreferencesPopover()" title="Kenyamanan Membaca (Tema &amp; Font)">
+          <span>Aa</span>
+          <span>Tampilan</span>
+        </button>
+
+        <a href="index.html#jelajah" class="btn-reader-tool" style="text-decoration:none;">
+          <span>🔍 Eksplorasi</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Reading Preferences Popover Panel -->
+    <div class="preferences-popover" id="preferencesPopover">
+      <!-- Theme Selection -->
+      <div>
+        <div class="pref-label">Mode Suasana Baca</div>
+        <div class="pref-btn-group">
+          <button type="button" class="pref-choice-btn active" data-pref-theme="light" onclick="window.setReaderTheme('light')">Terang</button>
+          <button type="button" class="pref-choice-btn" data-pref-theme="sepia" onclick="window.setReaderTheme('sepia')">Sepia</button>
+          <button type="button" class="pref-choice-btn" data-pref-theme="dark" onclick="window.setReaderTheme('dark')">Gelap</button>
+        </div>
+      </div>
+
+      <!-- Font Style Selection -->
+      <div>
+        <div class="pref-label">Jenis Tipografi</div>
+        <div class="pref-btn-group">
+          <button type="button" class="pref-choice-btn active" data-pref-font="sans" onclick="window.setReaderFont('sans')">Modern Sans</button>
+          <button type="button" class="pref-choice-btn" data-pref-font="serif" onclick="window.setReaderFont('serif')">Klasik Serif</button>
+        </div>
+      </div>
+
+      <!-- Font Size Selection -->
+      <div>
+        <div class="pref-label">Ukuran Teks</div>
+        <div class="pref-btn-group">
+          <button type="button" class="pref-choice-btn" data-pref-size="sm" onclick="window.setReaderFontSize('sm')">A- (16px)</button>
+          <button type="button" class="pref-choice-btn active" data-pref-size="md" onclick="window.setReaderFontSize('md')">A (18px)</button>
+          <button type="button" class="pref-choice-btn" data-pref-size="lg" onclick="window.setReaderFontSize('lg')">A+ (21px)</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       3. ARTICLE MAIN CONTAINER
+       ==================================================================== -->
+  <main class="article-main-container">
+    
+    <!-- Breadcrumb Navigation -->
+    <nav class="article-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Beranda</a>
+      <span>/</span>
+      <a href="index.html#jelajah">Sejarah &amp; Budaya</a>
+      <span>/</span>
+      <span style="color:var(--reader-text-lead); font-weight:600;">Merajut Harmoni di Tepian Cisadane</span>
+    </nav>
+
+    <!-- Category Tag -->
+    <div class="article-category-badge">
+      <span>🏛️</span>
+      <span>Sejarah &amp; Budaya Lokal</span>
+    </div>
+
+    <!-- Article Heading (H1) -->
+    <h1 class="article-hero-title" id="articleHeroTitle">
+      Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng dan Denyut Literasi Warga
+    </h1>
+
+    <!-- Deck / Lead Subtitle -->
+    <p class="article-deck">
+      Sebuah penelusuran kultural tentang bagaimana denyut Sungai Cisadane mempertemukan tradisi Peranakan Tionghoa dan kearifan Sunda-Banten, melahirkan peradaban toleransi yang kini dirawat secara bermartabat melalui aksara di Kabupaten Tangerang.
+    </p>
+
+    <!-- Author Byline Bar -->
+    <div class="article-byline-box">
+      <div class="author-meta-left">
+        <div class="author-avatar-large">RH</div>
+        <div>
+          <div class="author-name-title">Rahmat Hidayat, S.Pd.</div>
+          <div class="author-affiliation">Komunitas Literasi Tigaraksa • Kab. Tangerang</div>
+        </div>
+      </div>
+      <div class="article-pub-meta">
+        <div>Diterbitkan: <strong>02 September 2026</strong></div>
+        <div style="margin-top:2px;">Waktu Baca: <strong>⏱️ 6 Menit</strong></div>
+        <div class="badge-verified-curated">
+          <span>✓</span>
+          <span>Lolos Kurasi Redaksi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Cover Media -->
+    <figure class="article-featured-media">
+      <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&auto=format&fit=crop&q=80" alt="Sungai Cisadane dan Kehidupan Warga" class="article-cover-image">
+      <figcaption class="article-media-caption">
+        Tepian Sungai Cisadane di kala senja. Urat nadi transportasi air masa lampau yang menjadi ruang perjumpaan budaya, niaga, dan lahirnya komunitas literasi Kabupaten Tangerang. (Dokumentasi: Arsip Komunitas Literasi)
+      </figcaption>
+    </figure>
+
+    <!-- ====================================================================
+         4. LONGFORM ARTICLE CONTENT
+         ==================================================================== -->
+    <article class="article-body-content">
+      <p class="lead-paragraph">
+        KABUPATEN TANGERANG menyimpan kekayaan sejarah yang senantiasa berdenyut di setiap lekuk alirannya. Jauh sebelum hiruk-pikuk kawasan industri dan perumahan modern menyelimuti bentang alamnya, Sungai Cisadane telah berfungsi sebagai jalur peradaban utama. Dari perbukitan hulu di Priangan Barat hingga bermuara ke Laut Jawa di pesisir Tanjung Pasir, sungai ini bukan sekadar saluran air hidrologis, melainkan saksi bisu percampuran etnis, dialek, dan cita rasa kuliner yang terajut harmonis selama berabad-abad.
+      </p>
+
+      <p>
+        Di sinilah istilah <em>Tionghoa Benteng</em> berakar. Berdasarkan catatan arsip yang dirawat di Museum Benteng Heritage dan naskah-naskah kuno Kesultanan Banten, gelombang kedatangan armada Tiongkok yang dipimpin oleh Chen Ji Lung pada abad ke-15 meletakkan fondasi permukiman di muara Sungai Cisadane. Mereka tidak datang sebagai penakluk, melainkan sebagai pedagang dan petani yang dengan cepat membaur bersama masyarakat Sunda-Banten setempat.
+      </p>
+
+      <h2>Pertemuan Dua Arus: Perahu Naga dan Alunan Gambang Kromong</h2>
+
+      <p>
+        Salah satu manifestasi paling memukau dari akulturasi ini adalah perayaan festival perahu naga (Peh Cun) yang rutin diselenggarakan di bantaran Cisadane. Yang menarik, para pendayung perahu kayu panjang tersebut tidak pernah didominasi oleh satu kelompok etnis saja. Warga dari desa-desa sekitar, pemuda karang taruna dari pelosok kecamatan, hingga sesepuh kampung bahu-membahu mendayung dalam satu irama tabuhan genderang.
+      </p>
+
+      <p>
+        Begitu pula dalam seni pertunjukan <strong>Gambang Kromong</strong>. Instrumen musik tradisional Sunda seperti kendang dan gong bersanding selaras dengan gesekan tehyan dan sukong khas Tionghoa. Syair-syair pantun yang dilantunkan bertutur tentang nasihat hidup rukun, kritik sosial jenaka, serta penghormatan mendalam kepada tanah tempat mereka berpijak.
+      </p>
+
+      <!-- Editorial Pull Quote -->
+      <blockquote class="article-pull-quote">
+        “Warisan terbaik yang kita tinggalkan untuk generasi mendatang bukanlah kemegahan benteng fisik semata, melainkan ingatan kolektif tentang toleransi yang dirawat secara sadar melalui lembaran tulisan.”
+        <cite class="pull-quote-author">— Rahmat Hidayat, S.Pd. (Esai Literasi Kebangsaan)</cite>
+      </blockquote>
+
+      <h2>Dari Pasar Tradisional hingga Ruang Digital 28 Kecamatan</h2>
+
+      <p>
+        Tantangan terbesar kita hari ini adalah memastikan narasi sejarah lokal ini tidak luntur tergerus arus informasi serbacepat. Banyak generasi muda mengenal sejarah dunia dengan fasih, namun asing dengan riwayat tanah kelahirannya sendiri di Curug, Teluknaga, Sukamulya, maupun Solear.
+      </p>
+
+      <p>
+        Kehadiran ekosistem digital <strong>KERTAS KATA</strong> menjadi jembatan penting dalam merawat tradisi lisan dan manuskrip lokal ini. Ketika para anggota komunitas mulai menuliskan kembali cerita tetua kampung, mendokumentasikan resep kuliner khas seperti <em>Lontong Cap Go Meh Benteng</em> dan <em>Kecap Manis Tradisional</em>, serta mengangkat profil tokoh-tokoh pembaharu desa, literasi kita bertransformasi dari sekadar kegiatan pasif membaca menjadi gerakan aktif mencatat peradaban.
+      </p>
+
+      <!-- Editor's Note Box -->
+      <aside class="editors-note-box">
+        <div class="editors-note-header">
+          <span>📜</span>
+          <span>Catatan Kurator Redaksi</span>
+        </div>
+        <p style="color:var(--reader-text-muted); margin:0;">
+          Naskah ini telah melalui proses verifikasi fakta sejarah oleh Dewan Kurator Komunitas Literasi Kabupaten Tangerang. Data artefak, wawancara tetua adat, dan kajian sosiokultural telah memenuhi standar kelayakan naskah ilmiah-populer KERTAS KATA.
+        </p>
+      </aside>
+
+      <h3>Membangun Masa Depan yang Bertutur</h3>
+
+      <p>
+        Sungai Cisadane akan terus mengalir, namun ke mana arah perahu kebudayaan kita berlabuh bergantung pada ketajaman pena warganya. Ketika setiap desa memiliki juru catat, ketika setiap kisah diarsipkan dengan rasa bangga, maka Kabupaten Tangerang tidak hanya dikenal sebagai sentra ekonomi, melainkan mercusuar peradaban literasi yang menginspirasi Nusantara.
+      </p>
+    </article>
+
+    <!-- ====================================================================
+         5. FLOATING / STICKY ENGAGEMENT BAR
+         ==================================================================== -->
+    <div class="engagement-bar">
+      <!-- Clap / Like Reaction -->
+      <button type="button" class="btn-engagement" id="btnReactionClap" onclick="window.handleClapReaction()" title="Apresiasi Tulisan Ini">
+        <span id="clapHeartIcon">❤️</span>
+        <span id="clapCountDisplay">342</span>
+      </button>
+
+      <!-- Bookmark Toggle -->
+      <button type="button" class="btn-engagement" id="btnBookmarkArticle" onclick="window.handleBookmark()" title="Simpan ke Daftar Bacaan">
+        🏷️ <span>Simpan</span>
+      </button>
+
+      <!-- Share WhatsApp -->
+      <button type="button" class="btn-engagement" onclick="window.handleShare('wa')" title="Bagikan ke WhatsApp">
+        💬 <span>Bagikan</span>
+      </button>
+
+      <!-- Copy Link -->
+      <button type="button" class="btn-engagement" onclick="window.handleShare('copy')" title="Salin Tautan">
+        🔗 <span>Salin Tautan</span>
+      </button>
+
+      <!-- Jump to Comments -->
+      <a href="#kolom-diskusi" class="btn-engagement" style="text-decoration:none;" title="Lihat Komentar">
+        🗨️ <span id="commentBadgeShortcut">18</span>
+      </a>
+    </div>
+
+    <!-- ====================================================================
+         6. AUTHOR BIO PROFILE CARD
+         ==================================================================== -->
+    <section class="author-profile-card">
+      <div class="author-big-avatar">RH</div>
+      <div>
+        <h3 class="author-bio-title">Rahmat Hidayat, S.Pd.</h3>
+        <p class="author-bio-text">
+          Pendidik dan pegiat literasi sejarah lokal bermukim di Tigaraksa. Aktif meneliti warisan budaya Banten dan akulturasi masyarakat urban. Telah menerbitkan 12 karya kurasi di platform KERTAS KATA serta menginisiasi komunitas baca generasi muda.
+        </p>
+        <div style="font-size:0.75rem; color:var(--reader-text-muted); margin-top:0.5rem;">
+          ⭐ Penulis Produktif Triwulan III • 42.800+ Total Pembaca
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn-follow-author" id="btnFollowAuthor" onclick="window.handleFollowAuthor()">
+          + Ikuti Penulis
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7. RELATED ARTICLES
+         ==================================================================== -->
+    <section class="related-articles-section">
+      <h3 class="related-section-title">Karya Pilihan Terkait</h3>
+      <div class="related-grid">
+        <!-- Related 1 -->
+        <a href="baca-artikel.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&auto=format&fit=crop&q=80" alt="Teluknaga" class="related-card-img">
+          <div class="related-card-body">
+            <div class="related-cat">Opini Warga</div>
+            <div class="related-title">Transformasi Digital dan Kebangkitan UMKM Pesisir Teluknaga</div>
+            <div class="related-meta">Nurul Fajriah • 5 mnt baca</div>
+          </div>
+        </a>
+
+        <!-- Related 2 -->
+        <a href="baca-artikel.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&auto=format&fit=crop&q=80" alt="Hutan Solear" class="related-card-img">
+          <div class="related-card-body">
+            <div class="related-cat">Cerpen</div>
+            <div class="related-title">Misteri Siluet di Hutan Lindung Solear: Narasi Kesunyian</div>
+            <div class="related-meta">Siti Aminah, M.Pd. • 8 mnt baca</div>
+          </div>
+        </a>
+
+        <!-- Related 3 -->
+        <a href="baca-artikel.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80" alt="Teknologi AI" class="related-card-img">
+          <div class="related-card-body">
+            <div class="related-cat">Teknologi &amp; AI</div>
+            <div class="related-title">Eksplorasi GenAI untuk Pengarsipan Naskah Kuno Pantura</div>
+            <div class="related-meta">Ahmad Fauzi • 6 mnt baca</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         8. COMMENTS & COMMUNITY DISCUSSION
+         ==================================================================== -->
+    <section class="comments-section" id="kolom-diskusi">
+      <div class="comments-header">
+        <h3 class="comments-title">
+          Ruang Diskusi &amp; Tanggapan (<span id="commentTotalCount">18</span>)
+        </h3>
+        <span style="font-size:0.8125rem; color:var(--reader-text-muted);">Diskusi Terbuka • Beretika &amp; Konstruktif</span>
+      </div>
+
+      <!-- Comment Submission Form -->
+      <form class="comment-form-card" onsubmit="window.handlePostComment(event)">
+        <textarea id="commentText" class="comment-textarea" placeholder="Tuliskan gagasan, perspektif, atau apresiasi Anda terhadap tulisan ini..." required></textarea>
+        <div class="comment-form-footer">
+          <input type="text" id="commentAuthorName" class="comment-input-name" placeholder="Nama Anda (contoh: Dedi dari Curug)">
+          <button type="submit" class="btn-post-comment" id="btnSubmitComment">
+            Kirim Tanggapan
+          </button>
+        </div>
+      </form>
+
+      <!-- Comments Thread List -->
+      <div class="comment-thread-list" id="commentThreadList">
+        <!-- Comment 1 -->
+        <div class="comment-card">
+          <div class="comment-avatar" style="background:#059669;">HG</div>
+          <div class="comment-content">
+            <div class="comment-author-name">Hendra Gunawan, M.Pd.</div>
+            <div class="comment-meta">3 jam yang lalu • Komunitas Menulis Curug</div>
+            <div class="comment-text">
+              Ulasan yang sangat bernas, Pak Rahmat. Keterkaitan antara Gambang Kromong dan kebersamaan para pendayung perahu naga membuktikan bahwa identitas Tangerang dibangun di atas rasa saling menghargai. Tulisan seperti ini sangat layak dijadikan materi pengayaan literasi budaya di sekolah-sekolah komunitas kita.
+            </div>
+            <div class="comment-actions">
+              <button type="button" class="btn-comment-action" onclick="this.style.color='#dc2626'">❤️ Suka (14)</button>
+              <button type="button" class="btn-comment-action" onclick="showToast('💬 Menyiapkan kolom balasan...')">↩️ Balas</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comment 2 -->
+        <div class="comment-card">
+          <div class="comment-avatar" style="background:#7c3aed;">NF</div>
+          <div class="comment-content">
+            <div class="comment-author-name">Nurul Fajriah, S.S.</div>
+            <div class="comment-meta">Kemarin, 19:40 • Forum Literasi Sukamulya</div>
+            <div class="comment-text">
+              Bagian catatan tentang Lontong Cap Go Meh dan kecap tradisional Benteng sangat menyentuh. Kuliner adalah arsip sejarah yang bisa kita cicipi setiap hari. Terima kasih telah mencatatnya dengan begitu indah!
+            </div>
+            <div class="comment-actions">
+              <button type="button" class="btn-comment-action" onclick="this.style.color='#dc2626'">❤️ Suka (9)</button>
+              <button type="button" class="btn-comment-action" onclick="showToast('💬 Menyiapkan kolom balasan...')">↩️ Balas</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       9. SIMPLE EDITORIAL FOOTER
+       ==================================================================== -->
+  <footer style="border-top:1px solid var(--reader-border); padding:3rem 0; background:var(--reader-card-bg); text-align:center; font-size:0.875rem; color:var(--reader-text-muted);">
+    <div style="font-family:var(--reader-heading-font); font-size:1.125rem; font-weight:800; color:var(--reader-text); margin-bottom:0.5rem;">
+      KERTAS KATA
+    </div>
+    <p style="margin-bottom:1.5rem; max-width:540px; margin-left:auto; margin-right:auto;">
+      Platform Literasi Digital Komunitas Kabupaten Tangerang. Ruang belajar, menulis, kurasi karya, dan penerbitan buku ber-ISBN mandiri.
+    </p>
+    <div style="display:flex; justify-content:center; gap:1.5rem; font-weight:600;">
+      <a href="index.html" style="color:var(--reader-accent); text-decoration:none;">Beranda</a>
+      <a href="index.html#jelajah" style="color:var(--reader-accent); text-decoration:none;">Jelajah Karya</a>
+      <a href="perpustakaan.html" style="color:var(--reader-accent); text-decoration:none;">E-Library</a>
+      <a href="dashboard.html" style="color:var(--reader-accent); text-decoration:none;">Dashboard Anggota</a>
+    </div>
+  </footer>
+
+  <!-- Reader JavaScript -->
+  <script src="js/api.js"></script>
+  <script src="js/baca-artikel.js"></script>
+</body>
+</html>

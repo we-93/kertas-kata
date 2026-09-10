@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola E-Learning - Portal Admin KERTAS KATA Kab. Tangerang</title>
+  <meta name="description" content="Manajemen Kurikulum, Modul 32 JP, Video Pelatihan, dan Kuis E-Learning Platform Literasi Digital Komunitas KERTAS KATA Kabupaten Tangerang.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Core Design System, Admin, and E-Learning Management Styles -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/kelola-elearning.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ====================================================================
+         1. SIDEBAR KIRI (ADMIN NAVIGATION)
+         ==================================================================== -->
+    <aside class="sidebar-left" id="sidebarLeft">
+      <!-- Brand Logo with Admin Badge -->
+      <div class="sidebar-brand">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">KERTAS<span>KATA</span></div>
+          <div class="admin-badge">PANEL ADMIN</div>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">MENU ADMIN</div>
+
+        <!-- 1. Overview / Dashboard Admin -->
+        <a href="admin.html" class="nav-item" id="admin-nav-overview">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Overview Admin</span>
+        </a>
+
+        <!-- 2. Antrean Review Naskah -->
+        <a href="admin.html#antrean-review" class="nav-item" id="admin-nav-review">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Review Naskah</span>
+          <span class="nav-badge" style="background:#fee2e2; color:#b91c1c;">12 Baru</span>
+        </a>
+
+        <!-- 3. Kelola Anggota -->
+        <a href="kelola-anggota.html" class="nav-item" id="admin-nav-anggota">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <span>Kelola Anggota</span>
+        </a>
+
+        <!-- 4. Kelola E-Learning (ACTIVE) -->
+        <a href="kelola-elearning.html" class="nav-item active" id="admin-nav-elearning">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span>Kelola E-Learning</span>
+        </a>
+
+        <!-- 5. Kelola Publikasi -->
+        <a href="kelola-publikasi.html" class="nav-item" id="admin-nav-publikasi">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <span>Kelola Publikasi</span>
+        </a>
+
+        <div class="nav-section-label">LAYANAN & DISTRIBUSI</div>
+
+        <!-- 6. Kelola Perpustakaan -->
+        <a href="kelola-perpustakaan.html" class="nav-item" id="admin-nav-perpustakaan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          <span>Kelola Perpustakaan</span>
+        </a>
+
+        <!-- 7. Kelola Komunitas -->
+        <a href="kelola-komunitas.html" class="nav-item" id="admin-nav-komunitas">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Kelola Komunitas</span>
+        </a>
+
+        <!-- 8. Kelola Cetak Naskah -->
+        <a href="kelola-cetak.html" class="nav-item" id="admin-nav-cetak">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          <span>Kelola Cetak & ISBN</span>
+        </a>
+
+        <!-- 9. Hall of Fame & Sertifikat -->
+        <a href="kelola-sertifikat.html" class="nav-item" id="admin-nav-sertifikat">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"/>
+          </svg>
+          <span>Sertifikat & Hall of Fame</span>
+        </a>
+
+        <!-- 10. Pengaturan Sistem -->
+        <a href="kelola-pengaturan.html" class="nav-item" id="admin-nav-pengaturan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Pengaturan Sistem</span>
+        </a>
+      </nav>
+
+      <!-- Bottom Mode Switcher to Member Dashboard -->
+      <div class="sidebar-switch-mode">
+        <a href="dashboard.html" class="btn-switch-mode" id="switchModeMemberBtn">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Beralih Mode Anggota</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper (Header + Content) -->
+    <div class="main-wrapper" style="margin-right: 0;">
+      
+      <!-- ====================================================================
+           2. HEADER GLOBAL (IDENTIK 100% SESUAI INSTRUKSI PENGGUNA)
+           ==================================================================== -->
+      <header class="top-header">
+        <div class="header-left">
+          <!-- Hamburger Button Mobile Toggle -->
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Buka navigasi">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          
+          <!-- Search Input Global -->
+          <div class="header-search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="headerSearchInput" placeholder="Cari modul e-learning, materi video, kuis, atau nama anggota..." aria-label="Pencarian">
+            <span class="search-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button with Badge 3 -->
+          <button id="notifBellBtn" class="header-action-btn" aria-label="Notifikasi">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="action-badge">3</span>
+          </button>
+
+          <!-- User Identity Pill & Dropdown (FI - Fajar Ilhami) -->
+          <div class="user-dropdown-container">
+            <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Admin">
+              <div class="user-avatar-small">FI</div>
+              <div class="user-pill-info">
+                <span class="user-pill-name">Fajar Ilhami</span>
+                <span class="user-pill-role">Admin Kurator</span>
+              </div>
+              <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- User Profile Dropdown Menu -->
+            <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar">FI</div>
+                <div class="user-dropdown-info">
+                  <span class="user-dropdown-name">Fajar Ilhami</span>
+                  <span class="user-dropdown-role">Admin Kurator (Kab. Tangerang)</span>
+                  <span class="user-dropdown-email">fajar.ilhami@kertaskata.id</span>
+                </div>
+              </div>
+              <div class="user-dropdown-items">
+                <a href="profil.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  <span>Profil Saya</span>
+                </a>
+                <a href="pengaturan.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>Pengaturan Sistem</span>
+                </a>
+                <a href="dashboard.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                  </svg>
+                  <span>Beralih Mode Anggota</span>
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <button type="button" class="user-dropdown-item logout" id="headerLogoutBtn" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Popover -->
+        <div id="notifPopover" class="notification-popover">
+          <div class="popover-header">
+            <span class="popover-title">Notifikasi Admin</span>
+            <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;" id="markAllNotifRead">Tandai semua dibaca</span>
+          </div>
+          <div class="popover-body">
+            <div class="popover-item unread">
+              <div class="notif-icon-box review">✏️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Rahmat Hidayat</strong> mengajukan naskah baru <em>"Strategi Diferensiasi Pembelajaran Digital di SMPN 1 Curug"</em>.</div>
+                <div class="notif-time">10 menit yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box forum">📚</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Nurul Fajriah</strong> mendaftarkan cerpen <em>"Lentera Pesisir Kronjo"</em> untuk antologi sastra.</div>
+                <div class="notif-time">1 jam yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box published">🖨️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Ahmad Fauzi</strong> mengonfirmasi pembayaran cetak mandiri 15 eksemplar buku ber-ISBN.</div>
+                <div class="notif-time">3 jam yang lalu</div>
+              </div>
+            </div>
+          </div>
+          <a href="admin.html#antrean-review" class="popover-footer">Buka Semua Antrean Review →</a>
+        </div>
+      </header>
+
+      <!-- ====================================================================
+           3. CONTENT BODY (MANAJEMEN KURIKULUM & MODUL E-LEARNING)
+           ==================================================================== -->
+      <main class="content-body" style="margin-right: 0; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 1.75rem;">
+        
+        <!-- A. HERO OVERVIEW BANNER KELOLA E-LEARNING -->
+        <section class="admin-welcome-banner">
+          <div class="admin-banner-glow"></div>
+          <div class="admin-banner-content">
+            <div class="admin-banner-texts">
+              <h1>Manajemen Kurikulum &amp; Modul E-Learning <span>KERTAS KATA</span></h1>
+              <p>Kelola struktur materi, video pelatihan, kuis pemahaman, dan evaluasi ketuntasan 32 Jam Pelajaran (JP) untuk pendidik dan pegiat literasi Komunitas.</p>
+              <div class="admin-status-pill">
+                <span class="status-dot-pulse"></span>
+                <span>Kurikulum Berjenjang Aktif &bull; Standar Sertifikasi Komunitas 32 JP</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-primary" id="btnOpenAddModule" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); border: none; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); padding: 0.75rem 1.25rem;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span>+ Tambah Modul Baru</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnReorderModules" style="background: rgba(255,255,255,0.12); color:#fff; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px);">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <span>Atur Urutan Modul</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- B. 4 KARTU METRIK E-LEARNING (2 KOLOM PER BARIS DI MOBILE) -->
+        <section class="admin-stats-grid">
+          <!-- Stat 1: Total Modul Aktif -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">5 Modul</div>
+                <div class="admin-stat-label">Kurikulum Inti Literasi</div>
+              </div>
+              <div class="admin-stat-icon-wrap blue">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #059669; font-weight: 700;">32 Jam Pelajaran (JP)</span>
+              <span style="color: var(--text-muted);">&bull; Standar Komunitas</span>
+            </div>
+          </div>
+
+          <!-- Stat 2: Total Konten Pembelajaran -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">72 Materi</div>
+                <div class="admin-stat-label">Total Sumber Belajar</div>
+              </div>
+              <div class="admin-stat-icon-wrap purple">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #7c3aed; font-weight: 700;">24 Video</span>
+              <span style="color: var(--text-muted);">&bull; 48 Bahan Bacaan</span>
+            </div>
+          </div>
+
+          <!-- Stat 3: Rerata Kelulusan Kuis -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val" style="color: #059669;">89.2%</div>
+                <div class="admin-stat-label">Tingkat Kelulusan Kuis</div>
+              </div>
+              <div class="admin-stat-icon-wrap emerald">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #059669; font-weight: 700;">KKM: 80 Poin</span>
+              <span style="color: var(--text-muted);">&bull; Batas Syarat Kelulusan</span>
+            </div>
+          </div>
+
+          <!-- Stat 4: Anggota Tuntas 32 JP -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <div>
+                <div class="admin-stat-val">842 Anggota</div>
+                <div class="admin-stat-label">Tuntas Seluruh Modul</div>
+              </div>
+              <div class="admin-stat-icon-wrap amber">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-footer">
+              <span style="color: #d97706; font-weight: 700;">67.4%</span>
+              <span style="color: var(--text-muted);">dari total anggota terdaftar</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- C. DAFTAR MODUL KURIKULUM E-LEARNING (5 MODUL INTI) -->
+        <section class="module-grid-section">
+          <div class="section-title-wrap">
+            <h2>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary-600);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+              Struktur Modul Pelatihan Literasi Komunitas
+            </h2>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Urutan berjenjang: Anggota wajib menuntaskan modul sebelumnya untuk membuka modul berikutnya.</span>
+          </div>
+
+          <!-- Modul 1 -->
+          <div class="module-admin-card" id="card-modul-1">
+            <div class="module-left-info">
+              <div class="module-order-badge">1</div>
+              <div class="module-text-details">
+                <div class="module-title-row">
+                  <h3>Fondasi Literasi Digital &amp; Etika Kepenulisan Anggota</h3>
+                  <span class="badge-jp">4 JP</span>
+                  <span class="badge-module-status active">✓ Terbuka</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                  Pemahaman landasan literasi digital, hak kekayaan intelektual (HAKI), pencegahan plagiarisme, dan etika publikasi digital bagi anggota komunitas.
+                </p>
+                <div class="module-meta-chips">
+                  <span class="meta-chip-item">🎬 4 Video Pelatihan</span>
+                  <span class="meta-chip-item">📖 8 Bacaan Studi Kasus</span>
+                  <span class="meta-chip-item">📝 Kuis: 10 Soal (KKM 80)</span>
+                  <span class="meta-chip-item" style="color:#059669; font-weight:700;">👥 1.140 Anggota Tuntas (91%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-actions-group">
+              <button type="button" class="btn-module-action primary" onclick="openModuleFormModal(1)">
+                ✏️ Edit Materi
+              </button>
+              <button type="button" class="btn-module-action" onclick="openQuizManageModal(1)">
+                📝 Kelola Kuis (10)
+              </button>
+              <button type="button" class="btn-module-action" onclick="openProgressModal(1)">
+                📊 Progres Anggota
+              </button>
+            </div>
+          </div>
+
+          <!-- Modul 2 -->
+          <div class="module-admin-card" id="card-modul-2">
+            <div class="module-left-info">
+              <div class="module-order-badge">2</div>
+              <div class="module-text-details">
+                <div class="module-title-row">
+                  <h3>Teknik Riset Ide &amp; Kerangka Tulisan Ilmiah Populer</h3>
+                  <span class="badge-jp">6 JP</span>
+                  <span class="badge-module-status active">✓ Terbuka</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                  Mengubah pengalaman praktik baik (best practice) mengajar di ruang kelas menjadi artikel reflektif dan esai pendidikan yang inspiratif.
+                </p>
+                <div class="module-meta-chips">
+                  <span class="meta-chip-item">🎬 5 Video Pelatihan</span>
+                  <span class="meta-chip-item">📖 10 Dokumen Best Practice</span>
+                  <span class="meta-chip-item">📝 Kuis: 10 Soal (KKM 80)</span>
+                  <span class="meta-chip-item" style="color:#059669; font-weight:700;">👥 1.025 Anggota Tuntas (82%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-actions-group">
+              <button type="button" class="btn-module-action primary" onclick="openModuleFormModal(2)">
+                ✏️ Edit Materi
+              </button>
+              <button type="button" class="btn-module-action" onclick="openQuizManageModal(2)">
+                📝 Kelola Kuis (10)
+              </button>
+              <button type="button" class="btn-module-action" onclick="openProgressModal(2)">
+                📊 Progres Anggota
+              </button>
+            </div>
+          </div>
+
+          <!-- Modul 3 -->
+          <div class="module-admin-card" id="card-modul-3">
+            <div class="module-left-info">
+              <div class="module-order-badge">3</div>
+              <div class="module-text-details">
+                <div class="module-title-row">
+                  <h3>Struktur Kalimat Efektif &amp; Standar PUEBI Terkini</h3>
+                  <span class="badge-jp">8 JP</span>
+                  <span class="badge-module-status active">✓ Terbuka</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                  Pendalaman kaidah bahasa Indonesia baku, pencegahan pleonasme, tanda baca konjungsi, dan teknik menyunting naskah secara mandiri.
+                </p>
+                <div class="module-meta-chips">
+                  <span class="meta-chip-item">🎬 6 Video Pelatihan</span>
+                  <span class="meta-chip-item">📖 12 Panduan PUEBI &amp; KBBI</span>
+                  <span class="meta-chip-item">📝 Kuis: 15 Soal (KKM 80)</span>
+                  <span class="meta-chip-item" style="color:#059669; font-weight:700;">👥 950 Anggota Tuntas (76%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-actions-group">
+              <button type="button" class="btn-module-action primary" onclick="openModuleFormModal(3)">
+                ✏️ Edit Materi
+              </button>
+              <button type="button" class="btn-module-action" onclick="openQuizManageModal(3)">
+                📝 Kelola Kuis (15)
+              </button>
+              <button type="button" class="btn-module-action" onclick="openProgressModal(3)">
+                📊 Progres Anggota
+              </button>
+            </div>
+          </div>
+
+          <!-- Modul 4 -->
+          <div class="module-admin-card" id="card-modul-4">
+            <div class="module-left-info">
+              <div class="module-order-badge">4</div>
+              <div class="module-text-details">
+                <div class="module-title-row">
+                  <h3>Pemanfaatan AI Copilot sebagai Mitra Berpikir Anggota</h3>
+                  <span class="badge-jp">8 JP</span>
+                  <span class="badge-module-status active">✓ Terbuka</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                  Panduan etis penggunaan kecerdasan buatan untuk merangsang ide naskah, memeriksa tata bahasa, dan memetakan struktur tulisan ilmiah tanpa kehilangan orisinalitas.
+                </p>
+                <div class="module-meta-chips">
+                  <span class="meta-chip-item">🎬 5 Video Pelatihan</span>
+                  <span class="meta-chip-item">📖 10 Lembar Kerja AI Prompt</span>
+                  <span class="meta-chip-item">📝 Kuis: 10 Soal (KKM 80)</span>
+                  <span class="meta-chip-item" style="color:#059669; font-weight:700;">👥 890 Anggota Tuntas (71%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-actions-group">
+              <button type="button" class="btn-module-action primary" onclick="openModuleFormModal(4)">
+                ✏️ Edit Materi
+              </button>
+              <button type="button" class="btn-module-action" onclick="openQuizManageModal(4)">
+                📝 Kelola Kuis (10)
+              </button>
+              <button type="button" class="btn-module-action" onclick="openProgressModal(4)">
+                📊 Progres Anggota
+              </button>
+            </div>
+          </div>
+
+          <!-- Modul 5 -->
+          <div class="module-admin-card" id="card-modul-5">
+            <div class="module-left-info">
+              <div class="module-order-badge">5</div>
+              <div class="module-text-details">
+                <div class="module-title-row">
+                  <h3>Persiapan Penerbitan Buku Cetak Ber-ISBN Resmi</h3>
+                  <span class="badge-jp">6 JP</span>
+                  <span class="badge-module-status active">✓ Terbuka</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+                  Syarat kurasi naskah antologi bunga rampai, pengajuan cetak mandiri 10 artikel, pendaftaran nomor ISBN Perpusnas, dan tata letak cover buku.
+                </p>
+                <div class="module-meta-chips">
+                  <span class="meta-chip-item">🎬 4 Video Pelatihan</span>
+                  <span class="meta-chip-item">📖 8 Template Naskah Buku</span>
+                  <span class="meta-chip-item">📝 Kuis: 10 Soal (KKM 80)</span>
+                  <span class="meta-chip-item" style="color:#059669; font-weight:700;">👥 842 Anggota Tuntas (67%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-actions-group">
+              <button type="button" class="btn-module-action primary" onclick="openModuleFormModal(5)">
+                ✏️ Edit Materi
+              </button>
+              <button type="button" class="btn-module-action" onclick="openQuizManageModal(5)">
+                📝 Kelola Kuis (10)
+              </button>
+              <button type="button" class="btn-module-action" onclick="openProgressModal(5)">
+                📊 Progres Anggota
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- D. TABEL PROGRES BELAJAR ANGGOTA TERKINI -->
+        <section class="member-table-card">
+          <div class="queue-header-bar">
+            <div>
+              <h2 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+                Evaluasi Ketuntasan Modul Anggota Komunitas
+              </h2>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">
+                Pemantauan real-time nilai kuis dan kelayakan penerbitan E-Sertifikat 32 JP.
+              </p>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+              Total: <strong>1.248 Anggota Terdata</strong>
+            </div>
+          </div>
+
+          <div class="table-responsive-wrapper">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Nama Anggota &amp; Organisasi Asal</th>
+                  <th>Kecamatan</th>
+                  <th>Modul Terakhir</th>
+                  <th>Rerata Nilai Kuis</th>
+                  <th>Ketuntasan 32 JP</th>
+                  <th>Status Sertifikat</th>
+                  <th style="text-align: right;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="elearningProgressTableBody">
+                <!-- Dynamically populated via js/kelola-elearning.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       4. MODAL EDIT / TAMBAH MODUL (#moduleFormModal)
+       ==================================================================== -->
+  <div id="moduleFormModal" class="inline-review-modal-overlay" role="dialog" aria-modal="true">
+    <div style="background:#fff; border-radius:18px; max-width:600px; width:92%; padding:1.75rem; box-shadow:var(--shadow-xl); max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <h3 id="moduleModalTitle" style="font-family:var(--font-heading); font-size:1.2rem; font-weight:800; color:var(--text-main); margin:0;">
+          ✏️ Edit Materi Modul
+        </h3>
+        <button type="button" class="btn-close-modal" onclick="closeModal('moduleFormModal')" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">✕</button>
+      </div>
+
+      <form id="moduleEditForm" style="display:flex; flex-direction:column; gap:0.875rem;">
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Judul Modul</label>
+          <input type="text" id="inputModuleTitle" required style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Beban Jam Pelajaran (JP)</label>
+            <input type="number" id="inputModuleJp" min="2" max="16" required style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Urutan Modul</label>
+            <input type="number" id="inputModuleOrder" min="1" max="10" required style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Deskripsi &amp; Capaian Kompetensi</label>
+          <textarea id="inputModuleDesc" rows="3" required style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem; font-family:inherit; resize:none;"></textarea>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('moduleFormModal')">Batal</button>
+          <button type="submit" class="btn btn-primary" style="background:linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);">
+            Simpan Perubahan Modul
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       5. MODAL KELOLA KUIS (#quizManageModal)
+       ==================================================================== -->
+  <div id="quizManageModal" class="inline-review-modal-overlay" role="dialog" aria-modal="true">
+    <div style="background:#fff; border-radius:18px; max-width:680px; width:92%; padding:1.75rem; box-shadow:var(--shadow-xl); max-height:90vh; display:flex; flex-direction:column;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-shrink:0;">
+        <div>
+          <h3 id="quizModalHeading" style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; color:var(--text-main); margin:0;">
+            📝 Kelola Butir Soal Kuis
+          </h3>
+          <span style="font-size:0.75rem; color:var(--text-muted);">KKM Kelulusan Modul: 80 Poin (Jawaban benar minimal 80%)</span>
+        </div>
+        <button type="button" class="btn-close-modal" onclick="closeModal('quizManageModal')" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">✕</button>
+      </div>
+
+      <div id="quizQuestionsContainer" style="overflow-y:auto; flex:1; padding-right:0.5rem;">
+        <!-- Dynamically loaded quiz items -->
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border-subtle); flex-shrink:0;">
+        <button type="button" class="btn btn-secondary" id="btnAddQuestion" style="font-size:0.75rem;">
+          + Tambah Butir Soal Baru
+        </button>
+        <button type="button" class="btn btn-primary" onclick="saveQuizChanges()" style="background:#059669; font-size:0.8125rem;">
+          Simpan Seluruh Soal Kuis
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified Header & Kelola E-Learning Scripts -->
+  <script src="js/header.js"></script>
+  <script src="js/kelola-elearning.js"></script>
+</body>
+</html>

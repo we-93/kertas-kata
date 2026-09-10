@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Komunitas & Forum Diskusi - KERTAS KATA</title>
+  <meta name="description" content="Ruang diskusi, bedah karya, konsultasi naskah dengan dewan redaksi, dan kolaborasi literasi antarsesama penulis platform KERTAS KATA.">
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/komunitas.css">
+</head>
+<body>
+
+  <!-- Backdrop for Mobile Sidebar -->
+  <div id="mobileBackdrop" class="mobile-backdrop"></div>
+
+  <div class="app-container">
+    
+    <!-- ====================================================
+         1. LEFT SIDEBAR NAVIGATION (9 MENU UTAMA)
+         ==================================================== -->
+    <aside id="sidebarLeft" class="sidebar-left">
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">KERTAS<span>KATA</span></div>
+          <div class="brand-sub">Kab. Tangerang</div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <span class="nav-section-label">Menu Utama</span>
+
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="nav-item" id="nav-dashboard">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- 2. E-Learning -->
+        <a href="elearning.html" class="nav-item" id="nav-elearning">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+          </svg>
+          <span>E-Learning</span>
+          <span class="nav-badge">Modul 5</span>
+        </a>
+
+        <!-- 3. Menulis -->
+        <a href="menulis.html" class="nav-item" id="nav-menulis">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Menulis</span>
+        </a>
+
+        <!-- 4. Publikasi -->
+        <a href="publikasi.html" class="nav-item" id="nav-publikasi">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <span>Publikasi</span>
+          <span class="nav-badge" style="background: #fef3c7; color: #b45309;">3 Terbit</span>
+        </a>
+
+        <!-- 5. Profil -->
+        <a href="profil.html" class="nav-item" id="nav-profil">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <span>Profil</span>
+        </a>
+
+        <span class="nav-section-label" style="margin-top: 0.5rem;">Eksplorasi & Layanan</span>
+
+        <!-- 6. Perpustakaan -->
+        <a href="perpustakaan.html" class="nav-item" id="nav-perpustakaan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          <span>Perpustakaan</span>
+        </a>
+
+        <!-- 7. Komunitas (ACTIVE) -->
+        <a href="komunitas.html" class="nav-item active" id="nav-komunitas">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Komunitas</span>
+          <span class="nav-badge" style="background: #eff6ff; color: #1d4ed8;">2 Baru</span>
+        </a>
+
+        <!-- 8. Cetak Naskah -->
+        <a href="cetak-naskah.html" class="nav-item" id="nav-cetak">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          <span>Cetak Naskah</span>
+        </a>
+
+        <!-- 9. Pengaturan -->
+        <a href="pengaturan.html" class="nav-item" id="nav-pengaturan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Pengaturan</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ====================================================
+         2. MAIN WORKSPACE & TOP HEADER (FULL-WIDTH, NO BREADCRUMB)
+         ==================================================== -->
+    <div class="main-wrapper" style="margin-right: 0;">
+
+      <!-- Top Header Sticky Glassmorphic -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Buka Menu Navigasi">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+
+          <!-- Search Bar -->
+          <div class="header-search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="komHeaderSearchInput" placeholder="Cari topik diskusi, penulis, atau kata kunci..." aria-label="Pencarian Komunitas">
+            <span class="search-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button -->
+          <button id="notifBellBtn" class="header-action-btn" aria-label="Notifikasi">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="action-badge">3</span>
+          </button>
+
+          <!-- User Identity Pill & Dropdown -->
+          <div class="user-dropdown-container">
+            <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Anggota">
+              <div class="user-avatar-small">RH</div>
+              <div class="user-pill-info">
+                <span class="user-pill-name">Rahmat Hidayat</span>
+                <span class="user-pill-role">Anggota (Tigaraksa)</span>
+              </div>
+              <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- User Profile Dropdown Menu -->
+            <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar">RH</div>
+                <div class="user-dropdown-info">
+                  <span class="user-dropdown-name">Rahmat Hidayat</span>
+                  <span class="user-dropdown-role">Anggota (Tigaraksa)</span>
+                  <span class="user-dropdown-email">rahmat.hidayat@gmail.com</span>
+                </div>
+              </div>
+              <div class="user-dropdown-items">
+                <a href="profil.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  <span>Profil Penulis</span>
+                </a>
+                <a href="pengaturan.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>Pengaturan Akun</span>
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <button type="button" class="user-dropdown-item logout" id="headerLogoutBtn" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Popover -->
+        <div id="notifPopover" class="notification-popover">
+          <div class="popover-header">
+            <span class="popover-title">Notifikasi Terbaru</span>
+            <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;">Tandai semua dibaca</span>
+          </div>
+          <div class="popover-body">
+            <div class="popover-item unread">
+              <div class="notif-icon-box review">✏️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Mentor Dian</strong> memberikan 2 catatan review pada draf artikel Anda.</div>
+                <div class="notif-time">15 menit yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box forum">💬</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Siti Aminah</strong> mengundang Anda ke Forum Private: "Kajian Sejarah Pesisir Tangerang".</div>
+                <div class="notif-time">2 jam yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item">
+              <div class="notif-icon-box published">🎉</div>
+              <div class="notif-content">
+                <div class="notif-message">Artikel Anda <strong>"Menelusuri Jejak Sejarah Benteng"</strong> berhasil diterbitkan ke publik!</div>
+                <div class="notif-time">Kemarin, 14:20</div>
+              </div>
+            </div>
+          </div>
+          <a href="#notifikasi" class="popover-footer">Lihat Semua Notifikasi →</a>
+        </div>
+      </header>
+
+      <!-- ====================================================
+           3. MAIN PAGE CONTENT: RUANG DISKUSI & KOLABORASI
+           ==================================================== -->
+      <main class="content-body" style="margin-right: 0; max-width: 100%; box-sizing: border-box;">
+
+        <!-- Hero Overview Banner (KM-01 s/d KM-03) -->
+        <section class="komunitas-hero-banner">
+          <div class="komunitas-hero-content">
+            <div class="komunitas-hero-text">
+              <h1>Ruang Diskusi & Kolaborasi</h1>
+              <p>
+                Wadah bertukar praktik baik, berdiskusi mengenai teknik kepenulisan, konsultasi naskah langsung dengan kurator, dan memperluas jejaring profesional antar anggota komunitas
+              </p>
+            </div>
+            <button class="btn-create-thread-hero" id="btnOpenCreateThread">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>+ Buat Diskusi Baru</span>
+            </button>
+          </div>
+
+          <!-- 4 Stat Cards Row -->
+          <div class="komunitas-stats-row">
+            <div class="kom-stat-card">
+              <div class="kom-stat-val" id="statTotalThreads">48</div>
+              <div class="kom-stat-label">Total Diskusi Aktif</div>
+            </div>
+            <div class="kom-stat-card">
+              <div class="kom-stat-val" id="statPublicThreads">36</div>
+              <div class="kom-stat-label">Forum Publik Terbuka</div>
+            </div>
+            <div class="kom-stat-card">
+              <div class="kom-stat-val" id="statPrivateThreads">12</div>
+              <div class="kom-stat-label">Forum Private (Undangan)</div>
+            </div>
+            <div class="kom-stat-card">
+              <div class="kom-stat-val" id="statConnectedAuthors">156</div>
+              <div class="kom-stat-label">Penulis Terhubung</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Filter Bar & Category Selector (KM-01 & KM-02) -->
+        <section class="komunitas-filter-bar">
+          <div class="kom-filter-tabs">
+            <button class="kom-filter-pill active" data-filter="all">Semua Diskusi (48)</button>
+            <button class="kom-filter-pill" data-filter="public">Forum Publik (36)</button>
+            <button class="kom-filter-pill" data-filter="private">Forum Private (12)</button>
+            <button class="kom-filter-pill" data-filter="my">Diskusi Saya (<span id="myThreadsCountPill">1</span>)</button>
+          </div>
+          <div class="kom-filter-actions">
+            <select class="kom-category-select" id="categoryFilterSelect" aria-label="Filter Kategori Topik">
+              <option value="all">Semua Kategori Topik</option>
+              <option value="bedah_karya">Bedah Karya</option>
+              <option value="puebi">PUEBI & Tata Bahasa</option>
+              <option value="opini">Riset & Opini</option>
+              <option value="antologi">Kolaborasi Antologi</option>
+              <option value="elearning">Seputar E-Learning</option>
+              <option value="cerpen">Cerpen & Puisi</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- Main 2-Column Grid Layout: Feed (Left) & Spotlight (Right) -->
+        <div class="komunitas-main-grid">
+
+          <!-- Left Column: Thread Cards Feed -->
+          <section class="threads-feed-col" id="threadsFeedList">
+            <!-- Populated dynamically via js/komunitas.js -->
+          </section>
+
+          <!-- Right Column: Community Spotlight & Author Recommendations -->
+          <aside class="community-side-col">
+
+            <!-- Penulis Inspiratif (KM-07: Follow Penulis) -->
+            <div class="community-side-card">
+              <h3 class="side-card-title">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary-700);">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <span>Penulis Inspiratif</span>
+              </h3>
+
+              <div class="authors-follow-list">
+                <!-- Author 1 -->
+                <div class="author-follow-item">
+                  <div class="author-item-info">
+                    <div class="author-item-avatar" style="background: #dbeafe; color: #1e40af;">RH</div>
+                    <div class="author-item-texts">
+                      <div class="author-item-name">Dr. Rahmat Hidayat</div>
+                      <div class="author-item-spec">Sejarah & Kebijakan Publik</div>
+                    </div>
+                  </div>
+                  <button class="btn-follow-toggle following" data-author="Dr. Rahmat Hidayat">✓ Mengikuti</button>
+                </div>
+
+                <!-- Author 2 -->
+                <div class="author-follow-item">
+                  <div class="author-item-info">
+                    <div class="author-item-avatar" style="background: #ede9fe; color: #5b21b6;">SM</div>
+                    <div class="author-item-texts">
+                      <div class="author-item-name">Sarah Melati, M.I.Kom</div>
+                      <div class="author-item-spec">Jurnalistik & Esai Populer</div>
+                    </div>
+                  </div>
+                  <button class="btn-follow-toggle" data-author="Sarah Melati">+ Ikuti</button>
+                </div>
+
+                <!-- Author 3 -->
+                <div class="author-follow-item">
+                  <div class="author-item-info">
+                    <div class="author-item-avatar" style="background: #ccfbf1; color: #0f766e;">BS</div>
+                    <div class="author-item-texts">
+                      <div class="author-item-name">Budi Santoso, M.Pd</div>
+                      <div class="author-item-spec">Kurator Bahasa & PUEBI</div>
+                    </div>
+                  </div>
+                  <button class="btn-follow-toggle" data-author="Budi Santoso">+ Ikuti</button>
+                </div>
+
+                <!-- Author 4 -->
+                <div class="author-follow-item">
+                  <div class="author-item-info">
+                    <div class="author-item-avatar" style="background: #fce7f3; color: #9d174d;">AF</div>
+                    <div class="author-item-texts">
+                      <div class="author-item-name">Anisa Fitriani</div>
+                      <div class="author-item-spec">Penulis Fiksi & Antologi</div>
+                    </div>
+                  </div>
+                  <button class="btn-follow-toggle" data-author="Anisa Fitriani">+ Ikuti</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tren Topik Pekan Ini -->
+            <div class="community-side-card">
+              <h3 class="side-card-title">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #f59e0b;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <span>Tren Topik Pekan Ini</span>
+              </h3>
+              <div class="trending-topics-wrap">
+                <span class="trending-topic-tag" data-category="bedah_karya">#BedahCerpen</span>
+                <span class="trending-topic-tag" data-category="puebi">#PUEBIRapi</span>
+                <span class="trending-topic-tag" data-category="antologi">#KolaborasiAntologi</span>
+                <span class="trending-topic-tag" data-category="opini">#TipsOpiniPublik</span>
+                <span class="trending-topic-tag" data-category="elearning">#KuisModul5</span>
+              </div>
+            </div>
+
+            <!-- Panduan & Etika Komunitas -->
+            <div class="community-side-card">
+              <h3 class="side-card-title">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #10b981;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <span>Etika Diskusi Sehat</span>
+              </h3>
+              <div class="etiquette-item">
+                <span>🤝</span>
+                <span><strong>Saling Menghargai:</strong> Sambut pandangan berbeda dengan kesantunan intelektual.</span>
+              </div>
+              <div class="etiquette-item">
+                <span>💡</span>
+                <span><strong>Kritik Membangun:</strong> Berikan masukan yang jelas, kontekstual, dan solutif.</span>
+              </div>
+              <div class="etiquette-item">
+                <span>🛡️</span>
+                <span><strong>Bebas Plagiasi:</strong> Hargai orisinalitas ide dan kutip sumber referensi secara jujur.</span>
+              </div>
+            </div>
+
+          </aside>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       4. MODAL 1: BUAT DISKUSI BARU (KM-03 & KM-04)
+       ==================================================== -->
+  <div class="modal-overlay" id="createThreadModal" role="dialog" aria-modal="true" aria-labelledby="createModalTitle">
+    <div class="modal-card create-thread-modal-card">
+      <div class="modal-header">
+        <h3 id="createModalTitle">Mulai Diskusi Baru</h3>
+        <button class="modal-close-btn" id="createThreadModalClose" aria-label="Tutup Formulir Diskusi">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Pilihan Tipe Forum (Radio Cards) -->
+        <div class="form-group">
+          <label class="form-label">Tipe Forum Diskusi</label>
+          <div class="thread-type-radios">
+            <div class="radio-type-card selected" data-type="public">
+              <span class="radio-type-title">🌐 Forum Publik</span>
+              <span class="radio-type-desc">Terbuka untuk semua penulis terdaftar, dapat dilihat dan dibalas bersama.</span>
+            </div>
+            <div class="radio-type-card" data-type="private">
+              <span class="radio-type-title">🔒 Forum Private</span>
+              <span class="radio-type-desc">Tertutup, hanya anggota yang diundang yang dapat membaca dan berdiskusi.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kondisional: Member Invitations for Private Forum (KM-04) -->
+        <div class="invite-members-box" id="inviteMembersWrap" style="display: none;">
+          <div style="font-size: 0.8125rem; font-weight: 700; color: #1e3a8a; display: flex; align-items: center; gap: 0.35rem;">
+            <span>👥 Pilih Anggota yang Diundang (Minimal 2 Orang):</span>
+          </div>
+          <div class="invite-chips-container">
+            <span class="invite-chip selected" data-member="Sarah Melati">✓ Sarah Melati, M.I.Kom</span>
+            <span class="invite-chip selected" data-member="Budi Santoso">✓ Budi Santoso, M.Pd</span>
+            <span class="invite-chip" data-member="Suryadi Ningrat">+ Suryadi Ningrat</span>
+            <span class="invite-chip" data-member="Anisa Fitriani">+ Anisa Fitriani</span>
+          </div>
+        </div>
+
+        <!-- Judul Diskusi -->
+        <div class="form-group">
+          <label class="form-label" for="threadTitleInput">Judul Topik Diskusi</label>
+          <input type="text" id="threadTitleInput" class="form-input-text" placeholder="Contoh: [Bedah Naskah] Masukan untuk Transisi Alur Bab 3..." required>
+        </div>
+
+        <!-- Kategori Topik -->
+        <div class="form-group">
+          <label class="form-label" for="threadCategorySelect">Kategori Topik</label>
+          <select id="threadCategorySelect" class="form-select">
+            <option value="bedah_karya">Bedah Karya</option>
+            <option value="puebi">PUEBI & Tata Bahasa</option>
+            <option value="opini">Riset & Opini</option>
+            <option value="antologi">Kolaborasi Antologi</option>
+            <option value="elearning">Seputar E-Learning</option>
+            <option value="cerpen">Cerpen & Puisi</option>
+          </select>
+        </div>
+
+        <!-- Konten Diskusi -->
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="threadContentTextarea">Gagasan atau Pertanyaan Diskusi</label>
+          <textarea id="threadContentTextarea" class="form-textarea" placeholder="Tuliskan latar belakang, draf naskah yang ingin dikonsultasikan, atau pertanyaan Anda secara rinci..." required></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-follow-toggle" id="btnCancelCreateThread" style="padding: 0.625rem 1.25rem;">
+          Batal
+        </button>
+        <button type="button" class="btn-create-thread-hero" id="btnSubmitCreateThread" style="padding: 0.625rem 1.5rem;">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+          <span>Posting Diskusi</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       5. MODAL 2: DETAIL DISKUSI & BALASAN BERTINGKAT (KM-05)
+       ==================================================== -->
+  <div class="modal-overlay" id="threadDetailModal" role="dialog" aria-modal="true" aria-labelledby="detailThreadTitle">
+    <div class="modal-card thread-detail-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="badge-thread-category" id="detailBadgeCategory">Kategori</span>
+          <span class="badge-thread-type public" id="detailBadgeType">🌐 PUBLIK</span>
+        </div>
+        <button class="modal-close-btn" id="threadDetailModalClose" aria-label="Tutup Diskusi">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Main Post Section -->
+        <div class="thread-detail-main">
+          <div class="thread-author-wrap" style="margin-bottom: 0.875rem;">
+            <div class="thread-author-avatar" id="detailAuthorAvatar" style="background: #1e3a8a;">
+              RH
+            </div>
+            <div class="thread-author-meta">
+              <span class="thread-author-name" id="detailAuthorName" style="font-size: 0.9375rem;">Nama Penulis</span>
+              <span class="thread-post-time" id="detailPostTime">Penulis • Waktu</span>
+            </div>
+          </div>
+
+          <h2 id="detailThreadTitle" style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem; line-height: 1.4;">
+            Judul Lengkap Diskusi
+          </h2>
+
+          <div class="detail-content-text" id="detailContentText">
+            Konten pembahasan diskusi...
+          </div>
+
+          <!-- Like action inside modal -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-subtle);">
+            <button class="btn-thread-stat" id="btnLikeInsideModal" style="background: #f8fafc; border: 1px solid var(--border-medium);">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              <span>Apresiasi (<span id="modalLikesCount">0</span>)</span>
+            </button>
+            <span style="font-size: 0.75rem; color: #64748b;">Standar Diskusi: PUEBI Rapi • Saling Menghargai</span>
+          </div>
+        </div>
+
+        <!-- Replies Section -->
+        <div>
+          <h3 class="replies-section-title">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary-700);">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span>Tanggapan & Diskusi (<span id="detailRepliesCount">0</span>)</span>
+          </h3>
+
+          <div class="thread-replies-list" id="detailRepliesList">
+            <!-- Populated dynamically via js/komunitas.js -->
+          </div>
+
+          <!-- Add Reply Box -->
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <label class="form-label" for="replyInputText" style="font-size: 0.8125rem;">Tulis Tanggapan atau Masukan Naskah:</label>
+            <textarea id="replyInputText" class="form-textarea" placeholder="Tuliskan pandangan, referensi, atau saran konstruktif Anda..." style="min-height: 80px; margin-bottom: 0.75rem;"></textarea>
+            <div style="display: flex; justify-content: flex-end;">
+              <button type="button" class="btn-create-thread-hero" id="btnSubmitReply" style="padding: 0.5rem 1.25rem; font-size: 0.8125rem;">
+                <span>Kirim Tanggapan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div class="kom-toast" id="komToast" role="status" aria-live="polite">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#10b981">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span id="toastMessage">Notifikasi</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/header.js"></script>
+  <script src="js/komunitas.js"></script>
+</body>
+</html>

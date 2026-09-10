@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Writing Studio KERTAS KATA Kabupaten Tangerang - Ruang Menulis Karya Literasi Bersih & Bebas Distraksi">
+  <meta name="author" content="Tim Kertas Kata Kabupaten Tangerang">
+  <title>Writing Studio (Menulis Karya) | KERTAS KATA - Kab. Tangerang</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Minimalist Writing Studio Stylesheet -->
+  <link rel="stylesheet" href="css/writing-studio.css">
+</head>
+<body class="writing-mode">
+
+  <!-- ====================================================
+       1. MINIMALIST TOP NAV BAR
+       ==================================================== -->
+  <header class="minimal-top-bar">
+    <div class="top-bar-left">
+      <!-- Back to Dashboard Pill -->
+      <a href="dashboard.html" class="btn-back-dashboard" id="btnBackDashboard" title="Kembali ke Dashboard">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span class="btn-text-hide-mobile">Dashboard</span>
+      </a>
+
+      <!-- Auto-save Status Pill -->
+      <div id="autoSavePill" class="top-bar-autosave-badge">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="badge-text-full">Draf tersimpan otomatis</span>
+        <span class="badge-text-mobile">Tersimpan</span>
+      </div>
+    </div>
+
+    <div class="top-bar-right">
+      <!-- Preview Button -->
+      <button id="btnMinimalPreview" class="btn-minimal-preview" type="button" title="Pratinjau Artikel">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+        </svg>
+        <span class="btn-text-hide-mobile">Pratinjau</span>
+      </button>
+
+      <!-- Submit to Kurator Button -->
+      <button id="btnMinimalSubmit" class="btn-minimal-submit" type="button" title="Kirim Naskah ke Kurator">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+        </svg>
+        <span class="submit-text-full">Kirim ke Kurator</span>
+        <span class="submit-text-mobile">Kirim</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====================================================
+       2. MAIN WORKSPACE: TWO-COLUMN CANVAS
+       ==================================================== -->
+  <main class="writing-studio-container">
+
+    <!-- ====================================================
+         LEFT COLUMN: AUTHOR EDITOR CANVAS
+         ==================================================== -->
+    <article class="author-editor-card">
+
+      <!-- Floating Pill Toolbar -->
+      <div class="editor-toolbar-pill">
+        <!-- Text Styling -->
+        <button class="tool-action-btn" data-command="bold" title="Tebal (Ctrl+B)">
+          <strong>B</strong>
+        </button>
+        <button class="tool-action-btn" data-command="italic" title="Miring (Ctrl+I)">
+          <em>/</em>
+        </button>
+        <button class="tool-action-btn" data-command="underline" title="Garis Bawah (Ctrl+U)">
+          <u>U</u>
+        </button>
+        <button class="tool-action-btn" data-command="strikeThrough" title="Coret">
+          <s>S</s>
+        </button>
+
+        <div class="tool-sep"></div>
+
+        <!-- Headings & Quotes -->
+        <button class="tool-action-btn" data-command="formatBlock" data-value="h2" title="Heading 1 (H1/H2)">
+          H1
+        </button>
+        <button class="tool-action-btn" data-command="formatBlock" data-value="h3" title="Heading 2 (H2/H3)">
+          H2
+        </button>
+        <button class="tool-action-btn" data-command="formatBlock" data-value="blockquote" title="Kutipan Khusus (Quote)">
+          99
+        </button>
+
+        <div class="tool-sep"></div>
+
+        <!-- Lists -->
+        <button class="tool-action-btn" data-command="insertUnorderedList" title="Daftar Peluru (Bullet List)">
+          ≡
+        </button>
+        <button class="tool-action-btn" data-command="insertOrderedList" title="Daftar Nomor (Numbered List)">
+          :=
+        </button>
+
+        <div class="tool-sep"></div>
+
+        <!-- Links, Images & Clear Format -->
+        <button class="tool-action-btn" data-command="createLink" title="Sisipkan Tautan (Link)">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+          </svg>
+        </button>
+        <button class="tool-action-btn" data-command="insertImage" title="Sisipkan Gambar">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </button>
+        <button class="tool-action-btn" data-command="removeFormat" title="Hapus Format">
+          &times;
+        </button>
+      </div>
+
+      <!-- Article Title -->
+      <textarea id="authorTitle" class="author-title-input" rows="1" placeholder="Judul Naskah...">Menghidupkan Denyut Literasi di Pesisir Teluknaga: Catatan Perjalanan Merawat Aksara Desa</textarea>
+
+      <!-- Subtitle / Premise -->
+      <textarea id="authorLead" class="author-lead-input" rows="1" placeholder="Tulis pengantar atau premis naskah...">Refleksi perjalanan menyusuri perkampungan nelayan di utara Tangerang, meretas keterbatasan akses buku bacaan menjadi gerakan perpustakaan kapal terapung berbasis kerelawanan warga.</textarea>
+
+      <!-- Article Body (Editable) -->
+      <div id="authorBody" class="author-body-content" contenteditable="true">
+        <p>
+          Suara deru mesin perahu motor nelayan di muara Sungai Cisadane pagi itu berpadu harmonis dengan tawa riang anak-anak berseragam pramuka. Di ujung dermaga kayu Desa Tanjung Pasir, Kecamatan Teluknaga, sebuah gerobak kayu bercat biru laut bersandar tenang. Di atasnya, tersusun rapi puluhan buku cerita bergambar, ensiklopedia flora fauna pesisir, dan buku sejarah lokal Tangerang yang halamannya tampak mulai menguning namun tetap terawat.
+        </p>
+
+        <h2>Aroma Garam dan Semangat Aksara di Bibir Muara</h2>
+        <p>
+          Bagi sebagian orang, pesisir utara Kabupaten Tangerang identik dengan hasil tambak bandeng, pelelangan cumi segar, dan embusan angin laut yang sarat aroma garam. Namun, bagi Pak Hasan (48) dan sekelompok pemuda karang taruna setempat, muara ini adalah panggung perlawanan terhadap sunyinya bahan bacaan berkualitas.
+        </p>
+
+        <blockquote>
+          "Anak-anak pesisir di sini tidak kekurangan rasa ingin tahu. Yang selama ini luput adalah ketiadaan akses buku yang menyapa langsung beranda rumah mereka," tutur Pak Hasan sembari merapikan buku ensiklopedia kelautan.
+        </blockquote>
+
+        <p>
+          Melalui inisiatif <em>Pustaka Bahari Mandiri</em> yang kini terintegrasi dengan ekosistem <strong>KERTAS KATA Kabupaten Tangerang</strong>, warga mulai merasakan perubahan nyata. Buku tidak lagi dianggap sebagai benda kaku yang hanya bersemayam di ruang kelas sekolah formal, melainkan sahabat bermain di kala menunggu air laut pasang.
+        </p>
+
+        <!-- Embedded Photo inside Editor -->
+        <div class="media-box" contenteditable="false">
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=900&auto=format&fit=crop&q=80" alt="Anak-anak membaca buku di dermaga Tanjung Pasir">
+          <div class="media-caption">
+            Dokumentasi pojok baca warga di dermaga Tanjung Pasir, Teluknaga. (Foto: Dok. Komunitas Pesisir Teluknaga / Rahmat Hidayat)
+          </div>
+        </div>
+
+        <h2>Kolaborasi Literasi Gemilang Berkelanjutan</h2>
+        <p>
+          Langkah yang dirintis di Teluknaga ini menjadi bukti otentik bahwa literasi tumbuh subur ketika berakar pada kearifan lokal. Ketika cerita rakyat peranakan Benteng dan sejarah bandar niaga kuno Tangerang dihadirkan kembali lewat tulisan-tulisan warga yang lugas dan jujur, kebanggaan identitas daerah kian mengakar kuat di hati generasi penerus.
+        </p>
+        <p>
+          Tugas kita selanjutnya bukan sekadar menambah jumlah rak buku, melainkan terus mendampingi anak-anak ini agar berani menuliskan impian dan suaranya sendiri ke lembar-lembar masa depan.
+        </p>
+      </div>
+
+      <!-- Keterangan Standar Kurasi di Bawah Kolom Menulis -->
+      <div class="curation-standard-notice" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #64748b; font-weight: 500;">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#059669" style="flex-shrink: 0;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span>Standar Kurasi KERTAS KATA: Bebas Plagiasi • PUEBI Rapi</span>
+      </div>
+
+    </article>
+
+    <!-- ====================================================
+         RIGHT COLUMN: SIDEBAR WIDGETS
+         ==================================================== -->
+    <aside class="author-sidebar-col">
+
+      <!-- Card 1: Pengaturan Naskah -->
+      <section class="author-widget-card">
+        <div class="widget-card-header">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+          </svg>
+          <span>Pengaturan Naskah</span>
+        </div>
+
+        <!-- 1. Kategori Naskah (Wajib) -->
+        <div class="form-field-group">
+          <label for="widgetCategorySelect" class="field-label">Kategori Naskah (Wajib)</label>
+          <div class="widget-select-wrapper">
+            <select id="widgetCategorySelect" class="widget-select">
+              <option value="Refleksi Pedagogik" selected>Refleksi Pedagogik</option>
+              <option value="Pendidikan">Pendidikan</option>
+              <option value="Sejarah">Sejarah</option>
+              <option value="Politik">Politik</option>
+              <option value="Pemerintahan">Pemerintahan</option>
+              <option value="Cerpen">Cerpen</option>
+              <option value="Puisi">Puisi</option>
+              <option value="Ilmiah">Ilmiah</option>
+              <option value="Opini">Opini</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+            </select>
+            <div class="widget-select-arrow">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Tag / Kata Kunci -->
+        <div class="form-field-group">
+          <label for="widgetTagInput" class="field-label">Tag / Kata Kunci (3–5 Tag)</label>
+          <input type="text" id="widgetTagInput" class="widget-tag-input" placeholder="Ketik tag lalu tekan Enter...">
+          <div id="tagPillsList" class="tag-pills-list">
+            <span class="widget-tag-pill">
+              <span>#RefleksiGuru</span>
+              <span class="widget-tag-pill-remove">&times;</span>
+            </span>
+            <span class="widget-tag-pill">
+              <span>#LiterasiSekolah</span>
+              <span class="widget-tag-pill-remove">&times;</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 3. Gambar Sampul Artikel -->
+        <div class="form-field-group">
+          <label class="field-label">Gambar Sampul Artikel</label>
+          <div id="coverUploadBox" class="cover-dashed-upload-box">
+            <img id="coverThumbnail" class="upload-thumbnail-preview" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=100&auto=format&fit=crop&q=80" alt="Sampul Thumbnail">
+            <div class="upload-action-text">Unggah Sampul</div>
+            <div class="upload-hint-text">PNG, JPG max 3MB (Rasio 16:9 disarankan)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 2: Statistik Tulisan -->
+      <section class="author-widget-card">
+        <div class="widget-card-header">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <span>Statistik Tulisan</span>
+        </div>
+
+        <div class="stat-metric-grid">
+          <div class="stat-metric-item">
+            <div id="statTotalKata" class="stat-metric-value">0</div>
+            <div class="stat-metric-label">Total Kata</div>
+          </div>
+          <div class="stat-metric-item">
+            <div id="statEstimasiBaca" class="stat-metric-value">~1 mnt</div>
+            <div class="stat-metric-label">Estimasi Baca</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 3: Panduan Review Admin -->
+      <section class="author-widget-card">
+        <div class="widget-card-header">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Panduan Review Admin</span>
+        </div>
+
+        <div class="curation-checklist" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div id="checkMinWords" class="checklist-item valid" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #059669; font-weight: 600;">
+            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="check-label">Target kata terpenuhi (Min. 500 kata)</span>
+          </div>
+          <div class="checklist-item valid" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #059669; font-weight: 600;">
+            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Orisinalitas & Bebas Plagiasi</span>
+          </div>
+          <div class="checklist-item valid" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #059669; font-weight: 600;">
+            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Format Bahasa Indonesia Baku (PUEBI)</span>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- ====================================================
+       PREVIEW MODAL (OVERLAY)
+       ==================================================== -->
+  <div id="previewModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.25rem;">👁️</span>
+          <h3>Pratinjau Artikel Publikasi</h3>
+        </div>
+        <button id="closePreviewBtn" class="modal-close-btn" aria-label="Tutup">&times;</button>
+      </div>
+      <div class="modal-body">
+        <span id="modalPreviewCategory" style="background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Refleksi Pedagogik</span>
+        <h1 id="modalPreviewTitle" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 1rem 0;">Judul</h1>
+        
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;">RH</div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.875rem; color: #0f172a;">Rahmat Hidayat</div>
+            <div style="font-size: 0.75rem; color: #64748b;">Pegiat Literasi Tigaraksa • Kab. Tangerang</div>
+          </div>
+        </div>
+
+        <img id="modalPreviewCover" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem;" src="" alt="Cover">
+        <div id="modalPreviewContent" style="font-size: 1rem; line-height: 1.8; color: #334155;"></div>
+        <div id="modalPreviewTags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       CONFIRMATION SUBMIT MODAL
+       ==================================================== -->
+  <div id="confirmSubmitModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 460px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem;">Kirim Naskah ke Kurator</h3>
+      </div>
+      <div style="padding: 1.5rem 1.75rem; text-align: center;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">
+          ✈️
+        </div>
+        <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.0625rem; font-weight: 700; color: #0f172a;">
+          Kirim Naskah ke Meja Kurasi Admin?
+        </h4>
+        <p style="font-size: 0.8125rem; color: #64748b; margin-top: 0.5rem; line-height: 1.6;">
+          Naskah Anda akan ditinjau oleh kurator literasi Kabupaten Tangerang. Status tulisan akan berubah menjadi <strong>In Review</strong> dan Anda akan menerima catatan perbaikan atau notifikasi terbit.
+        </p>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+          <button id="cancelSubmitBtn" class="btn-minimal-preview" style="flex: 1; justify-content: center;">
+            Batal
+          </button>
+          <button id="finalConfirmSubmitBtn" class="btn-minimal-submit" style="flex: 1.2; justify-content: center;">
+            Ya, Kirim Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script src="js/api.js"></script>
+  <script src="js/writing-studio.js"></script>
+</body>
+</html>

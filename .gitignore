@@ -1,0 +1,52 @@
+# ==============================================================================
+# KERTAS KATA - Production Git Ignore Rules
+# ==============================================================================
+
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Environment Variables & Secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+server/.env
+
+# Local Databases (SQLite)
+*.db
+*.db-journal
+*.sqlite
+server/prisma/dev.db
+server/prisma/dev.db-journal
+
+# Logs & Temporary Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server/*.log
+
+# Scratch & Temporary Testing Directories
+scratch/
+temp/
+tmp/
+
+# Documentation & Planning Files (Not Needed on VPS Production)
+PRD.md
+WIREFRAME DESIGN DOCUMENT.md
+USER FLOW DIAGRAM.md
+DATABASE SCHEMA DESIGN (ERD).md
+
+# Large Design Images & Screen Recordings in Root
+*.mp4
+*.avi
+*.mov
+WIREFRAME *.png
+Screenshot *.png
+
+# OS & Editor Metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

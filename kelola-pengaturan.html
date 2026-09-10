@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengaturan Sistem - Portal Admin KERTAS KATA Kab. Tangerang</title>
+  <meta name="description" content="Pusat Konfigurasi & Pengaturan Sistem Platform KERTAS KATA: Kebijakan Kurasi, Ketuntasan E-Learning 32 JP, Gamifikasi Lencana, Integrasi ISBN Perpusnas, dan Keamanan.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Design System, Admin, and System Settings Styles -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/kelola-pengaturan.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ====================================================================
+         1. SIDEBAR KIRI (ADMIN NAVIGATION)
+         ==================================================================== -->
+    <aside class="sidebar-left" id="sidebarLeft">
+      <!-- Brand Logo with Admin Badge -->
+      <div class="sidebar-brand">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">KERTAS<span>KATA</span></div>
+          <span class="admin-badge-pill">PANEL ADMIN</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">UTAMA</div>
+
+        <!-- 1. Overview Admin -->
+        <a href="admin.html" class="nav-item" id="admin-nav-overview">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+          <span>Overview Admin</span>
+        </a>
+
+        <!-- 2. Review Naskah -->
+        <a href="admin.html#antrean-kurasi" class="nav-item" id="admin-nav-review">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Review Naskah</span>
+          <span class="nav-badge-alert" id="sidebarQueueCount">12 Baru</span>
+        </a>
+
+        <!-- 3. Kelola Anggota -->
+        <a href="kelola-anggota.html" class="nav-item" id="admin-nav-anggota">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <span>Kelola Anggota</span>
+        </a>
+
+        <!-- 4. Kelola E-Learning -->
+        <a href="kelola-elearning.html" class="nav-item" id="admin-nav-elearning">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span>Kelola E-Learning</span>
+        </a>
+
+        <!-- 5. Kelola Publikasi -->
+        <a href="kelola-publikasi.html" class="nav-item" id="admin-nav-publikasi">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <span>Kelola Publikasi</span>
+        </a>
+
+        <div class="nav-section-label" style="margin-top:0.75rem;">LAYANAN &amp; DISTRIBUSI</div>
+
+        <!-- 6. Kelola Perpustakaan -->
+        <a href="kelola-perpustakaan.html" class="nav-item" id="admin-nav-perpustakaan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          <span>Kelola Perpustakaan</span>
+        </a>
+
+        <!-- 7. Kelola Komunitas -->
+        <a href="kelola-komunitas.html" class="nav-item" id="admin-nav-komunitas">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Kelola Komunitas</span>
+        </a>
+
+        <!-- 8. Kelola Cetak Naskah -->
+        <a href="kelola-cetak.html" class="nav-item" id="admin-nav-cetak">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          <span>Kelola Cetak &amp; ISBN</span>
+        </a>
+
+        <!-- 9. Hall of Fame & Sertifikat -->
+        <a href="kelola-sertifikat.html" class="nav-item" id="admin-nav-sertifikat">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"/>
+          </svg>
+          <span>Sertifikat &amp; Hall of Fame</span>
+        </a>
+
+        <!-- 10. Pengaturan Sistem (Active) -->
+        <a href="kelola-pengaturan.html" class="nav-item active" id="admin-nav-pengaturan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Pengaturan Sistem</span>
+        </a>
+      </nav>
+
+      <!-- Mode Switcher to Member Dashboard -->
+      <div class="sidebar-switch-mode">
+        <a href="dashboard.html" class="btn-switch-mode" id="switchModeMemberBtn">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Beralih Mode Anggota</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         2. MAIN CONTENT AREA & TOP HEADER (100% UNIFIED)
+         ==================================================================== -->
+    <div class="main-wrapper">
+
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Buka navigasi">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+
+          <!-- Search Bar with Ctrl K shortcut -->
+          <div class="header-search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="headerSearchInput" placeholder="Cari parameter konfigurasi, modul, aturan..." aria-label="Pencarian">
+            <span class="search-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button with Badge 3 -->
+          <button id="notifBellBtn" class="header-action-btn" aria-label="Notifikasi Sistem">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="action-badge">3</span>
+          </button>
+
+          <!-- User Identity Pill & Dropdown -->
+          <div class="user-dropdown-container">
+            <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Admin">
+              <div class="user-avatar-small">FI</div>
+              <div class="user-pill-info">
+                <span class="user-pill-name">Fajar Ilhami</span>
+                <span class="user-pill-role">Admin Kurator</span>
+              </div>
+              <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- User Profile Dropdown Menu -->
+            <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar">FI</div>
+                <div class="user-dropdown-info">
+                  <span class="user-dropdown-name">Fajar Ilhami</span>
+                  <span class="user-dropdown-role">Admin Kurator</span>
+                  <span class="user-dropdown-email">kurator.literasi@gmail.com</span>
+                </div>
+              </div>
+              <div class="user-dropdown-items">
+                <a href="profil.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  <span>Profil Penulis</span>
+                </a>
+                <a href="pengaturan.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>Pengaturan Akun</span>
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <button type="button" class="user-dropdown-item logout" id="headerLogoutBtn" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Popover -->
+        <div id="notifPopover" class="notification-popover">
+          <div class="popover-header">
+            <span class="popover-title">Notifikasi Status Sistem</span>
+            <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;">Tandai semua dibaca</span>
+          </div>
+          <div class="popover-body">
+            <div class="popover-item">
+              <div class="notif-icon-box review">🛡️</div>
+              <div class="notif-content">
+                <div class="notif-message">Pencadangan basis data berkala berhasil disimpan secara otomatis.</div>
+                <div class="notif-time">Pukul 02:00 WIB</div>
+              </div>
+            </div>
+            <div class="popover-item">
+              <div class="notif-icon-box published">🔗</div>
+              <div class="notif-content">
+                <div class="notif-message">Koneksi API Perpusnas RI ISBN status: <strong>Online &amp; Aktif</strong>.</div>
+                <div class="notif-time">Pukul 01:15 WIB</div>
+              </div>
+            </div>
+          </div>
+          <a href="#kelola-pengaturan" class="popover-footer">Buka Audit Log Keamanan →</a>
+        </div>
+      </header>
+
+      <!-- Main Body Container -->
+      <main class="content-body">
+
+        <!-- ====================================================================
+             1. HERO OVERVIEW BANNER (GRADIENT SLATE / DARK SKY MODERN)
+             ==================================================================== -->
+        <section class="settings-hero-banner">
+          <div class="settings-hero-content">
+            <div class="settings-hero-badge-status">
+              Sistem Berjalan Normal • Versi Platform 2.4.0-PROD
+            </div>
+            <h1>Pusat Konfigurasi &amp; Pengaturan Sistem <span>KERTAS KATA</span></h1>
+            <p>
+              Kontrol tata kelola platform terpadu: identitas platform &amp; komunitas, kebijakan kurasi &amp; publikasi naskah, ambang batas ketuntasan E-Learning 32 JP, aturan gamifikasi poin/lencana, integrasi API ISBN Perpusnas, hingga manajemen keamanan sesi dan cadangan sistem.
+            </p>
+            <div class="settings-hero-actions">
+              <button type="button" class="settings-hero-btn primary" onclick="window.saveAllSettings(event)">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                </svg>
+                <span>💾 Simpan Semua Perubahan</span>
+              </button>
+              <button type="button" class="settings-hero-btn secondary" onclick="window.openResetModal()">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                <span>🔄 Pulihkan Default</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             2. 4 KARTU STAT METRIK SISTEM (2 PER BARIS DI MOBILE)
+             ==================================================================== -->
+        <section class="admin-stats-grid settings-stats-grid">
+          <!-- Card 1: Status Operasional -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <span class="admin-stat-label">Status Operasional</span>
+              <div class="admin-stat-icon-box green">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-val">100%</div>
+            <div class="admin-stat-meta">
+              <span class="meta-tag positive">Normal &amp; Stabil</span>
+              <span class="meta-desc">Semua API Terhubung</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Modul Pengaturan -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <span class="admin-stat-label">Modul Pengaturan</span>
+              <div class="admin-stat-icon-box blue">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-val">6</div>
+            <div class="admin-stat-meta">
+              <span class="meta-tag neutral">48 Parameter</span>
+              <span class="meta-desc">Terkontrol Lengkap</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Keamanan Otentikasi -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <span class="admin-stat-label">Keamanan Sesi</span>
+              <div class="admin-stat-icon-box purple">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-val">256-bit</div>
+            <div class="admin-stat-meta">
+              <span class="meta-tag positive">2FA &amp; Enkripsi</span>
+              <span class="meta-desc">Timeout 60 Menit</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Cadangan Basis Data -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-top">
+              <span class="admin-stat-label">Cadangan Data</span>
+              <div class="admin-stat-icon-box orange">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                </svg>
+              </div>
+            </div>
+            <div class="admin-stat-val">1.240 MB</div>
+            <div class="admin-stat-meta">
+              <span class="meta-tag positive">Terjadwal Harian</span>
+              <span class="meta-desc">02:00 WIB Subuh</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             3. SETTINGS NAVIGATION TABS (6 TABS)
+             ==================================================================== -->
+        <div class="settings-layout-wrapper">
+          <div class="settings-nav-tabs">
+            <button type="button" class="settings-tab-btn active" data-tab="tab-identity">
+              <span>🏢</span>
+              <span>Identitas Platform</span>
+            </button>
+            <button type="button" class="settings-tab-btn" data-tab="tab-editorial">
+              <span>✍️</span>
+              <span>Kebijakan Kurasi &amp; Naskah</span>
+            </button>
+            <button type="button" class="settings-tab-btn" data-tab="tab-elearning">
+              <span>🎓</span>
+              <span>E-Learning &amp; Sertifikasi 32 JP</span>
+            </button>
+            <button type="button" class="settings-tab-btn" data-tab="tab-gamification">
+              <span>🏆</span>
+              <span>Gamifikasi, Poin &amp; Lencana</span>
+            </button>
+            <button type="button" class="settings-tab-btn" data-tab="tab-integrations">
+              <span>🔗</span>
+              <span>Integrasi Percetakan &amp; ISBN</span>
+            </button>
+            <button type="button" class="settings-tab-btn" data-tab="tab-security">
+              <span>🛡️</span>
+              <span>Keamanan, Sesi &amp; Cadangan</span>
+            </button>
+          </div>
+
+          <form id="settingsMainForm">
+
+            <!-- ================================================================
+                 TAB 1: IDENTITAS PLATFORM & KOMUNITAS
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-identity">
+              <div class="settings-card-header">
+                <div>
+                  <h3>🏢 Identitas &amp; Pengenalan Platform KERTAS KATA</h3>
+                  <p>Informasi utama platform literasi, narasi sambutan publik, dan kontak pengelola resmi komunitas.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgPlatformName">Nama Resmi Platform *</label>
+                  <input type="text" id="cfgPlatformName" class="settings-input" value="KERTAS KATA Kabupaten Tangerang" required>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgTagline">Slogan / Tagline Platform *</label>
+                  <input type="text" id="cfgTagline" class="settings-input" value="Wadah Literasi, Pembelajaran Menulis, dan Publikasi Karya" required>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgContactEmail">Email Kontak Resmi Redaksi *</label>
+                  <input type="email" id="cfgContactEmail" class="settings-input" value="redaksi@kertaskata.tangerangkab.go.id" required>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgRegionCoverage">Cakupan Wilayah Komunitas</label>
+                  <input type="text" id="cfgRegionCoverage" class="settings-input" value="Kabupaten Tangerang (28 Kecamatan)" readonly>
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <label class="settings-label" for="cfgWelcomeNarration">Narasi Sambutan Pengunjung &amp; Anggota Baru</label>
+                  <textarea id="cfgWelcomeNarration" class="settings-textarea" rows="3">Mari wujudkan gagasan bernas untuk memajukan literasi masyarakat Kabupaten Tangerang. Modul belajar Anda siap dilanjutkan, dan pembaca menantikan karya terbaik Anda berikutnya.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 TAB 2: KEBIJAKAN KURASI & PUBLIKASI NASKAH
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-editorial" style="display: none;">
+              <div class="settings-card-header">
+                <div>
+                  <h3>✍️ Kebijakan Editorial &amp; Kurasi Naskah</h3>
+                  <p>Aturan penerimaan tulisan anggota, ambang batas kata, SLA review kurator, dan syarat cetak mandiri.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgMinArticleWords">
+                    <span>Batas Minimum Kata Naskah *</span>
+                    <span class="settings-label-sub">Standar: 800 kata</span>
+                  </label>
+                  <input type="number" id="cfgMinArticleWords" class="settings-input" value="800" min="300" max="3000">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgMaxDrafts">
+                    <span>Maksimum Draf Tersimpan per Anggota</span>
+                    <span class="settings-label-sub">Mencegah penumpukan naskah</span>
+                  </label>
+                  <input type="number" id="cfgMaxDrafts" class="settings-input" value="5" min="1" max="20">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgCuratorSla">
+                    <span>Target Waktu Review Kurator (SLA)</span>
+                    <span class="settings-label-sub">Hari kerja</span>
+                  </label>
+                  <select id="cfgCuratorSla" class="settings-select">
+                    <option value="2">2 Hari Kerja</option>
+                    <option value="3" selected>3 Hari Kerja (Rekomendasi)</option>
+                    <option value="5">5 Hari Kerja</option>
+                  </select>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgMinWorksForSelfPrint">
+                    <span>Syarat Hak Cetak Mandiri Ber-ISBN *</span>
+                    <span class="settings-label-sub">Selaras dengan dashboard anggota</span>
+                  </label>
+                  <input type="number" id="cfgMinWorksForSelfPrint" class="settings-input" value="10" min="1" max="25" title="Sesuai dashboard anggota: butuh 10 karya terbit">
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Sistem Otomatis Sensor Kata Kasar / SARA (Badwords Filter)</h4>
+                      <p>Menolak draf secara instan jika mendeteksi ujaran kebencian atau kata yang dilarang.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="cfgToggleBadwords" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Izinkan Kolom Diskusi &amp; Komentar Terbuka</h4>
+                      <p>Anggota terverifikasi dapat saling memberi tanggapan dan apresiasi pada karya terbit.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="cfgToggleComments" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 TAB 3: E-LEARNING & SERTIFIKASI 32 JP
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-elearning" style="display: none;">
+              <div class="settings-card-header">
+                <div>
+                  <h3>🎓 Parameter Pembelajaran &amp; Syarat E-Sertifikat 32 JP</h3>
+                  <p>Konfigurasi beban jam pelajaran (JP), ambang kelulusan kuis, dan persyaratan penerbitan sertifikat.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgTotalModules">Total Modul Pembelajaran Resmi</label>
+                  <input type="number" id="cfgTotalModules" class="settings-input" value="5" readonly>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgTotalJp">Beban Total Pelatihan (Jam Pelajaran)</label>
+                  <input type="number" id="cfgTotalJp" class="settings-input" value="32" readonly>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgMinQuizScore">
+                    <span>Skor Minimum Kelulusan Kuis per Modul *</span>
+                    <span class="settings-label-sub">Skala 0 - 100</span>
+                  </label>
+                  <input type="number" id="cfgMinQuizScore" class="settings-input" value="75" min="60" max="90">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgCertArticles">
+                    <span>Syarat Karya Terbit untuk Klaim 32 JP *</span>
+                    <span class="settings-label-sub">Selaras dengan profil.html &amp; dashboard.html</span>
+                  </label>
+                  <input type="number" id="cfgCertArticles" class="settings-input" value="3" min="1" max="10" title="Sesuai profil anggota: butuh 3 karya terbit">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgCertPrefix">Format Awalan Nomor Registrasi Sertifikat</label>
+                  <input type="text" id="cfgCertPrefix" class="settings-input" value="SRT/KT-TNG" style="font-family:monospace;">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label" for="cfgSignerName">Nama Penandatangan Resmi Sertifikat</label>
+                  <input type="text" id="cfgSignerName" class="settings-input" value="Fajar Ilhami (Ketua Tim Kurator Komunitas)">
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Penerbitan E-Sertifikat Otomatis saat Syarat Terpenuhi</h4>
+                      <p>Generate nomor registrasi dan QR Code langsung begitu anggota tuntas 5 modul dan 3 karya.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="cfgToggleAutoCert" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 TAB 4: GAMIFIKASI, POIN & ATURAN LENCANA
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-gamification" style="display: none;">
+              <div class="settings-card-header">
+                <div>
+                  <h3>🏆 Aturan Gamifikasi, Perolehan XP &amp; Tingkat Penulis</h3>
+                  <p>Penetapan poin pengalaman (XP) atas interaksi literasi anggota untuk perhitungan Hall of Fame.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label">Poin XP Membaca &amp; Menyelesaikan Artikel</label>
+                  <input type="number" class="settings-input" value="5" min="1">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Poin XP Memberikan Ulasan / Komentar Sehat</label>
+                  <input type="number" class="settings-input" value="10" min="1">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Poin XP Lulus Kuis Modul Pembelajaran</label>
+                  <input type="number" class="settings-input" value="50" min="10">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Poin XP Karya Lolos Kurasi Redaksi (Published)</label>
+                  <input type="number" class="settings-input" value="100" min="20">
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <h4 style="font-family:var(--font-heading); font-size:0.875rem; font-weight:700; color:var(--text-main); margin:0.75rem 0 0.5rem 0;">
+                    Ambang Batas Jenjang Peringkat Penulis (Level)
+                  </h4>
+                  <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.75rem;">
+                    <div style="background:#f8fafc; padding:0.75rem; border-radius:10px; border:1px solid #e2e8f0; font-size:0.75rem;">
+                      <div style="font-weight:700; color:#64748b;">Tingkat 1: Pemula</div>
+                      <div style="color:#0f172a; font-weight:600; margin-top:0.25rem;">0 - 499 XP</div>
+                    </div>
+                    <div style="background:#f8fafc; padding:0.75rem; border-radius:10px; border:1px solid #e2e8f0; font-size:0.75rem;">
+                      <div style="font-weight:700; color:#0284c7;">Tingkat 2: Penulis Muda</div>
+                      <div style="color:#0f172a; font-weight:600; margin-top:0.25rem;">500 - 1.499 XP</div>
+                    </div>
+                    <div style="background:#f8fafc; padding:0.75rem; border-radius:10px; border:1px solid #e2e8f0; font-size:0.75rem;">
+                      <div style="font-weight:700; color:#7c3aed;">Tingkat 3: Penulis Utama</div>
+                      <div style="color:#0f172a; font-weight:600; margin-top:0.25rem;">1.500 - 2.999 XP</div>
+                    </div>
+                    <div style="background:#f8fafc; padding:0.75rem; border-radius:10px; border:1px solid #e2e8f0; font-size:0.75rem;">
+                      <div style="font-weight:700; color:#d97706;">Tingkat 4: Maestro</div>
+                      <div style="color:#0f172a; font-weight:600; margin-top:0.25rem;">&ge; 3.000 XP</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 TAB 5: INTEGRASI PERCETAKAN & ISBN PERPUSNAS
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-integrations" style="display: none;">
+              <div class="settings-card-header">
+                <div>
+                  <h3>🔗 Integrasi Layanan Cetak Mitra &amp; ISBN Perpusnas</h3>
+                  <p>Konektivitas sistem pendaftaran nomor ISBN resmi ke Perpustakaan Nasional dan API percetakan.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label">
+                    <span>Endpoint API ISBN Perpusnas RI</span>
+                    <span class="api-status-badge connected">● Terhubung (Online)</span>
+                  </label>
+                  <input type="url" class="settings-input" value="https://isbn.perpusnas.go.id/api/v2/registry" style="font-family:monospace;">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Kunci Otentikasi API Perpusnas (API Key)</label>
+                  <input type="password" class="settings-input" value="KT-ISBN-PROD-98842-SEC" style="font-family:monospace;">
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">
+                    <span>Mitra Percetakan Resmi Komunitas</span>
+                    <span class="api-status-badge connected">● Siap Cetak</span>
+                  </label>
+                  <input type="text" class="settings-input" value="PT Percetakan Tangerang Gemilang (Mitra Resmi)" readonly>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Biaya Standar Dasar per Eksemplar (A5 Bookpaper)</label>
+                  <input type="text" class="settings-input" value="Rp 48.000 / buku (Transparan Bebas Pungli)">
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Gunakan Mode Sandbox / Uji Coba Pendaftaran ISBN</h4>
+                      <p>Gunakan untuk simulasi permohonan tanpa mendaftarkan barcode langsung ke server nasional.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 TAB 6: KEAMANAN, SESI & CADANGAN
+                 ================================================================ -->
+            <div class="settings-panel-card" id="tab-security" style="display: none;">
+              <div class="settings-card-header">
+                <div>
+                  <h3>🛡️ Keamanan Sistem, Kebijakan Sesi &amp; Pencadangan Basis Data</h3>
+                  <p>Perlindungan akun administrator, pembatasan percobaan login, dan manajemen arsip cadangan sistem.</p>
+                </div>
+              </div>
+
+              <div class="settings-form-grid">
+                <div class="settings-form-group">
+                  <label class="settings-label">Durasi Waktu Sesi Idle Admin (Timeout)</label>
+                  <select class="settings-select">
+                    <option value="30">30 Menit</option>
+                    <option value="60" selected>60 Menit (1 Jam - Standar Keamanan)</option>
+                    <option value="120">120 Menit (2 Jam)</option>
+                  </select>
+                </div>
+
+                <div class="settings-form-group">
+                  <label class="settings-label">Batas Percobaan Gagal Login (Brute Force Protection)</label>
+                  <select class="settings-select">
+                    <option value="3">3 Kali Percobaan</option>
+                    <option value="5" selected>5 Kali Percobaan (Blokir Sementara 15 Menit)</option>
+                  </select>
+                </div>
+
+                <div class="settings-form-group full-width">
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Otentikasi Dua Faktor (2FA) untuk Seluruh Akun Kurator</h4>
+                      <p>Wajibkan verifikasi kode OTP / Authenticator App saat masuk ke portal panel admin.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="settings-toggle-row">
+                    <div class="settings-toggle-info">
+                      <h4>Pencadangan Otomatis Harian (Daily Automated Backup)</h4>
+                      <p>Arsipkan seluruh naskah, draf, e-book, dan data anggota ke penyimpanan terenkripsi setiap pukul 02:00 WIB.</p>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Backup and Session Actions -->
+                <div class="settings-form-group full-width" style="margin-top: 1rem; padding-top: 1.25rem; border-top: 1px dashed #cbd5e1;">
+                  <h4 style="font-family:var(--font-heading); font-size:0.875rem; font-weight:700; color:var(--text-main); margin-bottom:0.75rem;">
+                    Tindakan Pemeliharaan &amp; Cadangan Manual
+                  </h4>
+                  <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                    <button type="button" class="btn btn-secondary" id="btnBackupDatabase" style="font-size:0.8125rem; font-weight:600;">
+                      🗄️ Unduh Cadangan Basis Data (SQL.GZ)
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="window.invalidateAllSessions()" style="font-size:0.8125rem; font-weight:600; color:#dc2626;">
+                      ⚠️ Putuskan Sesi Perangkat Lain
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================================================
+                 BOTTOM STICKY SAVE BAR
+                 ================================================================ -->
+            <div class="settings-save-bar">
+              <div>
+                <div style="font-family:var(--font-heading); font-size:0.875rem; font-weight:700; color:var(--text-main);">
+                  Perubahan Belum Disimpan?
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">
+                  Pastikan memeriksa kembali nilai parameter sebelum menerapkan ke sistem publik.
+                </div>
+              </div>
+              <div class="settings-save-actions">
+                <button type="button" class="btn btn-secondary" onclick="window.openResetModal()" style="font-size:0.8125rem;">
+                  Batal / Reset
+                </button>
+                <button type="submit" class="btn btn-primary" style="font-size:0.8125rem; font-weight:700; background:#0284c7;">
+                  💾 Terapkan Konfigurasi Sistem
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       4. MODAL RESET SETTINGS CONFIRMATION (#resetSettingsModal)
+       ==================================================================== -->
+  <div id="resetSettingsModal" class="inline-review-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalResetHeading">
+    <div style="background:#ffffff; border-radius:20px; width:100%; max-width:480px; padding:1.75rem; box-shadow:0 25px 50px rgba(0,0,0,0.25);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 id="modalResetHeading" style="font-family:var(--font-heading); font-size:1.125rem; font-weight:800; color:#dc2626; margin:0;">
+          ⚠️ Pulihkan Pengaturan Default?
+        </h3>
+        <button type="button" onclick="closeModal('resetSettingsModal')" style="background:none; border:none; cursor:pointer; font-size:1.25rem; color:var(--text-muted);" title="Tutup Modal">✕</button>
+      </div>
+
+      <p style="font-size:0.8125rem; color:var(--text-main); line-height:1.6; margin-bottom:1.25rem;">
+        Tindakan ini akan mengembalikan seluruh parameter kurasi naskah, batas ketuntasan 32 JP, bobot poin gamifikasi, dan durasi sesi ke setelan pabrik default platform KERTAS KATA. Data naskah dan karya terbit anggota tidak akan terhapus.
+      </p>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('resetSettingsModal')" style="font-size:0.8125rem;">
+          Batal
+        </button>
+        <button type="button" class="btn btn-primary" onclick="window.confirmRestoreDefaults()" style="font-size:0.8125rem; font-weight:700; background:#dc2626;">
+          Ya, Pulihkan Default
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Scripts -->
+  <script src="js/header.js"></script>
+  <script src="js/kelola-pengaturan.js"></script>
+</body>
+</html>

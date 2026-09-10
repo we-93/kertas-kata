@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fasilitasi Cetak Naskah Buku - KERTAS KATA</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/cetak-naskah.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ====================================================================
+         1. SIDEBAR KIRI (NAVIGASI UTAMA)
+         ==================================================================== -->
+    <aside class="sidebar-left" id="sidebarLeft">
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">KERTAS<span>KATA</span></div>
+          <div class="brand-sub">Kab. Tangerang</div>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">MENU UTAMA</div>
+
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="nav-item" id="nav-dashboard">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- 2. E-Learning -->
+        <a href="elearning.html" class="nav-item" id="nav-elearning">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span>E-Learning</span>
+          <span class="nav-badge">Modul 5</span>
+        </a>
+
+        <!-- 3. Menulis -->
+        <a href="menulis.html" class="nav-item" id="nav-menulis">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Menulis</span>
+        </a>
+
+        <!-- 4. Publikasi -->
+        <a href="publikasi.html" class="nav-item" id="nav-publikasi">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <span>Publikasi</span>
+          <span class="nav-badge badge-accent">3 Terbit</span>
+        </a>
+
+        <!-- 5. Profil -->
+        <a href="profil.html" class="nav-item" id="nav-profil">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <span>Profil</span>
+        </a>
+
+        <div class="nav-section-label">EKSPLORASI & LAYANAN</div>
+
+        <!-- 6. Perpustakaan -->
+        <a href="perpustakaan.html" class="nav-item" id="nav-perpustakaan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          <span>Perpustakaan</span>
+        </a>
+
+        <!-- 7. Komunitas -->
+        <a href="komunitas.html" class="nav-item" id="nav-komunitas">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Komunitas</span>
+          <span class="nav-badge">2 Baru</span>
+        </a>
+
+        <!-- 8. Cetak Naskah (ACTIVE - TANPA BADGE SESUAI INSTRUKSI) -->
+        <a href="cetak-naskah.html" class="nav-item active" id="nav-cetak">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          <span>Cetak Naskah</span>
+        </a>
+
+        <!-- 9. Pengaturan -->
+        <a href="pengaturan.html" class="nav-item" id="nav-pengaturan">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Pengaturan</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ====================================================================
+         2. MAIN WRAPPER (HEADER + CONTENT)
+         ==================================================================== -->
+    <div class="main-wrapper" style="margin-right: 0;">
+      
+      <!-- Top Header Glassmorphic -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Buka Menu Navigasi">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          
+          <div class="header-search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="headerSearchInput" placeholder="Cari program antologi, nomor resi cetak, atau status naskah..." aria-label="Pencarian">
+            <span class="search-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button -->
+          <button id="notifBellBtn" class="header-action-btn" aria-label="Notifikasi">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="action-badge">3</span>
+          </button>
+
+          <!-- User Identity Pill & Dropdown -->
+          <div class="user-dropdown-container">
+            <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Anggota">
+              <div class="user-avatar-small">RH</div>
+              <div class="user-pill-info">
+                <span class="user-pill-name">Rahmat Hidayat</span>
+                <span class="user-pill-role">Anggota (Tigaraksa)</span>
+              </div>
+              <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- User Profile Dropdown Menu -->
+            <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar">RH</div>
+                <div class="user-dropdown-info">
+                  <span class="user-dropdown-name">Rahmat Hidayat</span>
+                  <span class="user-dropdown-role">Anggota (Tigaraksa)</span>
+                  <span class="user-dropdown-email">rahmat.hidayat@gmail.com</span>
+                </div>
+              </div>
+              <div class="user-dropdown-items">
+                <a href="profil.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  <span>Profil Penulis</span>
+                </a>
+                <a href="pengaturan.html" class="user-dropdown-item" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>Pengaturan Akun</span>
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <button type="button" class="user-dropdown-item logout" id="headerLogoutBtn" role="menuitem">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Popover -->
+        <div id="notifPopover" class="notification-popover">
+          <div class="popover-header">
+            <span class="popover-title">Notifikasi Terbaru</span>
+            <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;">Tandai semua dibaca</span>
+          </div>
+          <div class="popover-body">
+            <div class="popover-item unread">
+              <div class="notif-icon-box review">✏️</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Mentor Dian</strong> memberikan 2 catatan review pada draf artikel Anda.</div>
+                <div class="notif-time">15 menit yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item unread">
+              <div class="notif-icon-box forum">💬</div>
+              <div class="notif-content">
+                <div class="notif-message"><strong>Siti Aminah</strong> mengundang Anda ke Forum Private: "Kajian Sejarah Pesisir Tangerang".</div>
+                <div class="notif-time">2 jam yang lalu</div>
+              </div>
+            </div>
+            <div class="popover-item">
+              <div class="notif-icon-box published">🎉</div>
+              <div class="notif-content">
+                <div class="notif-message">Artikel Anda <strong>"Menelusuri Jejak Sejarah Benteng"</strong> berhasil diterbitkan ke publik!</div>
+                <div class="notif-time">Kemarin, 14:20</div>
+              </div>
+            </div>
+          </div>
+          <a href="#notifikasi" class="popover-footer">Lihat Semua Notifikasi →</a>
+        </div>
+      </header>
+
+      <!-- Content Body (TANPA BREADCRUMB SESUAI INSTRUKSI TETAP) -->
+      <main class="content-body" style="margin-right: 0; max-width: 100%; box-sizing: border-box;">
+        
+        <!-- HERO OVERVIEW BANNER (Sudut Melengkung 20px) -->
+        <section class="cetak-hero-banner">
+          <div class="cetak-hero-content">
+            <div class="cetak-hero-text">
+              <!-- Judul & Deskripsi Sesuai Feedback Pengguna -->
+              <h1>Fasilitasi Cetak Naskah Buku</h1>
+              <p>Wujudkan karya tulisan digital Anda menjadi buku cetak ber-ISBN resmi. Tersedia 2 pilihan jalur: bergabung dalam Proyek Antalogi/Bunga Rampai yang diinisiasi Admin (cukup kirim 1 naskah), atau terbitkan Buku Pribadi karya mandiri Anda (minimal 10 naskah terbit).</p>
+            </div>
+
+            <!-- 4 Kartu Metrik Ringkasan (Sudut Melengkung 14px) -->
+            <div class="cetak-stats-grid">
+              <div class="cetak-stat-card">
+                <div class="cetak-stat-number">
+                  <span>12</span>
+                  <span class="cetak-stat-unit">Naskah</span>
+                </div>
+                <div class="cetak-stat-label">Naskah Terbit Anda</div>
+                <span class="cetak-stat-badge">✓ Lolos Syarat (Min. 10)</span>
+              </div>
+
+              <div class="cetak-stat-card">
+                <div class="cetak-stat-number">
+                  <span>3</span>
+                  <span class="cetak-stat-unit">Tema</span>
+                </div>
+                <div class="cetak-stat-label">Antologi Bunga Rampai</div>
+                <span class="cetak-stat-badge" style="background: rgba(59, 130, 246, 0.25); color: #bfdbfe; border-color: rgba(59, 130, 246, 0.35);">Pendaftaran Terbuka</span>
+              </div>
+
+              <div class="cetak-stat-card">
+                <div class="cetak-stat-number">
+                  <span>2</span>
+                  <span class="cetak-stat-unit">Order</span>
+                </div>
+                <div class="cetak-stat-label">Pengajuan Berjalan</div>
+                <span class="cetak-stat-badge" style="background: rgba(245, 158, 11, 0.25); color: #fef08a; border-color: rgba(245, 158, 11, 0.35);">1 Cetak + 1 Kurasi</span>
+              </div>
+
+              <div class="cetak-stat-card">
+                <div class="cetak-stat-number">
+                  <span>15</span>
+                  <span class="cetak-stat-unit">Eks</span>
+                </div>
+                <div class="cetak-stat-label">Total Buku Fisik Tercetak</div>
+                <span class="cetak-stat-badge">Koleksi Penulis</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB NAVIGATION BAR -->
+        <nav class="cetak-nav-tabs" aria-label="Navigasi Menu Cetak">
+          <button class="cetak-tab-btn active" data-tab="paneMandiri">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+            <span>Cetak Buku Mandiri</span>
+            <span class="cetak-tab-badge">Eligible</span>
+          </button>
+
+          <button class="cetak-tab-btn" data-tab="paneBungaRampai">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span>Antologi Bunga Rampai</span>
+            <span class="cetak-tab-badge">3 Tema</span>
+          </button>
+
+          <button class="cetak-tab-btn" data-tab="paneRiwayat">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+            </svg>
+            <span>Riwayat & Pelacakan Status</span>
+            <span class="cetak-tab-badge">2 Aktif</span>
+          </button>
+        </nav>
+
+        <!-- ==================================================================
+             TAB PANE 1: CETAK BUKU MANDIRI (CN-01, CN-02, CN-03)
+             ================================================================== -->
+        <div class="cetak-pane active" id="paneMandiri">
+          
+          <!-- Eligibility Card -->
+          <div class="eligibility-card">
+            <div class="eligibility-icon-box">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="eligibility-content">
+              <div class="eligibility-title">
+                <span>Selamat! Anda Memenuhi Syarat Cetak Buku Mandiri</span>
+                <span class="cetak-stat-badge">Status: Terverifikasi</span>
+              </div>
+              <p class="eligibility-desc">
+                Anda telah mempublikasikan <strong>12 tulisan resmi terbit</strong> di portal KERTAS KATA (melebihi ambang batas minimum 10 tulisan). Anda berhak mengajukan penerbitan buku solo kompilasi ber-ISBN resmi dengan subsidi cetak komunitas.
+              </p>
+              <div class="eligibility-progress-wrap">
+                <div class="eligibility-progress-labels">
+                  <span>Capaian Naskah Terbit: 12 Artikel</span>
+                  <span>Target: Min. 10 (120% Lolos)</span>
+                </div>
+                <div class="eligibility-progress-bar">
+                  <div class="eligibility-progress-fill" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Layout: Form (Left 65%) + Cost Calculator Summary (Right 35%) -->
+          <div class="mandiri-layout">
+            
+            <!-- Left Form Card -->
+            <div class="cetak-form-card">
+              <div class="form-section-title">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#2563eb">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+                <span>Formulir Pengajuan Naskah Buku Solo</span>
+              </div>
+              <div class="form-section-subtitle">Lengkapi rincian naskah, pilih tulisan yang akan dibukukan, dan tentukan spesifikasi cetak fisik Anda.</div>
+
+              <!-- Judul Buku -->
+              <div class="field-group">
+                <label class="field-label" for="bookTitleInput">Judul Buku Naskah Pribadi <span class="required">*</span></label>
+                <input type="text" class="field-input" id="bookTitleInput" placeholder="Contoh: Merajut Gagasan di Tepian Cisadane: Bunga Rampai Esai & Opini" value="Kompilasi Opini Kebijakan Publik & Literasi 2026">
+              </div>
+
+              <!-- Pilihan Artikel dari Daftar Portofolio (Min 10) -->
+              <div class="field-group">
+                <label class="field-label">Pilih Tulisan Terbit yang Dibukukan <span class="required">*</span></label>
+                <div class="article-select-header">
+                  <span>Daftar Karya Terbit Anda:</span>
+                  <span id="selectedArticlesCount">Terpilih 10 dari Min. 10 Naskah</span>
+                </div>
+                <div class="article-select-container" id="articleListContainer">
+                  <!-- Injected by JavaScript -->
+                </div>
+              </div>
+
+              <!-- Format Ukuran Buku -->
+              <div class="field-group">
+                <label class="field-label">Pilihan Format Ukuran Buku</label>
+                <div class="spec-cards-grid">
+                  <div class="spec-radio-card active" data-group="format" data-value="a5">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">Format A5 (14.8 x 21 cm)</span>
+                      <span class="spec-radio-desc" style="color: #2563eb; font-weight: 700;">Standar Populer</span>
+                    </div>
+                    <div class="spec-radio-desc">Cocok untuk kumpulan cerpen, antologi puisi, esai sastra, dan buku saku populer.</div>
+                  </div>
+                  <div class="spec-radio-card" data-group="format" data-value="b5">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">Format B5 / UNESCO (17.6 x 25 cm)</span>
+                      <span class="spec-radio-desc" style="color: #059669; font-weight: 700;">Standar Akademik</span>
+                    </div>
+                    <div class="spec-radio-desc">Cocok untuk kompilasi riset ilmiah, naskah kajian kurikulum, dan modul pembelajaran.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jenis Kertas Isi -->
+              <div class="field-group">
+                <label class="field-label">Jenis Kertas Isi Halaman</label>
+                <div class="spec-cards-grid">
+                  <div class="spec-radio-card active" data-group="paper" data-value="bookpaper">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">Bookpaper Premium 72gsm</span>
+                      <span class="spec-radio-desc" style="color: #d97706; font-weight: 600;">Ramah Mata</span>
+                    </div>
+                    <div class="spec-radio-desc">Kertas bernuansa krem klasik, bobot ringan, standar penerbit mayor buku bacaan.</div>
+                  </div>
+                  <div class="spec-radio-card" data-group="paper" data-value="hvs">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">HVS Putih Bersih 80gsm</span>
+                      <span class="spec-radio-desc" style="color: #475569; font-weight: 600;">+Rp 4.000 / eks</span>
+                    </div>
+                    <div class="spec-radio-desc">Kertas putih cerah, kontras tinggi, ideal jika naskah menyertakan grafik atau diagram.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jenis Jilid & Cover -->
+              <div class="field-group">
+                <label class="field-label">Jenis Jilid & Sampul Buku</label>
+                <div class="spec-cards-grid">
+                  <div class="spec-radio-card active" data-group="cover" data-value="soft">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">Soft Cover Doff / Glossy</span>
+                      <span class="spec-radio-desc" style="color: #2563eb; font-weight: 600;">Standar</span>
+                    </div>
+                    <div class="spec-radio-desc">Laminasi doff elegan, finishing bending lem panas tahan lama anti lepas.</div>
+                  </div>
+                  <div class="spec-radio-card" data-group="cover" data-value="hard">
+                    <div class="spec-radio-header">
+                      <span class="spec-radio-title">Hard Cover Eksklusif Emboss</span>
+                      <span class="spec-radio-desc" style="color: #b45309; font-weight: 600;">+Rp 15.000 / eks</span>
+                    </div>
+                    <div class="spec-radio-desc">Jilid jahit benang hardcover kokoh dengan pita pembatas buku premium.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jumlah Eksemplar -->
+              <div class="field-group">
+                <label class="field-label">Jumlah Cetak Fisik (Eksemplar) <span class="required">*</span></label>
+                <div class="quantity-control-wrap">
+                  <button type="button" class="quantity-btn" id="btnQtyMinus" aria-label="Kurangi Eksemplar">-</button>
+                  <input type="number" class="quantity-input" id="exemplarInput" value="25" min="5" max="500">
+                  <button type="button" class="quantity-btn" id="btnQtyPlus" aria-label="Tambah Eksemplar">+</button>
+                  
+                  <div class="quantity-presets">
+                    <button type="button" class="preset-pill" data-qty="10">10 Eks</button>
+                    <button type="button" class="preset-pill active" data-qty="25">25 Eks</button>
+                    <button type="button" class="preset-pill" data-qty="50">50 Eks</button>
+                    <button type="button" class="preset-pill" data-qty="100">100 Eks</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AREA UNGGAH KHUSUS (SESUAI KOMENTAR PENGGUNA) -->
+              <div class="field-group">
+                <label class="field-label">Area Unggah Naskah Tambahan & Cover</label>
+                <input type="file" id="fileUploadInput" style="display: none;" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+                
+                <div class="upload-dropzone" id="uploadDropzone">
+                  <svg class="upload-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                  </svg>
+                  <div class="upload-main-text">Area unggah teks Kata Pengantar dan Sinopsis (PDF atau Doc) & Desain Cover jika sudah punya</div>
+                  <div class="upload-sub-text">Klik untuk memilih file dari komputer Anda atau seret file ke area ini (Maks. 25MB)</div>
+                  
+                  <!-- Tag file terpilih -->
+                  <div class="uploaded-file-tag" id="uploadedFileTag">
+                    <span>📄 <span id="uploadedFileName">Sinopsis_dan_Kata_Pengantar.docx</span></span>
+                    <span style="color: #0284c7; font-weight: 700;">✓ Terlampir</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Alamat Pengiriman Buku -->
+              <div class="field-group">
+                <label class="field-label" for="shippingAddressInput">Alamat Lengkap Pengiriman Buku Fisik <span class="required">*</span></label>
+                <textarea class="field-textarea" id="shippingAddressInput" rows="2" placeholder="Tuliskan nama penerima, jalan, nomor rumah, RT/RW, kelurahan/desa, kecamatan, dan kode pos...">Gedung Pusat Pelayanan Komunitas Literasi, Jl. Raya Pemda Tigaraksa No. 12, Kab. Tangerang, 15720</textarea>
+              </div>
+
+              <!-- Nomor Kontak WhatsApp -->
+              <div class="field-group" style="margin-bottom: 0;">
+                <label class="field-label" for="whatsappInput">Nomor WhatsApp Konfirmasi Tim Percetakan <span class="required">*</span></label>
+                <input type="text" class="field-input" id="whatsappInput" value="0812-9876-5432" placeholder="08xxxxxxxxxx">
+              </div>
+
+            </div>
+
+            <!-- Right Sticky Cost Calculator Card -->
+            <div class="cetak-summary-sticky">
+              <div class="cetak-summary-card">
+                <div class="summary-card-title">Kalkulator Estimasi Biaya</div>
+
+                <div class="summary-line">
+                  <span>Biaya Satuan Buku:</span>
+                  <span class="bold" id="summaryUnitFormat">Rp 38.000 / eks (A5)</span>
+                </div>
+
+                <div class="summary-line">
+                  <span>Kuantitas Cetak:</span>
+                  <span class="bold" id="summaryExemplarQty">25 Eksemplar</span>
+                </div>
+
+                <div class="summary-line">
+                  <span>Subtotal Produksi:</span>
+                  <span class="bold" id="summarySubtotalProduction">Rp 950.000</span>
+                </div>
+
+                <div class="summary-line subsidy">
+                  <span>Subsidi Komunitas Literasi:</span>
+                  <span id="summarySubsidyDiscount">- Rp 142.500 (15%)</span>
+                </div>
+
+                <div class="summary-line">
+                  <span>Ongkos Kirim Kasda Courier:</span>
+                  <span id="summaryShippingCost">Rp 25.000</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-total-wrap">
+                  <span class="summary-total-label">Total Estimasi:</span>
+                  <span class="summary-total-price" id="summaryTotalPrice">Rp 832.500</span>
+                </div>
+
+                <div class="production-estimate-box">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="flex-shrink: 0;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <div class="production-estimate-text">
+                    <strong>Estimasi Produksi & Layout:</strong><br>
+                    7-14 hari kerja setelah proofread tata letak dan pengurusan nomor ISBN disetujui kurator.
+                  </div>
+                </div>
+
+                <button type="button" class="btn-submit-mandiri" id="btnSubmitMandiri">
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                  </svg>
+                  <span>Ajukan Cetak Buku Mandiri</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             TAB PANE 2: BUNGA RAMPAI / ANTOLOGI KOMUNITAS (CN-04, CN-05, CN-06)
+             ================================================================== -->
+        <div class="cetak-pane" id="paneBungaRampai">
+          <div class="bunga-rampai-grid">
+            
+            <!-- Program 1 -->
+            <div class="anthology-card">
+              <div class="anthology-cover-header anthology-header-1">
+                <div class="anthology-badge-row">
+                  <span class="anthology-status-badge">● Pendaftaran Dibuka</span>
+                  <span class="anthology-category-tag">Cerpen & Sastra</span>
+                </div>
+                <div class="anthology-header-title">"Simfoni Kata di Tepian Cisadane: Potret Sosial & Kearifan Lokal"</div>
+              </div>
+              <div class="anthology-body">
+                <p class="anthology-desc">Kumpulan cerpen dan karya sastra terpilih dari penulis komunitas KERTAS KATA yang mengangkat keunikan tradisi pesisir, peradaban sungai Cisadane, dan dinamika sosial masyarakat.</p>
+                <div class="anthology-meta-box">
+                  <div class="anthology-quota-row">
+                    <span>Kuota Penulis Lolos:</span>
+                    <span><strong>18</strong> / 25 Terisi (72%)</span>
+                  </div>
+                  <div class="anthology-progress-track">
+                    <div class="anthology-progress-bar" style="width: 72%;"></div>
+                  </div>
+                  <div class="anthology-curator-row">
+                    <span>👨‍🏫 Kurator: Sarah Melati & Budi Santoso</span>
+                  </div>
+                  <div class="anthology-curator-row" style="margin-top: 0.25rem;">
+                    <span>⏰ Deadline: 30 September 2026</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-join-anthology" data-title='Antologi: "Simfoni Kata di Tepian Cisadane"'>
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                  </svg>
+                  <span>Gabung & Submit 1 Karya</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Program 2 -->
+            <div class="anthology-card">
+              <div class="anthology-cover-header anthology-header-2">
+                <div class="anthology-badge-row">
+                  <span class="anthology-status-badge">● Pendaftaran Dibuka</span>
+                  <span class="anthology-category-tag">Pendidikan & Esai</span>
+                </div>
+                <div class="anthology-header-title">"Menatap Masa Depan Pendidikan: Praktik Baik & Inovasi Pengajar"</div>
+              </div>
+              <div class="anthology-body">
+                <p class="anthology-desc">Buku antologi esai reflektif para anggota dan pegiat literasi mengenai strategi pembelajaran berdiferensiasi dan pemanfaatan teknologi literasi di era modern.</p>
+                <div class="anthology-meta-box">
+                  <div class="anthology-quota-row">
+                    <span>Kuota Penulis Lolos:</span>
+                    <span><strong>12</strong> / 20 Terisi (60%)</span>
+                  </div>
+                  <div class="anthology-progress-track">
+                    <div class="anthology-progress-bar" style="width: 60%; background: #059669;"></div>
+                  </div>
+                  <div class="anthology-curator-row">
+                    <span>👨‍🏫 Kurator: Dr. Rahmat Hidayat & Dewan Kurasi</span>
+                  </div>
+                  <div class="anthology-curator-row" style="margin-top: 0.25rem;">
+                    <span>⏰ Deadline: 15 Oktober 2026</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-join-anthology" data-title='Antologi: "Menatap Masa Depan Pendidikan"'>
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                  </svg>
+                  <span>Gabung & Submit 1 Karya</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Program 3 -->
+            <div class="anthology-card">
+              <div class="anthology-cover-header anthology-header-3">
+                <div class="anthology-badge-row">
+                  <span class="anthology-status-badge">● Pendaftaran Dibuka</span>
+                  <span class="anthology-category-tag">Ekonomi & UMKM</span>
+                </div>
+                <div class="anthology-header-title">"Geliat Industri Kreatif: Suara Warga Menembus Pasar Global"</div>
+              </div>
+              <div class="anthology-body">
+                <p class="anthology-desc">Kompilasi artikel investigatif dan opini jurnalistik warga yang menyorot geliat wirausaha desa mandiri, inovasi kriya, dan transformasi digital usaha mikro pedesaan.</p>
+                <div class="anthology-meta-box">
+                  <div class="anthology-quota-row">
+                    <span>Kuota Penulis Lolos:</span>
+                    <span><strong>8</strong> / 15 Terisi (53%)</span>
+                  </div>
+                  <div class="anthology-progress-track">
+                    <div class="anthology-progress-bar" style="width: 53%; background: #7c3aed;"></div>
+                  </div>
+                  <div class="anthology-curator-row">
+                    <span>👨‍🏫 Kurator: Tim Redaksi Ekonomi KERTAS KATA</span>
+                  </div>
+                  <div class="anthology-curator-row" style="margin-top: 0.25rem;">
+                    <span>⏰ Deadline: 31 Oktober 2026</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-join-anthology" data-title='Antologi: "Geliat Industri Kreatif & UMKM"'>
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                  </svg>
+                  <span>Gabung & Submit 1 Karya</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             TAB PANE 3: RIWAYAT & PELACAKAN STATUS (CN-07, CN-08)
+             ================================================================== -->
+        <div class="cetak-pane" id="paneRiwayat">
+          
+          <!-- Order 1: Sedang Diproses -->
+          <div class="history-card">
+            <div class="history-header">
+              <div class="history-order-info">
+                <h3>Buku Solo: "Kompilasi Opini Kebijakan Publik & Literasi 2026"</h3>
+                <div class="history-order-meta">
+                  <span>ID Pengajuan: <strong>#ORD-CTK-2026-0901</strong></span>
+                  <span>📅 Tanggal: 02 Sep 2026</span>
+                  <span>📦 Format A5 • 25 Eksemplar • Bookpaper 72gsm</span>
+                  <span>💳 Status Bayar: Terverifikasi</span>
+                </div>
+              </div>
+              <span class="history-badge processing">⚙️ Proses Cetak & Jilid</span>
+            </div>
+
+            <!-- 4-Step Tracker Bar -->
+            <div class="tracking-steps-container">
+              <div class="steps-list">
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Draf Diajukan</div>
+                  <div class="step-sub">02 Sep 2026, 10:15</div>
+                </div>
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Layout & ISBN</div>
+                  <div class="step-sub">04 Sep 2026, 14:20</div>
+                </div>
+                <div class="step-item active">
+                  <div class="step-circle">3</div>
+                  <div class="step-label">Naik Cetak & Jilid</div>
+                  <div class="step-sub">Est. Selesai: 11 Sep</div>
+                </div>
+                <div class="step-item">
+                  <div class="step-circle">4</div>
+                  <div class="step-label">Kirim ke Pemesan</div>
+                  <div class="step-sub">Kurir Kasda Express</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="history-action-bar">
+              <div class="courier-info">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#2563eb">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+                </svg>
+                <span>No. Resi Pra-Kirim: <strong>KASDA-TGR-2026090401</strong></span>
+              </div>
+              <div class="history-btns">
+                <button type="button" class="btn-track btn-track-courier" data-resi="KASDA-TGR-2026090401">Lacak Progres Percetakan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order 2: Selesai -->
+          <div class="history-card">
+            <div class="history-header">
+              <div class="history-order-info">
+                <h3>Antologi Bunga Rampai: "Tangerang Dalam Untaian Puisi Vol. 1"</h3>
+                <div class="history-order-meta">
+                  <span>ID Pengajuan: <strong>#ORD-ANT-2026-0714</strong></span>
+                  <span>📅 Tanggal: 15 Jul 2026</span>
+                  <span>📦 1 Eksemplar Bukti Terbit Penulis Kontributor</span>
+                  <span>🏷️ ISBN: 978-602-491-280-1</span>
+                </div>
+              </div>
+              <span class="history-badge completed">✓ Selesai & Diterima</span>
+            </div>
+
+            <!-- 4-Step Tracker Bar Completed -->
+            <div class="tracking-steps-container">
+              <div class="steps-list">
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Naskah Kurasi</div>
+                  <div class="step-sub">15 Jul 2026</div>
+                </div>
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Editing Antologi</div>
+                  <div class="step-sub">22 Jul 2026</div>
+                </div>
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Percetakan Selesai</div>
+                  <div class="step-sub">30 Jul 2026</div>
+                </div>
+                <div class="step-item completed">
+                  <div class="step-circle">✓</div>
+                  <div class="step-label">Paket Diterima</div>
+                  <div class="step-sub">03 Agu 2026</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="history-action-bar">
+              <div class="courier-info">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#10b981">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Resi JNE: <strong>JNE-TGR-882910401</strong> (Diterima oleh: Dr. Rahmat Hidayat)</span>
+              </div>
+              <div class="history-btns">
+                <button type="button" class="btn-track btn-track-courier" data-resi="JNE-TGR-882910401">Lihat Bukti Resi</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 1: GABUNG BUNGA RAMPAI
+       ==================================================================== -->
+  <div class="cetak-modal-overlay" id="modalJoinAnthology">
+    <div class="cetak-modal-dialog">
+      <div class="cetak-modal-header">
+        <h3 class="cetak-modal-title">Gabung Proyek Bunga Rampai</h3>
+        <button class="cetak-modal-close" aria-label="Tutup Modal">&times;</button>
+      </div>
+      <form id="formJoinAnthology">
+        <div class="cetak-modal-body">
+          <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1rem; line-height: 1.5;">
+            Anda mendaftar untuk: <strong id="targetAnthologyTitle" style="color: #1e40af;">Antologi</strong>.<br>
+            Pilih 1 tulisan terbit Anda yang relevan untuk diajukan kepada dewan kurator:
+          </p>
+          
+          <div class="field-group">
+            <label class="field-label">Pilih 1 Naskah Anda:</label>
+            <div id="anthologyArticlesList" style="max-height: 200px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.75rem; background: #f8fafc;">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-bottom: 0;">
+            <label class="field-label" for="anthologyNotesInput">Catatan / Pernyataan Orisinalitas untuk Kurator:</label>
+            <textarea class="field-textarea" id="anthologyNotesInput" rows="2" placeholder="Tuliskan catatan singkat mengenai relevansi tulisan Anda terhadap tema antologi ini...">Naskah ini merupakan hasil riset lapangan langsung dan orisinal saya, siap untuk diselaraskan dengan tata letak buku antologi bersama rekan-rekan penulis.</textarea>
+          </div>
+        </div>
+        <div class="cetak-modal-footer">
+          <button type="button" class="btn-track btn-modal-cancel">Batal</button>
+          <button type="submit" class="btn-submit-mandiri" style="width: auto; padding: 0.65rem 1.25rem;">
+            <span>Kirim Naskah ke Kurator</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: DETAIL PELACAKAN RESI KURIR
+       ==================================================================== -->
+  <div class="cetak-modal-overlay" id="modalTrackShipping">
+    <div class="cetak-modal-dialog">
+      <div class="cetak-modal-header">
+        <h3 class="cetak-modal-title">Pelacakan Status Pengiriman</h3>
+        <button class="cetak-modal-close" aria-label="Tutup Modal">&times;</button>
+      </div>
+      <div class="cetak-modal-body">
+        <div style="background: #f8fafc; border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem; border: 1px solid #e2e8f0;">
+          <div style="font-size: 0.8rem; color: #64748b;">Nomor Resi Percetakan:</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #1e293b;" id="trackingModalResi">JNE-TGR-882910401</div>
+          <div style="font-size: 0.78rem; color: #059669; font-weight: 600; margin-top: 0.25rem;">✓ Layanan Pengiriman Resmi KERTAS KATA Kasda Hub</div>
+        </div>
+
+        <div style="border-left: 2px solid #2563eb; padding-left: 1.25rem; margin-left: 0.5rem;">
+          <div style="margin-bottom: 1rem; position: relative;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #2563eb; position: absolute; left: -1.6rem; top: 4px;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Paket Selesai Dikemas & Siap Dijemput Kurir</div>
+            <div style="font-size: 0.75rem; color: #64748b;">Pusat Percetakan Mandiri KERTAS KATA, Tigaraksa</div>
+          </div>
+          <div style="margin-bottom: 1rem; position: relative;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; position: absolute; left: -1.6rem; top: 4px;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Finishing Binding Soft Cover & Quality Control Selesai</div>
+            <div style="font-size: 0.75rem; color: #64748b;">Divisi Percetakan & Proofreading Buku</div>
+          </div>
+          <div style="position: relative;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; position: absolute; left: -1.6rem; top: 4px;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Naskah Tata Letak Disetujui & Masuk Antrean Cetak</div>
+            <div style="font-size: 0.75rem; color: #64748b;">Verifikasi ISBN Resmi Perpusnas</div>
+          </div>
+        </div>
+      </div>
+      <div class="cetak-modal-footer">
+        <button type="button" class="btn-track btn-modal-cancel">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div class="cetak-toast" id="cetakToast">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#10b981">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+    </svg>
+    <span id="toastMessage">Pemberitahuan</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/header.js"></script>
+  <script src="js/cetak-naskah.js"></script>
+</body>
+</html>

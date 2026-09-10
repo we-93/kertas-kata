@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kertas Kata: Tempat Ide Bertemu Pembaca. Platform literasi digital bagi Komunitas untuk belajar menulis, menerbitkan karya, berdiskusi, hingga mencetak naskah ber-ISBN.">
+  <meta name="keywords" content="Kertas Kata, Literasi Kabupaten Tangerang, Komunitas Menulis, E-Learning Menulis, Publikasi Karya, Cetak ISBN">
+  <meta name="author" content="Redaksi Platform KERTAS KATA">
+  <title>Kertas Kata: Tempat Ide Bertemu Pembaca | Platform Literasi Digital Komunitas</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+  <!-- ====================================================================
+       1. STICKY GLASSMORPHISM NAVBAR
+       ==================================================================== -->
+  <header class="landing-nav" id="landingNav">
+    <div class="container nav-inner">
+      <!-- Clean Brand Logo (No Subtext) -->
+      <a href="index.html" class="nav-brand" id="brandLogoBtn" aria-label="Beranda KERTAS KATA">
+        <div class="nav-logo-box">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="nav-brand-title">KERTAS<span>KATA</span></div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Menu Utama">
+        <ul class="nav-menu">
+          <li><a href="#beranda" class="nav-link active">Beranda</a></li>
+          <li><a href="#jelajah" class="nav-link">Jelajah Artikel</a></li>
+          <li><a href="perpustakaan.html" class="nav-link">E-Library</a></li>
+          <li><a href="komunitas.html" class="nav-link">Komunitas</a></li>
+          <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Quick Search Button -->
+        <button type="button" class="nav-search-btn" onclick="window.openSearchModal()" title="Cari Tulisan (Shortcut: /)">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span>Cari...</span>
+          <span class="search-shortcut-key">/</span>
+        </button>
+
+        <!-- Login Button (Opens Modal) -->
+        <button type="button" class="btn-nav-login" id="navLoginBtn" onclick="window.openLoginModal()">
+          Masuk
+        </button>
+
+        <!-- CTA Button (Directs to Writing Studio) -->
+        <a href="menulis.html" class="btn-nav-cta" id="navWriteCtaBtn">
+          <span>✍️ Mulai Menulis</span>
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="nav-mobile-toggle" id="mobileNavToggle" aria-label="Buka Menu Navigasi">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Off-Canvas Drawer Backdrop -->
+  <div id="mobileNavBackdrop" style="position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(15,23,42,0.5); z-index:1500; opacity:0; pointer-events:none; transition:opacity 0.3s ease;"></div>
+
+  <!-- Mobile Off-Canvas Drawer -->
+  <div id="mobileNavDrawer" style="position:fixed; top:0; right:-280px; width:280px; height:100%; background:#ffffff; z-index:1600; padding:2rem 1.5rem; display:flex; flex-direction:column; gap:1.5rem; box-shadow:-5px 0 25px rgba(0,0,0,0.15); transition:right 0.3s cubic-bezier(0.16,1,0.3,1);">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:1rem; border-bottom:1px solid #e2e8f0;">
+      <div class="nav-brand-title">KERTAS<span>KATA</span></div>
+      <button type="button" onclick="document.getElementById('mobileNavBackdrop').click()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <a href="#beranda" class="mobile-nav-link" style="text-decoration:none; color:#0f172a; font-weight:700; font-size:1rem;">Beranda</a>
+      <a href="#jelajah" class="mobile-nav-link" style="text-decoration:none; color:#0f172a; font-weight:700; font-size:1rem;">Jelajah Artikel</a>
+      <a href="perpustakaan.html" class="mobile-nav-link" style="text-decoration:none; color:#0f172a; font-weight:700; font-size:1rem;">E-Library</a>
+      <a href="komunitas.html" class="mobile-nav-link" style="text-decoration:none; color:#0f172a; font-weight:700; font-size:1rem;">Komunitas</a>
+      <a href="#tentang" class="mobile-nav-link" style="text-decoration:none; color:#0f172a; font-weight:700; font-size:1rem;">Tentang Kami</a>
+    </div>
+    <div style="margin-top:auto; display:flex; flex-direction:column; gap:0.75rem;">
+      <button type="button" onclick="window.openLoginModal()" style="width:100%; padding:0.75rem; border-radius:10px; border:1px solid #cbd5e1; background:#ffffff; font-weight:700; font-size:0.9375rem; cursor:pointer;">Masuk</button>
+      <a href="menulis.html" style="width:100%; text-align:center; padding:0.75rem; border-radius:10px; background:#2563eb; color:#ffffff; text-decoration:none; font-weight:700; font-size:0.9375rem;">Mulai Menulis</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ====================================================================
+         2. HERO SECTION
+         ==================================================================== -->
+    <section class="landing-hero" id="beranda">
+      <div class="container hero-content">
+        <!-- Official Pill Badge -->
+        <div class="hero-pill-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Ekosistem Literasi &amp; Penerbitan Karya Resmi Komunitas</span>
+        </div>
+
+        <!-- Headline & Subheadline (Exact User Requirement) -->
+        <h1 class="hero-headline">
+          Kertas Kata: Tempat Ide Bertemu Pembaca.
+        </h1>
+        <p class="hero-subheadline">
+          Platform literasi digital bagi Komunitas. Belajar menulis, menerbitkan karya, berdiskusi, hingga mencetak naskah — semua dalam satu ekosistem.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+          <a href="#jelajah" class="btn-hero-primary" id="heroExploreBtn">
+            <span>📖 Jelajahi Karya Pilihan</span>
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </a>
+          <a href="menulis.html" class="btn-hero-secondary" id="heroJoinBtn">
+            <span>✨ Gabung Sebagai Penulis</span>
+          </a>
+        </div>
+
+        <!-- Hero Stats Strip (4 Cards, 2 per row on Mobile) -->
+        <div class="hero-stats-grid">
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">1.240+</div>
+            <div class="hero-stat-label">Karya Terbit Kurasi</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">28</div>
+            <div class="hero-stat-label">Kecamatan Terhubung</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">850+</div>
+            <div class="hero-stat-label">Anggota &amp; Penulis Aktif</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">100%</div>
+            <div class="hero-stat-label">Akses Terbuka &amp; Gratis</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         3. EDITORIAL SPOTLIGHT (KARYA PILIHAN MINGGU INI)
+         ==================================================================== -->
+    <section class="editorial-spotlight-section">
+      <div class="container">
+        <div class="spotlight-card reveal">
+          <div class="spotlight-media">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1000&auto=format&fit=crop&q=80" alt="Akulturasi Budaya Cisadane" class="spotlight-img">
+            <div class="spotlight-badge-curated">
+              <span>⭐</span>
+              <span>Pilihan Kurator Minggu Ini</span>
+            </div>
+          </div>
+          <div class="spotlight-body">
+            <div class="spotlight-meta-top">
+              <span class="category-tag">Sejarah &amp; Budaya</span>
+              <span class="reading-time">⏱️ 6 menit baca</span>
+            </div>
+            <h2 class="spotlight-title">
+              <a href="baca-artikel.html">Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng dan Denyut Literasi Warga</a>
+            </h2>
+            <p class="spotlight-excerpt">
+              Menelusuri jejak peradaban bantaran Sungai Cisadane, bagaimana perjumpaan budaya Tionghoa Peranakan dan masyarakat Sunda-Banten melahirkan harmoni sosial, tradisi perahu naga, serta khazanah kuliner dan sastra yang membentuk identitas kolektif Kabupaten Tangerang.
+            </p>
+            <div class="spotlight-author-bar">
+              <div class="author-chip">
+                <div class="author-avatar-img">RH</div>
+                <div>
+                  <div class="author-info-name">Rahmat Hidayat, S.Pd.</div>
+                  <div class="author-info-sub">Komunitas Literasi Tigaraksa</div>
+                </div>
+              </div>
+              <a href="baca-artikel.html" class="btn-read-spotlight" id="spotlightReadBtn">
+                <span>Baca Artikel Penuh</span>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. HALL OF FAME PENULIS KOMUNITAS (WIREFRAME 1 SECTION C)
+         ==================================================================== -->
+    <section class="section-container" style="padding: 3rem 0 4rem;">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Apresiasi Karya</span>
+          <h2 class="section-title">Penulis Pilihan Komunitas</h2>
+          <p class="section-sub">Mengenal para pegiat literasi paling produktif dan inspiratif dari berbagai kecamatan di Kabupaten Tangerang.</p>
+        </div>
+
+        <div class="hof-carousel-grid reveal reveal-delay-1">
+          <!-- Author 1 -->
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">🥇</div>
+            <div class="hof-avatar-circle" style="background: linear-gradient(135deg, #f59e0b, #d97706);">RH</div>
+            <div class="hof-name">Rahmat Hidayat</div>
+            <div class="hof-org">Kec. Tigaraksa</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>12</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>42.8K</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Author 2 -->
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">🥈</div>
+            <div class="hof-avatar-circle" style="background: linear-gradient(135deg, #64748b, #475569);">NF</div>
+            <div class="hof-name">Nurul Fajriah</div>
+            <div class="hof-org">Kec. Sukamulya</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>9</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>31.2K</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Author 3 -->
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">🥉</div>
+            <div class="hof-avatar-circle" style="background: linear-gradient(135deg, #b45309, #78350f);">HG</div>
+            <div class="hof-name">Hendra Gunawan</div>
+            <div class="hof-org">Kec. Curug</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>8</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>27.4K</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Author 4 -->
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">🎖️</div>
+            <div class="hof-avatar-circle" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">SA</div>
+            <div class="hof-name">Siti Aminah</div>
+            <div class="hof-org">Kec. Teluknaga</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>7</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>22.1K</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Author 5 -->
+          <div class="hof-member-card">
+            <div class="hof-rank-indicator">🎖️</div>
+            <div class="hof-avatar-circle" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">AF</div>
+            <div class="hof-name">Ahmad Fauzi</div>
+            <div class="hof-org">Kec. Kronjo</div>
+            <div class="hof-stats-row">
+              <div class="hof-stat-col">
+                <strong>6</strong>
+                <span>Karya Terbit</span>
+              </div>
+              <div class="hof-stat-col">
+                <strong>19.8K</strong>
+                <span>Pembaca</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         5. KATALOG ARTIKEL & FILTER 10 KATEGORI RESMI (PRD SECTION 4)
+         ==================================================================== -->
+    <section class="articles-catalogue-section" id="jelajah">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Eksplorasi Gagasan</span>
+          <h2 class="section-title">Karya Tulisan Terkurasi</h2>
+          <p class="section-sub">Temukan sudut pandang bermakna dari beragam bidang keilmuan dan ragam sastra komunitas.</p>
+        </div>
+
+        <!-- 10 Category Pill Buttons Filter -->
+        <div class="category-filter-bar reveal reveal-delay-1" role="tablist" aria-label="Filter Kategori Tulisan">
+          <button type="button" class="cat-pill-btn active" data-category="all">Semua Kategori</button>
+          <button type="button" class="cat-pill-btn" data-category="sejarah">🏛️ Sejarah &amp; Budaya</button>
+          <button type="button" class="cat-pill-btn" data-category="opini">💬 Opini Warga</button>
+          <button type="button" class="cat-pill-btn" data-category="pendidikan">📚 Pendidikan</button>
+          <button type="button" class="cat-pill-btn" data-category="cerpen">📖 Cerpen</button>
+          <button type="button" class="cat-pill-btn" data-category="puisi">✍️ Puisi</button>
+          <button type="button" class="cat-pill-btn" data-category="ilmiah">🔬 Karya Ilmiah</button>
+          <button type="button" class="cat-pill-btn" data-category="pemerintahan">🏛️ Pemerintahan</button>
+          <button type="button" class="cat-pill-btn" data-category="ai">🤖 Teknologi &amp; AI</button>
+          <button type="button" class="cat-pill-btn" data-category="agama">🕊️ Agama &amp; Etika</button>
+        </div>
+
+        <!-- 9 Articles Grid -->
+        <div class="articles-grid" id="articlesGrid">
+          <!-- Article 1: Sejarah -->
+          <article class="article-card reveal" data-category="sejarah">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80" alt="Benteng Heritage" class="article-card-img">
+              <span class="article-card-badge">Sejarah</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 6 mnt baca</span>
+                <span>02 Sep 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Merajut Harmoni di Tepian Cisadane: Jejak Akulturasi Tionghoa Benteng</a>
+              </h3>
+              <p class="article-card-desc">
+                Kisah integrasi budaya, tradisi perahu naga, dan akulturasi kuliner yang merekatkan kebhinekaan di bantaran Cisadane.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm">RH</div>
+                  <span>Rahmat Hidayat (Tigaraksa)</span>
+                </div>
+                <div class="card-views-count">👁 3.420</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 2: Opini -->
+          <article class="article-card reveal reveal-delay-1" data-category="opini">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&auto=format&fit=crop&q=80" alt="Pesisir Teluknaga" class="article-card-img">
+              <span class="article-card-badge">Opini</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 5 mnt baca</span>
+                <span>28 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Transformasi Digital dan Kebangkitan UMKM Pesisir Teluknaga</a>
+              </h3>
+              <p class="article-card-desc">
+                Bagaimana pemanfaatan platform digital memberdayakan pengolah hasil laut pesisir utara menjangkau pasar nasional.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#059669;">NF</div>
+                  <span>Nurul Fajriah (Sukamulya)</span>
+                </div>
+                <div class="card-views-count">👁 2.890</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 3: Pendidikan -->
+          <article class="article-card reveal reveal-delay-2" data-category="pendidikan">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&auto=format&fit=crop&q=80" alt="Pembelajaran Komunitas" class="article-card-img">
+              <span class="article-card-badge">Pendidikan</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 7 mnt baca</span>
+                <span>25 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Pendekatan Kontekstual Berbasis Kearifan Lokal dalam Pembelajaran Sains</a>
+              </h3>
+              <p class="article-card-desc">
+                Model pembelajaran eksperiensial yang mengangkat ekosistem persawahan dan danau buatan di wilayah Curug.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#d97706;">HG</div>
+                  <span>Hendra Gunawan (Curug)</span>
+                </div>
+                <div class="card-views-count">👁 2.610</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 4: Cerpen -->
+          <article class="article-card reveal" data-category="cerpen">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=600&auto=format&fit=crop&q=80" alt="Hutan Solear" class="article-card-img">
+              <span class="article-card-badge">Cerpen</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 8 mnt baca</span>
+                <span>20 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Misteri Siluet di Hutan Lindung Solear: Narasi Kesunyian dan Masa Lalu</a>
+              </h3>
+              <p class="article-card-desc">
+                Kisah fiksi berlatar rimbun pepohonan purba dan kawanan monyet ekor panjang yang menyimpan misteri turun-temurun.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#7c3aed;">SA</div>
+                  <span>Siti Aminah (Teluknaga)</span>
+                </div>
+                <div class="card-views-count">👁 2.150</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 5: Puisi -->
+          <article class="article-card reveal reveal-delay-1" data-category="puisi">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&auto=format&fit=crop&q=80" alt="Catatan Puisi" class="article-card-img">
+              <span class="article-card-badge">Puisi</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 3 mnt baca</span>
+                <span>15 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Soneta Angin Tanjung Pasir: Ketika Laut Berbisik Pada Karang</a>
+              </h3>
+              <p class="article-card-desc">
+                Kumpulan bait puitik yang merefleksikan deburan ombak utara Tangerang dan ketabahan nelayan tradisional.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#dc2626;">MD</div>
+                  <span>Maya Damayanti (Mauk)</span>
+                </div>
+                <div class="card-views-count">👁 1.840</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 6: Teknologi & AI -->
+          <article class="article-card reveal reveal-delay-2" data-category="ai">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80" alt="Kecerdasan Buatan" class="article-card-img">
+              <span class="article-card-badge">Teknologi &amp; AI</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 6 mnt baca</span>
+                <span>10 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Eksplorasi GenAI untuk Pengarsipan Naskah Kuno dan Tradisi Lisan Pantura</a>
+              </h3>
+              <p class="article-card-desc">
+                Implementasi teknologi Large Language Models untuk mendigitalisasi manuskrip lokal tanpa mengikis keaslian konteks kulturalnya.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#2563eb;">AF</div>
+                  <span>Ahmad Fauzi (Kronjo)</span>
+                </div>
+                <div class="card-views-count">👁 1.920</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 7: Karya Ilmiah -->
+          <article class="article-card reveal" data-category="ilmiah">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80" alt="Riset Sains" class="article-card-img">
+              <span class="article-card-badge">Karya Ilmiah</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 9 mnt baca</span>
+                <span>05 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Analisis Kualitas Air Permukaan Sub-DAS Cisadane Hilir Periode 2024-2026</a>
+              </h3>
+              <p class="article-card-desc">
+                Studi kuantitatif parameter fisik-kimia air baku dan dampaknya bagi pertanian hidroponik komunitas.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#0891b2;">DS</div>
+                  <span>Dr. Dedi Supardi (Cikupa)</span>
+                </div>
+                <div class="card-views-count">👁 1.480</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 8: Pemerintahan -->
+          <article class="article-card reveal reveal-delay-1" data-category="pemerintahan">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80" alt="Gedung Pemerintahan" class="article-card-img">
+              <span class="article-card-badge">Pemerintahan</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 5 mnt baca</span>
+                <span>01 Agu 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Tata Kelola Desa Cerdas: Partisipasi Publik Berbasis Portal Aspirasi Warga</a>
+              </h3>
+              <p class="article-card-desc">
+                Kajian efektivitas integrasi layanan administrasi digital di 10 desa percontohan Kabupaten Tangerang.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#4f46e5;">BW</div>
+                  <span>Bambang Wahyudi (Tigaraksa)</span>
+                </div>
+                <div class="card-views-count">👁 1.340</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 9: Agama & Etika -->
+          <article class="article-card reveal reveal-delay-2" data-category="agama">
+            <div class="article-card-thumb">
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&auto=format&fit=crop&q=80" alt="Spiritualitas" class="article-card-img">
+              <span class="article-card-badge">Agama &amp; Etika</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-meta-header">
+                <span>⏱️ 6 mnt baca</span>
+                <span>28 Jul 2026</span>
+              </div>
+              <h3 class="article-card-title">
+                <a href="baca-artikel.html">Kearifan Moderasi Beragama dalam Dinamika Masyarakat Urban Cisauk</a>
+              </h3>
+              <p class="article-card-desc">
+                Merawat ruang dialog lintas iman melalui ruang bersama perpustakaan keliling dan bakti sosial pemuda.
+              </p>
+              <div class="article-card-footer">
+                <div class="card-author-chip">
+                  <div class="card-avatar-sm" style="background:#059669;">KN</div>
+                  <span>Kyai Nurul Huda (Cisauk)</span>
+                </div>
+                <div class="card-views-count">👁 1.760</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="perpustakaan.html" class="btn-hero-secondary" style="display: inline-flex;">
+            <span>Lihat Arsip Seluruh Tulisan Terbit (1.240+)</span>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         6. E-LIBRARY & PERPUSTAKAAN DIGITAL PREVIEW (WIREFRAME 1 SECTION D)
+         ==================================================================== -->
+    <section class="library-preview-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Perpustakaan Digital</span>
+          <h2 class="section-title">Koleksi E-Book &amp; Antologi Komunitas</h2>
+          <p class="section-sub">Akses buku digital kurasi, antologi bunga rampai, dan laporan riset karya anggota berlisensi resmi.</p>
+        </div>
+
+        <div class="library-books-grid reveal reveal-delay-1">
+          <!-- Book 1 -->
+          <div class="book-preview-card">
+            <div class="book-cover-wrap">
+              <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80" alt="Antologi Puisi Cisadane" class="book-cover-img">
+              <span class="book-badge-type">GRATIS</span>
+            </div>
+            <div class="book-title">Antologi Puisi Cisadane: Senandung Air &amp; Waktu</div>
+            <div class="book-author">Oleh 24 Penulis Komunitas Literasi</div>
+            <a href="perpustakaan.html" class="btn-book-read">📖 Baca di E-Library</a>
+          </div>
+
+          <!-- Book 2 -->
+          <div class="book-preview-card">
+            <div class="book-cover-wrap">
+              <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&auto=format&fit=crop&q=80" alt="Bunga Rampai Sejarah Desa" class="book-cover-img">
+              <span class="book-badge-type" style="background:#2563eb;">BER-ISBN</span>
+            </div>
+            <div class="book-title">Menyusuri Jejak Desa: Bunga Rampai Sejarah Tangerang</div>
+            <div class="book-author">Tim Peneliti Sejarah Komunitas</div>
+            <a href="perpustakaan.html" class="btn-book-read">📖 Baca di E-Library</a>
+          </div>
+
+          <!-- Book 3 -->
+          <div class="book-preview-card">
+            <div class="book-cover-wrap">
+              <img src="https://images.unsplash.com/photo-1532012164546-f432f2e3777f?w=400&auto=format&fit=crop&q=80" alt="Panduan Menulis Kreatif" class="book-cover-img">
+              <span class="book-badge-type">GRATIS</span>
+            </div>
+            <div class="book-title">Pedoman Praktis Menulis Esai &amp; Opini Publik</div>
+            <div class="book-author">Fajar Ilhami &amp; Tim Kurator</div>
+            <a href="perpustakaan.html" class="btn-book-read">📖 Baca di E-Library</a>
+          </div>
+
+          <!-- Book 4 -->
+          <div class="book-preview-card">
+            <div class="book-cover-wrap">
+              <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop&q=80" alt="Kumpulan Cerpen Benteng" class="book-cover-img">
+              <span class="book-badge-type" style="background:#2563eb;">BER-ISBN</span>
+            </div>
+            <div class="book-title">Riuh di Balik Tembok: Kumpulan Cerpen Urban</div>
+            <div class="book-author">Siti Aminah, M.Pd.</div>
+            <a href="perpustakaan.html" class="btn-book-read">📖 Baca di E-Library</a>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="perpustakaan.html" class="btn-book-read" style="display:inline-block; padding:0.75rem 1.75rem; background:#1e3a8a; color:#ffffff; font-size:0.9375rem; border-radius:10px;">
+            Jelajahi Seluruh Koleksi Perpustakaan Digital →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7. 4 PILAR EKOSISTEM (WHY KERTAS KATA)
+         ==================================================================== -->
+    <section class="pillars-section" id="tentang">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Keunggulan Ekosistem</span>
+          <h2 class="section-title">Mengapa Menulis di KERTAS KATA?</h2>
+          <p class="section-sub">Pendampingan menyeluruh dari gagasan mentah hingga naskah fisik berstandar nasional.</p>
+        </div>
+
+        <div class="pillars-grid reveal reveal-delay-1">
+          <!-- Pillar 1 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box blue">✍️</div>
+            <h3 class="pillar-title">Kurasi Naskah Objektif</h3>
+            <p class="pillar-desc">Setiap naskah yang dikirimkan ditinjau oleh kurator berdedikasi dengan umpan balik konstruktif dan bantuan AI reviewer otomatis.</p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box amber">🎓</div>
+            <h3 class="pillar-title">Kelas Menulis 32 JP</h3>
+            <p class="pillar-desc">Kurikulum belajar mandiri 5 modul berstruktur lengkap dengan kuis pemahaman dan e-sertifikat resmi bernomor registrasi QR.</p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box green">🖨️</div>
+            <h3 class="pillar-title">Cetak Mandiri &amp; ISBN</h3>
+            <p class="pillar-desc">Fasilitas penerbitan buku fisik ber-ISBN resmi Perpusnas RI dengan kemitraan percetakan transparan tanpa pungutan liar.</p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box purple">🤝</div>
+            <h3 class="pillar-title">Komunitas 28 Kecamatan</h3>
+            <p class="pillar-desc">Jejaring diskusi aktif antar anggota lintas wilayah dari pesisir hingga pedalaman Kabupaten Tangerang yang saling mendukung.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         8. SUARA PENULIS KOMUNITAS (TESTIMONIALS)
+         ==================================================================== -->
+    <section class="testimonials-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Suara Warga</span>
+          <h2 class="section-title">Pengalaman Menulis Bersama</h2>
+          <p class="section-sub">Kisah nyata para anggota yang telah menerbitkan gagasan dan karyanya di KERTAS KATA.</p>
+        </div>
+
+        <div class="testimonials-grid reveal reveal-delay-1">
+          <!-- Testi 1 -->
+          <div class="testi-card">
+            <div class="testi-quote-icon">“</div>
+            <p class="testi-quote">
+              Sebagai pegiat sejarah lokal, platform ini memberi saya ruang kurasi yang terhormat. Esai saya tentang Benteng Heritage dibaca ribuan orang dan kini siap dibukukan.
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">RH</div>
+              <div>
+                <div class="testi-name">Rahmat Hidayat, S.Pd.</div>
+                <div class="testi-loc">Komunitas Literasi Tigaraksa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testi 2 -->
+          <div class="testi-card">
+            <div class="testi-quote-icon">“</div>
+            <p class="testi-quote">
+              Modul E-Learning 32 JP-nya sangat praktis dan membumi. Umpan balik kurator membantu mempertajam logika argumen saya sebelum tulisan dipublikasikan secara luas.
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#059669;">NF</div>
+              <div>
+                <div class="testi-name">Nurul Fajriah, S.S.</div>
+                <div class="testi-loc">Forum Literasi Sukamulya</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testi 3 -->
+          <div class="testi-card">
+            <div class="testi-quote-icon">“</div>
+            <p class="testi-quote">
+              Fitur kalkulator cetak mandiri sangat transparan. Setelah menerbitkan 10 karya, saya langsung mengurus ISBN untuk kumpulan cerpen perdana saya dengan lancar.
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#7c3aed;">SA</div>
+              <div>
+                <div class="testi-name">Siti Aminah, M.Pd.</div>
+                <div class="testi-loc">Sahabat Literasi Teluknaga</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         9. CALL TO ACTION BANNER
+         ==================================================================== -->
+    <section class="cta-banner-section">
+      <div class="container">
+        <div class="cta-banner-card reveal">
+          <h2 class="cta-title">Punya Gagasan yang Layak Dibaca Dunia?</h2>
+          <p class="cta-desc">
+            Bergabunglah bersama ratusan penulis komunitas di Kabupaten Tangerang. Mulai langkah pertama Anda hari ini — gratis, mudah, dan didampingi kurator profesional.
+          </p>
+          <div class="cta-btn-group">
+            <a href="menulis.html" class="btn-cta-white" id="ctaBannerWriteBtn">
+              ✍️ Tulis Naskah Pertama Anda
+            </a>
+            <button type="button" class="btn-hero-secondary" style="background:rgba(255,255,255,0.15); color:#ffffff; border-color:rgba(255,255,255,0.4);" onclick="window.openLoginModal()">
+              Masuk ke Akun
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================================
+       10. FOOTER KOMPREHENSIF
+       ==================================================================== -->
+  <footer class="landing-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Visi -->
+        <div>
+          <div class="footer-brand-title">KERTAS<span>KATA</span></div>
+          <p class="footer-brand-desc">
+            Wadah literasi digital, pembelajaran menulis, kurasi karya, dan penerbitan buku mandiri bagi komunitas di 28 kecamatan Kabupaten Tangerang.
+          </p>
+          <div class="footer-socials">
+            <a href="#social-fb" class="footer-social-btn" aria-label="Facebook">f</a>
+            <a href="#social-x" class="footer-social-btn" aria-label="X Twitter">𝕏</a>
+            <a href="#social-ig" class="footer-social-btn" aria-label="Instagram">ig</a>
+            <a href="#social-yt" class="footer-social-btn" aria-label="YouTube">yt</a>
+          </div>
+        </div>
+
+        <!-- Col 2: Kategori Tulisan -->
+        <div>
+          <h4 class="footer-heading">Kategori Tulisan</h4>
+          <ul class="footer-links">
+            <li><a href="#jelajah">Sejarah &amp; Budaya</a></li>
+            <li><a href="#jelajah">Opini &amp; Kolom Warga</a></li>
+            <li><a href="#jelajah">Pendidikan &amp; Sains</a></li>
+            <li><a href="#jelajah">Cerita Pendek (Cerpen)</a></li>
+            <li><a href="#jelajah">Antologi Puisi</a></li>
+            <li><a href="#jelajah">Kecerdasan Buatan &amp; AI</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Navigasi Cepat -->
+        <div>
+          <h4 class="footer-heading">Navigasi Cepat</h4>
+          <ul class="footer-links">
+            <li><a href="dashboard.html">Dashboard Anggota</a></li>
+            <li><a href="elearning.html">Pelatihan E-Learning 32 JP</a></li>
+            <li><a href="menulis.html">Writing Studio Editor</a></li>
+            <li><a href="perpustakaan.html">Katalog E-Library</a></li>
+            <li><a href="komunitas.html">Forum Diskusi Komunitas</a></li>
+            <li><a href="cetak-naskah.html">Layanan Cetak &amp; ISBN</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Kontak Redaksi -->
+        <div>
+          <h4 class="footer-heading">Sekretariat Redaksi</h4>
+          <p style="font-size:0.875rem; line-height:1.7; color:#94a3b8; margin-bottom:1rem;">
+            Komunitas Literasi Digital KERTAS KATA<br>
+            Tigaraksa, Kabupaten Tangerang, Banten 15720<br>
+            Email: redaksi@kertaskata.org<br>
+            Hotline: +62 821-2026-8800
+          </p>
+          <div style="font-size:0.75rem; color:#64748b;">
+            Jam Layanan Kurasi: Senin – Jumat, 08:30 – 16:30 WIB
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 KERTAS KATA Platform Digital Komunitas. Seluruh Hak Cipta Dilindungi.
+        </div>
+        <div>
+          <a href="admin.html" class="footer-admin-link" id="switchModeAdminLink">
+            <span>⚙️ Masuk Panel Admin Kurator</span>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================================
+       MODAL 1: AUTHENTICATION / LOGIN DIALOG (#loginModal)
+       ==================================================================== -->
+  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalLoginTitle">
+    <div class="modal-content-card">
+      <button type="button" class="modal-close-icon" onclick="window.closeLoginModal()" title="Tutup Modal">✕</button>
+      
+      <div class="modal-auth-header">
+        <div class="nav-brand-title" style="margin-bottom: 0.5rem;">KERTAS<span>KATA</span></div>
+        <h3 id="modalLoginTitle" class="modal-auth-title">Masuk ke Ruang Literasi</h3>
+        <p style="font-size: 0.8125rem; color: #64748b;">Lanjutkan aktivitas menulis, berdiskusi, dan memantau karya Anda.</p>
+      </div>
+
+      <!-- Google SSO Button -->
+      <button type="button" class="btn-google-sso" onclick="window.handleGoogleLogin()" id="btnGoogleAuth">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Lanjutkan dengan Google</span>
+      </button>
+
+      <div class="auth-divider">atau dengan email resmi</div>
+
+      <!-- Email Login Form -->
+      <form onsubmit="window.handleEmailLogin(event)">
+        <div class="auth-form-group">
+          <label class="auth-label" for="loginEmail">Alamat Email</label>
+          <input type="email" id="loginEmail" class="auth-input" placeholder="nama@email.com" value="penulis.tangerang@gmail.com" required>
+        </div>
+
+        <div class="auth-form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <label class="auth-label" for="loginPassword" style="margin: 0;">Kata Sandi</label>
+            <a href="#" style="font-size: 0.75rem; color: #2563eb; text-decoration: none;">Lupa Sandi?</a>
+          </div>
+          <input type="password" id="loginPassword" class="auth-input" value="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-auth-submit" id="btnSubmitLogin">
+          Masuk ke Dashboard
+        </button>
+      </form>
+
+      <div style="margin-top: 1.25rem; text-align: center; font-size: 0.8125rem; color: #64748b;">
+        Belum memiliki akun? <a href="menulis.html" style="color: #2563eb; font-weight: 700; text-decoration: none;">Daftar Sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: INSTANT SEARCH DIALOG (#searchModal)
+       ==================================================================== -->
+  <div id="searchModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalSearchTitle">
+    <div class="modal-content-card" style="max-width: 580px; padding: 1.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h3 id="modalSearchTitle" style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 800; color: #0f172a; margin: 0;">
+          🔍 Cari Karya &amp; Penulis Komunitas
+        </h3>
+        <button type="button" class="modal-close-icon" onclick="window.closeSearchModal()" style="position: static;" title="Tutup">✕</button>
+      </div>
+
+      <div style="position: relative; margin-bottom: 1.25rem;">
+        <input type="text" id="instantSearchInput" class="auth-input" placeholder="Ketik kata kunci: Cisadane, sejarah, puisi, cerpen..." style="padding-left: 2.5rem; font-size: 1rem;">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+
+      <div id="searchResultsContainer" style="max-height: 320px; overflow-y: auto;">
+        <div style="text-align: center; padding: 1.5rem; color: #94a3b8; font-size: 0.875rem;">
+          Ketik kata kunci judul, topik, atau nama penulis...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script src="js/api.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+</html>

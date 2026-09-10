@@ -1,0 +1,338 @@
+// ========================================================
+// KERTAS KATA - PRISMA SCHEMA UNTUK PRODUCTION (MySQL / MariaDB aaPanel)
+// Digunakan saat deploy ke VPS aaPanel untuk domain kertaskata.my.id
+// ========================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// --------------------------------------------------------
+// 1. PENGGUNA & AUTENTIKASI
+// --------------------------------------------------------
+model User {
+  id              String         @id @default(uuid()) @db.VarChar(36)
+  googleId        String?        @unique @db.VarChar(255)
+  name            String         @db.VarChar(150)
+  email           String         @unique @db.VarChar(150)
+  password        String?        @db.VarChar(255)
+  photoUrl        String?        @db.Text
+  bio             String?        @db.Text
+  originRegion    String?        @db.VarChar(100)
+  specialization  String?        @db.VarChar(100)
+  role            String         @default("participant") @db.VarChar(50)
+  status          String         @default("active") @db.VarChar(50)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  articles        Article[]
+  reviewsWritten  ArticleReview[] @relation("ReviewerRelation")
+  progress        UserProgress[]
+  ebookPurchases  EbookPurchase[]
+  forumThreads    ForumThread[]
+  forumReplies    ForumReply[]
+  printOrders     PrintOrder[]
+  badges          UserBadge[]
+  certificates    Certificate[]
+
+  @@map("users")
+}
+
+// --------------------------------------------------------
+// 2. PENULISAN & ARTIKEL
+// --------------------------------------------------------
+model Article {
+  id              String          @id @default(uuid()) @db.VarChar(36)
+  userId          String          @db.VarChar(36)
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String          @db.VarChar(255)
+  slug            String          @unique @db.VarChar(255)
+  lead            String?         @db.Text
+  content         String          @db.LongText
+  category        String          @db.VarChar(100)
+  coverUrl        String?         @db.Text
+  status          String          @default("draft") @db.VarChar(50)
+  wordCount       Int             @default(0)
+  plagiarismScore Int             @default(0)
+  viewCount       Int             @default(0)
+  isFeatured      Boolean         @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  reviews         ArticleReview[]
+  tags            ArticleTag[]
+
+  @@map("articles")
+}
+
+model Tag {
+  id        String       @id @default(uuid()) @db.VarChar(36)
+  name      String       @unique @db.VarChar(100)
+  articles  ArticleTag[]
+
+  @@map("tags")
+}
+
+model ArticleTag {
+  articleId String  @db.VarChar(36)
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  tagId     String  @db.VarChar(36)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, tagId])
+  @@map("article_tags")
+}
+
+model ArticleReview {
+  id             String    @id @default(uuid()) @db.VarChar(36)
+  articleId      String    @db.VarChar(36)
+  article        Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  reviewerId     String?   @db.VarChar(36)
+  reviewer       User?     @relation("ReviewerRelation", fields: [reviewerId], references: [id], onDelete: SetNull)
+  targetText     String?   @db.Text
+  comment        String    @db.Text
+  aiAnalysis     String?   @db.LongText
+  statusDecision String?   @db.VarChar(50)
+  createdAt      DateTime  @default(now())
+
+  @@map("article_reviews")
+}
+
+// --------------------------------------------------------
+// 3. E-LEARNING
+// --------------------------------------------------------
+model Module {
+  id           String         @id @default(uuid()) @db.VarChar(36)
+  title        String         @db.VarChar(255)
+  slug         String         @unique @db.VarChar(255)
+  description  String?        @db.Text
+  orderIndex   Int            @default(1)
+  videoUrl     String?        @db.Text
+  duration     String?        @db.VarChar(50)
+  passingScore Int            @default(80)
+  createdAt    DateTime       @default(now())
+
+  lessons      Lesson[]
+  quizzes      Quiz[]
+  progress     UserProgress[]
+
+  @@map("modules")
+}
+
+model Lesson {
+  id          String   @id @default(uuid()) @db.VarChar(36)
+  moduleId    String   @db.VarChar(36)
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title       String   @db.VarChar(255)
+  orderIndex  Int      @default(1)
+  type        String   @default("text") @db.VarChar(50)
+  contentUrl  String?  @db.Text
+  textBody    String?  @db.LongText
+  createdAt   DateTime @default(now())
+
+  @@map("lessons")
+}
+
+model Quiz {
+  id            String   @id @default(uuid()) @db.VarChar(36)
+  moduleId      String   @db.VarChar(36)
+  module        Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  question      String   @db.Text
+  optionsJson   String   @db.Text
+  correctAnswer String   @db.VarChar(10)
+  explanation   String?  @db.Text
+  createdAt     DateTime @default(now())
+
+  @@map("quizzes")
+}
+
+model UserProgress {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleId    String    @db.VarChar(36)
+  module      Module    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  isCompleted Boolean   @default(false)
+  quizScore   Int?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@unique([userId, moduleId])
+  @@map("user_progress")
+}
+
+// --------------------------------------------------------
+// 4. PERPUSTAKAAN DIGITAL (E-BOOK)
+// --------------------------------------------------------
+model Ebook {
+  id            String          @id @default(uuid()) @db.VarChar(36)
+  title         String          @db.VarChar(255)
+  slug          String          @unique @db.VarChar(255)
+  author        String          @db.VarChar(150)
+  authorOrg     String?         @db.VarChar(150)
+  category      String          @db.VarChar(100)
+  isbn          String?         @db.VarChar(50)
+  accessType    String          @default("free") @db.VarChar(50)
+  price         Float           @default(0)
+  rating        Float           @default(4.9)
+  downloads     Int             @default(0)
+  pages         Int             @default(100)
+  fileFormat    String          @default("PDF") @db.VarChar(20)
+  fileSize      String?         @db.VarChar(50)
+  coverUrl      String?         @db.Text
+  filePath      String?         @db.Text
+  synopsis      String?         @db.Text
+  sampleChapter String?         @db.LongText
+  status        String          @default("published") @db.VarChar(50)
+  createdAt     DateTime        @default(now())
+
+  purchases     EbookPurchase[]
+
+  @@map("ebooks")
+}
+
+model EbookPurchase {
+  id               String   @id @default(uuid()) @db.VarChar(36)
+  userId           String   @db.VarChar(36)
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ebookId          String   @db.VarChar(36)
+  ebook            Ebook    @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+  amount           Float
+  paymentProofUrl  String?  @db.Text
+  status           String   @default("pending") @db.VarChar(50)
+  createdAt        DateTime @default(now())
+
+  @@map("ebook_purchases")
+}
+
+// --------------------------------------------------------
+// 5. KOMUNITAS & RUANG DISKUSI
+// --------------------------------------------------------
+model ForumThread {
+  id         String        @id @default(uuid()) @db.VarChar(36)
+  userId     String        @db.VarChar(36)
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title      String        @db.VarChar(255)
+  content    String        @db.LongText
+  category   String        @db.VarChar(100)
+  isPrivate  Boolean       @default(false)
+  isPinned   Boolean       @default(false)
+  viewCount  Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  replies    ForumReply[]
+  invites    ForumInvite[]
+
+  @@map("forum_threads")
+}
+
+model ForumReply {
+  id        String      @id @default(uuid()) @db.VarChar(36)
+  threadId  String      @db.VarChar(36)
+  thread    ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String      @db.VarChar(36)
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String      @db.Text
+  createdAt DateTime    @default(now())
+
+  @@map("forum_replies")
+}
+
+model ForumInvite {
+  id            String      @id @default(uuid()) @db.VarChar(36)
+  threadId      String      @db.VarChar(36)
+  thread        ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  invitedUserId String      @db.VarChar(36)
+  createdAt     DateTime    @default(now())
+
+  @@map("forum_invites")
+}
+
+// --------------------------------------------------------
+// 6. LAYANAN CETAK NASKAH
+// --------------------------------------------------------
+model PrintOrder {
+  id               String   @id @default(uuid()) @db.VarChar(36)
+  userId           String   @db.VarChar(36)
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type             String   @default("mandiri") @db.VarChar(50)
+  programTitle     String?  @db.VarChar(255)
+  bookTitle        String   @db.VarChar(255)
+  authorName       String   @db.VarChar(150)
+  bookSize         String   @default("A5") @db.VarChar(50)
+  paperType        String   @default("Bookpaper 72gsm") @db.VarChar(100)
+  coverFinishing   String   @default("Doff Lamination") @db.VarChar(100)
+  copies           Int      @default(50)
+  totalPages       Int      @default(100)
+  estimatedPrice   Float    @default(0)
+  manuscriptFileUrl String? @db.Text
+  coverFileUrl     String?  @db.Text
+  proofOfPaymentUrl String? @db.Text
+  status           String   @default("submitted") @db.VarChar(50)
+  trackingNumber   String?  @db.VarChar(100)
+  courier          String?  @db.VarChar(50)
+  shippingAddress  String?  @db.Text
+  createdAt        DateTime @default(now())
+
+  @@map("print_orders")
+}
+
+// --------------------------------------------------------
+// 7. LENCANA / GAMIFIKASI & SERTIFIKAT
+// --------------------------------------------------------
+model Badge {
+  id          String      @id @default(uuid()) @db.VarChar(36)
+  title       String      @db.VarChar(150)
+  description String      @db.Text
+  icon        String      @db.VarChar(50)
+  criteria    String?     @db.VarChar(255)
+  users       UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id        String   @id @default(uuid()) @db.VarChar(36)
+  userId    String   @db.VarChar(36)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId   String   @db.VarChar(36)
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  awardedAt DateTime @default(now())
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Certificate {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  userId     String   @db.VarChar(36)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  certNumber String   @unique @db.VarChar(100)
+  title      String   @db.VarChar(255)
+  category   String   @db.VarChar(100)
+  issueDate  DateTime @default(now())
+  fileUrl    String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@map("certificates")
+}
+
+// --------------------------------------------------------
+// 8. PENGATURAN PLATFORM
+// --------------------------------------------------------
+model PlatformSetting {
+  id          String   @id @default(uuid()) @db.VarChar(36)
+  key         String   @unique @db.VarChar(100)
+  value       String   @db.LongText
+  description String?  @db.Text
+  updatedAt   DateTime @updatedAt
+
+  @@map("platform_settings")
+}

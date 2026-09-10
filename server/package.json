@@ -1,0 +1,39 @@
+{
+  "name": "kertas-kata-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Platform Digital KERTAS KATA Kabupaten Tangerang",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:seed": "node prisma/seed.js",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": [
+    "kertas-kata",
+    "literasi",
+    "express",
+    "prisma",
+    "mysql",
+    "tangerang"
+  ],
+  "author": "KERTAS KATA Team",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "google-auth-library": "^9.14.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prisma": "^5.19.1"
+  }
+}
