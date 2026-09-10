@@ -209,9 +209,8 @@ Setelah menjalankan `node prisma/seed.js` di folder `server/`, akun berikut lang
 
 | Peran | Email | Kata Sandi | Kegunaan |
 | :--- | :--- | :--- | :--- |
-| **Admin Utama** | `admin@kertaskata.my.id` | `AdminPassword2026!` | Akses portal kurasi `/admin` dan seluruh kelola menu `/kelola-*` |
-| **Mentor Literasi** | `mentor.dian@kertaskata.my.id` | `MentorPassword2026!` | Akses review tulisan, inline review AI, & moderasi komunitas |
-| **Anggota Sampel** | `rahmat.hidayat@gmail.com` | `MemberPassword2026!` | Akses `/dashboard`, studio `/menulis`, e-learning `/elearning` |
+| **Admin Utama (Bersih)** | `admin@kertaskata.my.id` | `Semua123@` | Akses portal kurasi `/admin` dan seluruh menu `/admin/kelola-*` |
+| **Anggota Peserta (Bersih)** | `raden@gmail.com` | `Semua123@` | Akses private `/dashboard`, studio `/menulis`, `/profil`, `/pengaturan`, `/elearning` |
 
 ---
 

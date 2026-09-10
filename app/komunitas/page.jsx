@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
+import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 import "@/css/dashboard.css";
@@ -23,7 +24,7 @@ const INITIAL_THREADS = [
     content: "Saat menulis tentang artefak atau peristiwa sejarah lokal seperti Benteng Tangerang, banyak penulis pemula terjebak sekadar merangkum buku teks. Bagaimana cara teman-teman menghidupkan sudut pandang emosional tanpa memanipulasi keakuratan data sejarah?",
     likes: 24,
     comments: [
-      { id: "c1", user: "Rahmat Hidayat", text: "Saya biasanya memulai dari kisah personal sesepuh warga atau benda peninggalan keluarga yang masih tersisa." },
+      { id: "c1", user: "Raden", text: "Saya biasanya memulai dari kisah personal sesepuh warga atau benda peninggalan keluarga yang masih tersisa." },
     ],
   },
   {
@@ -38,14 +39,14 @@ const INITIAL_THREADS = [
     isPrivate: true,
     date: "Kemarin",
     content: "Halo rekan-rekan penulis puisi! Forum ini dibentuk untuk menyelaraskan tema metafora laut, ritme ombak, dan kehidupan perkampungan nelayan Mauk & Kronjo yang akan kita bukukan bersama.",
-    likes: 18,
+    likes: 19,
     comments: [],
   },
   {
     id: "thread-3",
-    author: "Ahmad Fauzi",
-    authorRole: "Pegiat Jurnalistik Warga",
-    authorInitials: "AF",
+    author: "Budi Santoso, M.Pd.",
+    authorRole: "Pegiat Jurnalistik",
+    authorInitials: "BS",
     region: "Balaraja",
     title: "Etika Peliputan Berita Desa: Menghadapi Narasumber yang Tertutup",
     category: "puebi",
@@ -68,6 +69,15 @@ export default function KomunitasPage() {
   const [newCategory, setNewCategory] = useState("bedah_karya");
   const [newContent, setNewContent] = useState("");
   const [newIsPrivate, setNewIsPrivate] = useState(false);
+  const [selectedMembers, setSelectedMembers] = useState(["Sarah Melati, M.I.Kom", "Budi Santoso, M.Pd"]);
+  const [availableMembers, setAvailableMembers] = useState([
+    "Sarah Melati, M.I.Kom",
+    "Budi Santoso, M.Pd",
+    "Suryadi Ningrat",
+    "Anisa Fitriani",
+    "Dian Prasetyo"
+  ]);
+  const [customMemberInput, setCustomMemberInput] = useState("");
 
   useEffect(() => {
     async function loadThreads() {
@@ -100,16 +110,22 @@ export default function KomunitasPage() {
       return;
     }
 
+    if (newIsPrivate && selectedMembers.length < 2) {
+      alert("Untuk forum private, silakan pilih minimal 2 anggota undangan!");
+      return;
+    }
+
     const newThreadObj = {
       id: "thread-" + Date.now(),
-      author: user?.name || "Penulis Komunitas",
+      author: user?.name || "Raden",
       authorRole: "Anggota Komunitas",
-      authorInitials: user?.name ? user.name[0] : "P",
+      authorInitials: user?.name ? user.name[0] : "R",
       region: user?.originRegion || "Kabupaten Tangerang",
       title: newTitle,
       category: newCategory,
       categoryLabel: newCategory === "bedah_karya" ? "Bedah Karya" : newCategory === "antologi" ? "Kolaborasi Antologi" : "PUEBI & Riset",
       isPrivate: newIsPrivate,
+      invitedMembers: newIsPrivate ? selectedMembers : [],
       date: "Baru saja",
       content: newContent,
       likes: 1,
@@ -124,7 +140,8 @@ export default function KomunitasPage() {
   };
 
   return (
-    <div className="app-container">
+    <AuthGuard requiredRole="participant">
+      <div className="app-container">
       <SidebarParticipant activePath="/komunitas" />
 
       <div className="main-wrapper" style={{ marginRight: 0 }}>
@@ -268,10 +285,10 @@ export default function KomunitasPage() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#dbeafe", color: "#1e40af", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: "700" }}>
-                        RH
+                        RD
                       </div>
                       <div>
-                        <div style={{ fontSize: "0.8125rem", fontWeight: "700" }}>Rahmat Hidayat</div>
+                        <div style={{ fontSize: "0.8125rem", fontWeight: "700" }}>Raden</div>
                         <div style={{ fontSize: "0.6875rem", color: "#64748b" }}>Sejarah &amp; Budaya</div>
                       </div>
                     </div>
@@ -355,17 +372,149 @@ export default function KomunitasPage() {
                 />
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <input
-                  type="checkbox"
-                  id="chkPrivate"
-                  checked={newIsPrivate}
-                  onChange={(e) => setNewIsPrivate(e.target.checked)}
-                />
-                <label htmlFor="chkPrivate" style={{ fontSize: "0.8125rem", color: "#475569" }}>
-                  Jadikan forum private (hanya anggota yang diundang)
+              {/* Pilihan Tipe Forum Diskusi (Radio Cards) */}
+              <div>
+                <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+                  Tipe Forum Diskusi
                 </label>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  <div
+                    onClick={() => setNewIsPrivate(false)}
+                    style={{
+                      padding: "0.85rem",
+                      borderRadius: "10px",
+                      border: !newIsPrivate ? "2px solid #2563eb" : "1.5px solid #e2e8f0",
+                      background: !newIsPrivate ? "#eff6ff" : "#ffffff",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    <div style={{ fontWeight: 700, fontSize: "0.875rem", color: !newIsPrivate ? "#1d4ed8" : "#1e293b", marginBottom: "0.25rem" }}>
+                      🌐 Forum Publik
+                    </div>
+                    <div style={{ fontSize: "0.75rem", color: "#64748b", lineHeight: 1.4 }}>
+                      Terbuka untuk semua penulis terdaftar, dapat dilihat dan dibalas bersama.
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => setNewIsPrivate(true)}
+                    style={{
+                      padding: "0.85rem",
+                      borderRadius: "10px",
+                      border: newIsPrivate ? "2px solid #7c3aed" : "1.5px solid #e2e8f0",
+                      background: newIsPrivate ? "#f5f3ff" : "#ffffff",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    <div style={{ fontWeight: 700, fontSize: "0.875rem", color: newIsPrivate ? "#6d28d9" : "#1e293b", marginBottom: "0.25rem" }}>
+                      🔒 Forum Private
+                    </div>
+                    <div style={{ fontSize: "0.75rem", color: "#64748b", lineHeight: 1.4 }}>
+                      Tertutup, hanya anggota yang diundang yang dapat membaca dan berdiskusi.
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Kondisional: Fitur Undang Anggota untuk Forum Private */}
+              {newIsPrivate && (
+                <div
+                  className="invite-members-box"
+                  style={{
+                    background: "#f8fafc",
+                    border: "1.5px dashed #94a3b8",
+                    borderRadius: "12px",
+                    padding: "1rem",
+                  }}
+                >
+                  <div style={{ fontSize: "0.8125rem", fontWeight: 700, color: "#1e3a8a", display: "flex", alignItems: "center", gap: "0.35rem", marginBottom: "0.5rem" }}>
+                    <span>👥 Pilih Anggota yang Diundang (Minimal 2 Orang):</span>
+                  </div>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.75rem" }}>
+                    {availableMembers.map((member) => {
+                      const isSelected = selectedMembers.includes(member);
+                      return (
+                        <button
+                          key={member}
+                          type="button"
+                          onClick={() => {
+                            if (isSelected) {
+                              setSelectedMembers(selectedMembers.filter((m) => m !== member));
+                            } else {
+                              setSelectedMembers([...selectedMembers, member]);
+                            }
+                          }}
+                          style={{
+                            background: isSelected ? "#1e3a8a" : "#ffffff",
+                            color: isSelected ? "#ffffff" : "#1e293b",
+                            border: isSelected ? "1px solid #1e3a8a" : "1px solid #cbd5e1",
+                            borderRadius: "20px",
+                            padding: "0.35rem 0.75rem",
+                            fontSize: "0.75rem",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.35rem",
+                            transition: "all 0.15s ease",
+                          }}
+                        >
+                          <span>{isSelected ? "✓" : "+"}</span>
+                          <span>{member}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Tambah Nama Anggota Kustom */}
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <input
+                      type="text"
+                      placeholder="Ketik nama anggota lain..."
+                      value={customMemberInput}
+                      onChange={(e) => setCustomMemberInput(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: "0.45rem 0.65rem",
+                        borderRadius: "6px",
+                        border: "1px solid #cbd5e1",
+                        fontSize: "0.75rem",
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const trimmed = customMemberInput.trim();
+                        if (trimmed && !availableMembers.includes(trimmed)) {
+                          setAvailableMembers([...availableMembers, trimmed]);
+                          setSelectedMembers([...selectedMembers, trimmed]);
+                          setCustomMemberInput("");
+                        }
+                      }}
+                      style={{
+                        padding: "0.45rem 0.75rem",
+                        borderRadius: "6px",
+                        background: "#2563eb",
+                        color: "#fff",
+                        border: "none",
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      Tambah
+                    </button>
+                  </div>
+                  <div style={{ fontSize: "0.6875rem", color: selectedMembers.length >= 2 ? "#059669" : "#dc2626", marginTop: "0.5rem", fontWeight: 600 }}>
+                    {selectedMembers.length >= 2
+                      ? `✓ ${selectedMembers.length} anggota terpilih`
+                      : `⚠️ Pilih minimal ${2 - selectedMembers.length} anggota lagi`}
+                  </div>
+                </div>
+              )}
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
                 <button type="button" className="btn-secondary" onClick={() => setShowCreateModal(false)}>
@@ -379,6 +528,7 @@ export default function KomunitasPage() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </AuthGuard>
   );
 }

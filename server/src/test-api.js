@@ -32,7 +32,7 @@ async function testApi() {
     const resLoginAdmin = await fetch(`${baseUrl}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@kertaskata.my.id', password: 'AdminPassword2026!' }),
+      body: JSON.stringify({ email: 'admin@kertaskata.my.id', password: 'Semua123@' }),
     }).then((r) => r.json());
     assert(resLoginAdmin.success === true, 'POST /api/auth/login Admin berhasil');
     assert(resLoginAdmin.data.token, 'Admin menerima JWT token yang valid');
@@ -42,7 +42,7 @@ async function testApi() {
     const resLoginMember = await fetch(`${baseUrl}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'rahmat.hidayat@gmail.com', password: 'MemberPassword2026!' }),
+      body: JSON.stringify({ email: 'raden@gmail.com', password: 'Semua123@' }),
     }).then((r) => r.json());
     assert(resLoginMember.success === true, 'POST /api/auth/login Member berhasil');
     memberToken = resLoginMember.data.token;
@@ -51,7 +51,7 @@ async function testApi() {
     const resMe = await fetch(`${baseUrl}/auth/me`, {
       headers: { Authorization: `Bearer ${memberToken}` },
     }).then((r) => r.json());
-    assert(resMe.success === true && resMe.data.email === 'rahmat.hidayat@gmail.com', 'GET /api/auth/me mengembalikan profil terotentikasi');
+    assert(resMe.success === true && resMe.data.email === 'raden@gmail.com', 'GET /api/auth/me mengembalikan profil terotentikasi');
 
     // 5. Articles: GET /public
     const resPublicArticles = await fetch(`${baseUrl}/articles/public`).then((r) => r.json());

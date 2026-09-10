@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
+import AuthGuard from "@/components/AuthGuard";
 import api from "@/lib/api";
 import "@/css/dashboard.css";
 import "@/css/elearning.css";
@@ -119,7 +120,8 @@ export default function ElearningPage() {
   }, [modules, filter]);
 
   return (
-    <div className="app-container">
+    <AuthGuard requiredRole="participant">
+      <div className="app-container">
       <SidebarParticipant activePath="/elearning" />
 
       <div className="main-wrapper" style={{ marginRight: 0 }}>
@@ -319,6 +321,7 @@ export default function ElearningPage() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </AuthGuard>
   );
 }

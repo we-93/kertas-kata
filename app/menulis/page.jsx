@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 import "@/css/writing-studio.css";
@@ -591,8 +592,10 @@ function MenulisForm() {
 
 export default function MenulisPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b" }}>Memuat studio menulis...</div>}>
-      <MenulisForm />
-    </Suspense>
+    <AuthGuard requiredRole="participant">
+      <Suspense fallback={<div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b" }}>Memuat studio menulis...</div>}>
+        <MenulisForm />
+      </Suspense>
+    </AuthGuard>
   );
 }

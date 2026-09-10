@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
+import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 import "@/css/dashboard.css";
@@ -60,15 +61,16 @@ export default function DashboardPage() {
   const printRemaining = Math.max(0, 10 - (counts.published || 0));
 
   return (
-    <div className="app-container">
-      {/* Left Sidebar */}
-      <SidebarParticipant activePath="/dashboard" />
+    <AuthGuard requiredRole="participant">
+      <div className="app-container">
+        {/* Left Sidebar */}
+        <SidebarParticipant activePath="/dashboard" />
 
-      {/* Main Content Area */}
-      <div className="main-wrapper">
-        <TopHeader />
+        {/* Main Content Area */}
+        <div className="main-wrapper">
+          <TopHeader />
 
-        <main className="content-body">
+          <main className="content-body">
           {/* Welcome Banner */}
           <section className="welcome-banner">
             <div className="banner-overlay-shape"></div>
@@ -408,11 +410,11 @@ export default function DashboardPage() {
                     .slice(0, 2)
                     .join("")
                     .toUpperCase()
-                : "RH"}
+                : "RD"}
             </div>
             <div className="avatar-badge-online" title="Online Aktif"></div>
           </div>
-          <h3 className="profile-name">{user?.name || "Rahmat Hidayat"}</h3>
+          <h3 className="profile-name">{user?.name || "Raden"}</h3>
           <div className="profile-region">
             <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -519,5 +521,6 @@ export default function DashboardPage() {
         </div>
       </aside>
     </div>
+    </AuthGuard>
   );
 }

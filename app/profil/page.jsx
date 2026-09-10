@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
+import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 import "@/css/dashboard.css";
@@ -12,9 +13,11 @@ import "@/css/profil.css";
 export default function ProfilPage() {
   const { user, ensureAuth } = useAuth();
   const [articles, setArticles] = useState([]);
-  const [counts, setCounts] = useState({ published: 3, in_review: 0, draft: 0 });
+  const [counts, setCounts] = useState({ published: 0, in_review: 0, draft: 0 });
   const [activeCategory, setActiveCategory] = useState("all");
   const [showPdfModal, setShowPdfModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [copiedShare, setCopiedShare] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -23,7 +26,7 @@ export default function ProfilPage() {
         const res = await api.articles.getMy();
         if (res && res.success && res.data) {
           const { articles: myArticles, counts: myCounts } = res.data;
-          if (myArticles && myArticles.length > 0) {
+          if (myArticles) {
             setArticles(myArticles.filter((a) => a.status === "published"));
           }
           if (myCounts) {
@@ -37,56 +40,19 @@ export default function ProfilPage() {
     loadData();
   }, [ensureAuth]);
 
-  // Fallback default published portfolio if database is fresh
+  // Dynamic portfolio from database (clean state when no published articles)
   const displayArticles = useMemo(() => {
-    if (articles.length > 0) {
-      return articles.map((a) => ({
-        id: a.id,
-        title: a.title,
-        category: a.category || "Sejarah",
-        lead: a.lead || "Dokumentasi dan esai literasi masyarakat Kabupaten Tangerang.",
-        date: new Date(a.publishedAt || a.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }),
-        views: a.viewCount || 642,
-        comments: 18,
-        coverUrl: a.coverUrl || "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
-        slug: a.slug || a.id,
-      }));
-    }
-    return [
-      {
-        id: "p1",
-        title: "Menelusuri Jejak Sejarah Benteng Heritage Tangerang dan Akulturasi Peranakan",
-        category: "Sejarah",
-        lead: "Dokumentasi arsitektur, peninggalan rumah abu peranakan Benteng, dan potret kerukunan multi-etnis yang telah bertahan selama ratusan tahun di bantaran Cisadane.",
-        date: "24 Agt 2026",
-        views: 642,
-        comments: 18,
-        coverUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
-        slug: "menelusuri-jejak-sejarah-benteng-heritage",
-      },
-      {
-        id: "p2",
-        title: "Optimalisasi Ruang Publik Ramah Anak di Wilayah Pusat Pemerintahan Tigaraksa",
-        category: "Opini",
-        lead: "Ulasan komparatif tentang pentingnya taman literasi terbuka hijau dan fasilitas bermain edukatif bagi tumbuh kembang generasi muda di pusat kabupaten.",
-        date: "12 Agt 2026",
-        views: 389,
-        comments: 14,
-        coverUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&auto=format&fit=crop&q=80",
-        slug: "optimalisasi-ruang-publik-ramah-anak",
-      },
-      {
-        id: "p3",
-        title: "Revitalisasi Sungai Cisadane: Narasi Ekologis Generasi Muda Tangerang",
-        category: "Pemerintahan",
-        lead: "Kajian kritis mengenai peran serta generasi Z dalam gerakan pembersihan riparian sungai serta pemanfaatan bantaran untuk ekowisata literasi desa.",
-        date: "05 Agt 2026",
-        views: 189,
-        comments: 13,
-        coverUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80",
-        slug: "revitalisasi-sungai-cisadane",
-      },
-    ];
+    return articles.map((a) => ({
+      id: a.id,
+      title: a.title,
+      category: a.category || "Sejarah",
+      lead: a.lead || "Dokumentasi dan esai literasi masyarakat Kabupaten Tangerang.",
+      date: new Date(a.publishedAt || a.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }),
+      views: a.viewCount || 0,
+      comments: 0,
+      coverUrl: a.coverUrl || "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+      slug: a.slug || a.id,
+    }));
   }, [articles]);
 
   const filteredPortfolio = useMemo(() => {
@@ -98,12 +64,42 @@ export default function ProfilPage() {
     return displayArticles.reduce((acc, it) => acc + it.views, 0);
   }, [displayArticles]);
 
-  const handleShareProfile = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      alert("✓ Tautan profil publik berhasil disalin ke clipboard!");
-    } else {
-      alert("Tautan: " + window.location.href);
+  const handleShareProfile = async () => {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    let shared = false;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Profil Penulis ${user?.name || "Raden"} - KERTAS KATA`,
+          text: `Lihat portofolio karya literasi resmi ${user?.name || "Raden"} di KERTAS KATA Kabupaten Tangerang.`,
+          url: url,
+        });
+        shared = true;
+      } catch (e) {
+        // Fallback ke salin tautan jika dibatalkan
+      }
+    }
+
+    if (!shared) {
+      try {
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = url;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+        setCopiedShare(true);
+        setToastMessage("Tautan profil penulis berhasil disalin ke papan klip!");
+        setTimeout(() => setCopiedShare(false), 3000);
+        setTimeout(() => setToastMessage(""), 3500);
+      } catch (err) {
+        setToastMessage("Tautan: " + url);
+        setTimeout(() => setToastMessage(""), 4000);
+      }
     }
   };
 
@@ -112,7 +108,8 @@ export default function ProfilPage() {
   };
 
   return (
-    <div className="app-container">
+    <AuthGuard requiredRole="participant">
+      <div className="app-container">
       <SidebarParticipant activePath="/profil" />
 
       <div className="main-wrapper" style={{ marginRight: 0 }}>
@@ -129,7 +126,7 @@ export default function ProfilPage() {
                 <img
                   className="profil-avatar-img"
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
-                  alt={`Foto Profil ${user?.name || "Rahmat Hidayat"}`}
+                  alt={`Foto Profil ${user?.name || "Raden"}`}
                 />
                 <div className="profil-verified-badge" title="Akun Terverifikasi Sekolah Literasi">✓</div>
               </div>
@@ -137,7 +134,7 @@ export default function ProfilPage() {
               {/* Identity Details */}
               <div className="profil-identity-info">
                 <div className="profil-name-row">
-                  <h1>{user?.name || "Rahmat Hidayat"}</h1>
+                  <h1>{user?.name || "Raden"}</h1>
                 </div>
 
                 <div className="profil-meta-tags">
@@ -371,7 +368,7 @@ export default function ProfilPage() {
                 <div className="info-list-group">
                   <div className="info-list-item">
                     <span className="info-label">Email Terdaftar</span>
-                    <span className="info-val">{user?.email || "rahmat.hidayat@gmail.com"}</span>
+                    <span className="info-val">{user?.email || "raden@gmail.com"}</span>
                   </div>
                   <div className="info-list-item">
                     <span className="info-label">Status Akun</span>
@@ -439,27 +436,63 @@ export default function ProfilPage() {
                 </div>
 
                 {/* Portfolio Grid */}
-                <div className="portfolio-articles-grid">
-                  {filteredPortfolio.map((art) => (
-                    <article key={art.id} className="port-card">
-                      <div className="port-cover-wrapper">
-                        <img className="port-cover-img" src={art.coverUrl} alt={art.title} />
-                        <span className="port-category-tag">{art.category}</span>
-                      </div>
-                      <div className="port-card-body">
-                        <h4 className="port-card-title">{art.title}</h4>
-                        <p className="port-card-excerpt">{art.lead}</p>
-                        <div className="port-card-footer">
-                          <span>Rilis: {art.date}</span>
-                          <div className="port-meta-metrics">
-                            <span>👁 {art.views}</span>
-                            <span>💬 {art.comments}</span>
+                {filteredPortfolio.length > 0 ? (
+                  <div className="portfolio-articles-grid">
+                    {filteredPortfolio.map((art) => (
+                      <article key={art.id} className="port-card">
+                        <div className="port-cover-wrapper">
+                          <img className="port-cover-img" src={art.coverUrl} alt={art.title} />
+                          <span className="port-category-tag">{art.category}</span>
+                        </div>
+                        <div className="port-card-body">
+                          <h4 className="port-card-title">{art.title}</h4>
+                          <p className="port-card-excerpt">{art.lead}</p>
+                          <div className="port-card-footer">
+                            <span>Rilis: {art.date}</span>
+                            <div className="port-meta-metrics">
+                              <span>👁 {art.views}</span>
+                              <span>💬 {art.comments}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{
+                    textAlign: "center",
+                    padding: "3.5rem 1.5rem",
+                    background: "#f8fafc",
+                    borderRadius: "14px",
+                    border: "1.5px dashed #cbd5e1",
+                    margin: "1rem 0"
+                  }}>
+                    <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>✍️</div>
+                    <h4 style={{ fontSize: "1.0625rem", fontWeight: 700, color: "#1e293b", marginBottom: "0.35rem" }}>
+                      Belum Ada Naskah yang Diterbitkan
+                    </h4>
+                    <p style={{ fontSize: "0.8125rem", color: "#64748b", maxWidth: "420px", margin: "0 auto 1.25rem", lineHeight: 1.6 }}>
+                      Koleksi portofolio resmi Anda masih bersih. Mulai tulis artikel opini, riset, atau sastra pertama Anda di Studio Menulis untuk dikurasi redaksi.
+                    </p>
+                    <Link
+                      href="/menulis"
+                      className="btn-profil-action"
+                      style={{
+                        background: "#2563eb",
+                        color: "#ffffff",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
+                        padding: "0.65rem 1.25rem"
+                      }}
+                    >
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                      <span>Mulai Menulis Naskah Pertama</span>
+                    </Link>
+                  </div>
+                )}
               </div>
 
               {/* Card Riwayat Aktivitas & Kontribusi Komunitas */}
@@ -569,10 +602,10 @@ export default function ProfilPage() {
                   <img
                     className="pdf-author-img"
                     src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
-                    alt={user?.name || "Rahmat Hidayat"}
+                    alt={user?.name || "Raden"}
                   />
                   <div className="pdf-author-details">
-                    <h3>{user?.name || "Rahmat Hidayat"}</h3>
+                    <h3>{user?.name || "Raden"}</h3>
                     <p><strong>Peran:</strong> Anggota Terdaftar Komunitas Literasi Kabupaten Tangerang</p>
                     <p><strong>Wilayah:</strong> {user?.originRegion || "Kecamatan Tigaraksa, Kabupaten Tangerang"}</p>
                     <p><strong>Spesialisasi:</strong> Sejarah Lokal Tangerang, Opini &amp; Esai Kebijakan Publik</p>
@@ -660,6 +693,32 @@ export default function ProfilPage() {
           </div>
         </div>
       )}
-    </div>
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          background: "#059669",
+          color: "#ffffff",
+          padding: "0.75rem 1.25rem",
+          borderRadius: "10px",
+          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.25)",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.6rem",
+          fontSize: "0.875rem",
+          fontWeight: 700,
+          zIndex: 9999,
+        }}>
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{toastMessage}</span>
+        </div>
+      )}
+      </div>
+    </AuthGuard>
   );
 }

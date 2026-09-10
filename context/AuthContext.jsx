@@ -36,50 +36,61 @@ export function AuthProvider({ children }) {
     return { success: false, message: res.message || 'Email atau kata sandi tidak sesuai.' };
   };
 
+  const loginGoogle = async (mockOrToken) => {
+    // Jika ada mockData atau idToken
+    const payload = typeof mockOrToken === 'string' ? { idToken: mockOrToken } : { mockData: mockOrToken };
+    const res = await api.auth.google(payload);
+    if (res && res.success && res.data) {
+      const { user: userData, token } = res.data;
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+      setUser(userData);
+      return { success: true, user: userData };
+    }
+    return { success: false, message: res.message || 'Gagal autentikasi via Google.' };
+  };
+
   const logout = () => {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
     setUser(null);
     if (typeof window !== 'undefined') {
-      window.location.href = '/';
+      window.location.href = '/login';
     }
   };
 
   /**
-   * Memastikan sesi aktif. Jika di lingkungan dev/demo belum login,
-   * secara otomatis login sebagai akun default sesuai kebutuhan rute.
+   * Memvalidasi apakah user sedang login dan memiliki role yang sesuai.
+   * Tidak ada auto-login dummy. Jika belum login, mengembalikan null.
    */
   const ensureAuth = async (requiredRole = 'participant') => {
-    if (user) {
-      if (requiredRole === 'admin' && (user.role === 'admin' || user.role === 'mentor')) return user;
-      if (requiredRole === 'participant') return user;
-      if (requiredRole === 'any') return user;
+    let currentUser = user;
+    if (!currentUser && typeof window !== 'undefined') {
+      const stored = localStorage.getItem(USER_KEY);
+      if (stored) {
+        try {
+          currentUser = JSON.parse(stored);
+          setUser(currentUser);
+        } catch (e) {
+          currentUser = null;
+        }
+      }
     }
 
-    try {
-      let defaultEmail = 'rahmat.hidayat@gmail.com';
-      let defaultPass = 'MemberPassword2026!';
-      if (requiredRole === 'admin') {
-        defaultEmail = 'admin@kertaskata.my.id';
-        defaultPass = 'AdminPassword2026!';
+    if (currentUser) {
+      if (requiredRole === 'admin' && (currentUser.role === 'admin' || currentUser.role === 'mentor')) {
+        return currentUser;
       }
-
-      const res = await api.auth.login(defaultEmail, defaultPass);
-      if (res && res.success && res.data) {
-        const { user: userData, token } = res.data;
-        localStorage.setItem(TOKEN_KEY, token);
-        localStorage.setItem(USER_KEY, JSON.stringify(userData));
-        setUser(userData);
-        return userData;
+      if (requiredRole === 'participant' || requiredRole === 'any') {
+        return currentUser;
       }
-    } catch (e) {
-      console.warn('Auto-auth notice:', e.message);
     }
+
     return null;
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, logout, ensureAuth }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, loginGoogle, logout, ensureAuth }}>
       {children}
     </AuthContext.Provider>
   );

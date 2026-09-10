@@ -9,7 +9,7 @@ import "@/css/admin.css";
 import "@/css/kelola-anggota.css";
 
 const INITIAL_MEMBERS = [
-  { id: "m1", name: "Dr. Rahmat Hidayat, M.Pd.", email: "rahmat.hidayat@gmail.com", region: "Tigaraksa", role: "participant", status: "active", articlesCount: 12, joinedDate: "12 Agu 2026" },
+  { id: "m1", name: "Raden", email: "raden@gmail.com", region: "Tigaraksa", role: "participant", status: "active", articlesCount: 0, joinedDate: "10 Sep 2026" },
   { id: "m2", name: "Siti Aminah, S.Pd.", email: "siti.aminah@gmail.com", region: "Teluknaga", role: "participant", status: "active", articlesCount: 8, joinedDate: "15 Agu 2026" },
   { id: "m3", name: "Ahmad Fauzi", email: "ahmad.fauzi@gmail.com", region: "Balaraja", role: "participant", status: "active", articlesCount: 5, joinedDate: "18 Agu 2026" },
   { id: "m4", name: "Nurul Fajriah, S.S.", email: "nurul.f@gmail.com", region: "Kronjo", role: "participant", status: "pending", articlesCount: 1, joinedDate: "20 Agu 2026" },

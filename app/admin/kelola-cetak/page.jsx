@@ -7,7 +7,7 @@ import "@/css/dashboard.css";
 import "@/css/admin.css";
 
 const INITIAL_ORDERS = [
-  { id: "ORD-001", member: "Dr. Rahmat Hidayat", title: "Mozaik Kisah Benteng Heritage Tangerang", copies: 25, type: "Antologi Komunitas", status: "layouting", isbn: "978-623-09-8812-4", date: "08 Sep 2026" },
+  { id: "ORD-001", member: "Raden", title: "Mozaik Kisah Benteng Heritage Tangerang", copies: 25, type: "Antologi Komunitas", status: "layouting", isbn: "978-623-09-8812-4", date: "08 Sep 2026" },
   { id: "ORD-002", member: "Siti Aminah, S.Pd.", title: "Catatan Guru Penggerak Pesisir Tangerang", copies: 50, type: "Buku Solo", status: "printing", isbn: "978-623-09-8816-2", date: "05 Sep 2026" },
   { id: "ORD-003", member: "Ahmad Fauzi", title: "Warta Dari Balai Desa", copies: 25, type: "Buku Solo", status: "completed", isbn: "978-623-09-8817-9", date: "28 Agu 2026" },
 ];

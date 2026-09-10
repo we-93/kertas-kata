@@ -7,7 +7,7 @@ import "@/css/dashboard.css";
 import "@/css/admin.css";
 
 const INITIAL_CERTS = [
-  { id: "CERT-2026-001", name: "Dr. Rahmat Hidayat", region: "Tigaraksa", modulesPassed: 8, articlesPublished: 12, certNumber: "KK/32JP/2026/089", status: "issued", issueDate: "01 Sep 2026" },
+  { id: "CERT-2026-001", name: "Raden", region: "Tigaraksa", modulesPassed: 8, articlesPublished: 12, certNumber: "KK/32JP/2026/089", status: "issued", issueDate: "01 Sep 2026" },
   { id: "CERT-2026-002", name: "Siti Aminah, S.Pd.", region: "Teluknaga", modulesPassed: 8, articlesPublished: 8, certNumber: "KK/32JP/2026/090", status: "issued", issueDate: "03 Sep 2026" },
   { id: "CERT-2026-003", name: "Ahmad Fauzi", region: "Balaraja", modulesPassed: 8, articlesPublished: 5, certNumber: "KK/32JP/2026/091", status: "ready", issueDate: "-" },
 ];

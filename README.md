@@ -64,10 +64,9 @@ Buka peramban di:
 - **Web Portal**: [http://localhost:5000](http://localhost:5000)
 - **API Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
-### 🔑 Akun Demo Pengujian Lokal
-- **Administrator Kurasi**: `admin@kertaskata.my.id` | Password: `AdminPassword2026!`
-- **Mentor Penulisan**: `mentor.dian@kertaskata.my.id` | Password: `MentorPassword2026!`
-- **Anggota Peserta**: `rahmat.hidayat@gmail.com` | Password: `MemberPassword2026!`
+### 🔑 Akun Bersih Pengujian (Hasil Seeding)
+- **Administrator Kurasi**: `admin@kertaskata.my.id` | Password: `Semua123@`
+- **Anggota Peserta**: `raden@gmail.com` | Password: `Semua123@`
 
 ---
 

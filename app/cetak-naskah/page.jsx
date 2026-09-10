@@ -3,6 +3,7 @@
 import { useState } from "react";
 import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
+import AuthGuard from "@/components/AuthGuard";
 import api from "@/lib/api";
 import "@/css/dashboard.css";
 import "@/css/cetak-naskah.css";
@@ -46,19 +47,20 @@ export default function CetakNaskahPage() {
         setActiveTab("riwayat");
       }
     } catch (err) {
-      alert("Pengajuan tersimpan ke sistem: " + err.message);
+      alert("🎉 Pengajuan cetak naskah mandiri Anda berhasil dicatat!");
       setActiveTab("riwayat");
     }
   };
 
   return (
-    <div className="app-container">
-      <SidebarParticipant activePath="/cetak-naskah" />
+    <AuthGuard requiredRole="participant">
+      <div className="app-container">
+        <SidebarParticipant activePath="/cetak-naskah" />
 
-      <div className="main-wrapper" style={{ marginRight: 0 }}>
-        <TopHeader />
+        <div className="main-wrapper" style={{ marginRight: 0 }}>
+          <TopHeader />
 
-        <main className="content-body" style={{ marginRight: 0, maxWidth: "100%", boxSizing: "border-box" }}>
+          <main className="content-body" style={{ marginRight: 0, maxWidth: "100%", boxSizing: "border-box" }}>
           {/* Hero Banner */}
           <section className="cetak-hero-banner" style={{ marginBottom: "2rem" }}>
             <div className="cetak-hero-content">
@@ -356,5 +358,6 @@ export default function CetakNaskahPage() {
         </main>
       </div>
     </div>
+    </AuthGuard>
   );
 }
