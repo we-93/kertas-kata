@@ -119,26 +119,56 @@
     const modalCategory = document.getElementById('modalCategoryBadge');
     const modalPlag = document.getElementById('modalPlagBadge');
     const manuscriptEl = document.getElementById('manuscriptContent');
+    const metaCat = document.getElementById('modalMetaCategory');
+    const metaWords = document.getElementById('modalMetaWordCount');
+    const metaDate = document.getElementById('modalMetaDate');
 
     if (modalTitle) modalTitle.textContent = article.title;
     if (modalAuthor) modalAuthor.textContent = `Oleh: ${article.author} • ${article.region}, Kab. Tangerang`;
     if (modalCategory) modalCategory.textContent = article.category;
+    if (metaCat) metaCat.innerHTML = `<strong>Kategori:</strong> ${article.category}`;
+    if (metaWords) metaWords.innerHTML = `<strong>Jumlah Kata:</strong> ${(article.wordCount || 0).toLocaleString('id-ID')} kata`;
+    if (metaDate) metaDate.innerHTML = `<strong>Diajukan:</strong> ${article.date}`;
+
     if (modalPlag) {
+      modalPlag.style.display = 'inline-flex';
       modalPlag.className = `plagiarism-badge ${article.plagStatus === 'safe' ? 'safe' : 'warning'}`;
       modalPlag.textContent = `${article.plagStatus === 'safe' ? '🛡️' : '⚠️'} ${article.plagiarism}% - ${article.plagStatus === 'safe' ? 'Aman' : 'Perlu Cek'}`;
     }
 
     // Tampilkan isi naskah asli
-    if (manuscriptEl && article.content) {
-      manuscriptEl.innerHTML = article.content;
+    if (manuscriptEl) {
+      manuscriptEl.innerHTML = article.content || '<p style="color:var(--text-muted); font-style:italic;">Naskah tidak memiliki teks.</p>';
     }
 
-    // Reset AI Button state
+    // Reset AI Button state & panes
     const aiBtn = document.getElementById('btnRunAiCorrection');
     const aiText = document.getElementById('aiButtonText');
     if (aiBtn && aiText) {
       aiBtn.classList.remove('analyzing');
       aiText.textContent = '✨ Jalankan AI Koreksi';
+    }
+
+    const paneAi = document.getElementById('paneAiContent');
+    const aiCountEl = document.getElementById('aiCount');
+    const commentCountEl = document.getElementById('commentCount');
+    const additionalComments = document.getElementById('additionalCommentsContainer');
+
+    if (aiCountEl) aiCountEl.textContent = '0';
+    if (commentCountEl) commentCountEl.textContent = '0';
+    if (additionalComments) additionalComments.innerHTML = '';
+
+    if (paneAi) {
+      paneAi.innerHTML = `
+        <div id="aiScanningIndicator" style="display: none; background: #faf5ff; border: 1px dashed #c084fc; border-radius: 10px; padding: 0.875rem; text-align: center;">
+          <div style="font-size: 0.8125rem; font-weight: 700; color: #7c3aed;">Sedang Menganalisis Naskah...</div>
+          <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.2rem;">Memeriksa keselarasan KBBI V, PUEBI, dan koherensi semantik</div>
+        </div>
+        <div id="aiSuggestionEmptyState" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+          <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">✨</div>
+          <p style="font-size: 0.8125rem; margin: 0;">Klik tombol <strong>"Jalankan AI Koreksi"</strong> di atas untuk memindai kepatuhan PUEBI & KBBI pada naskah ini.</p>
+        </div>
+      `;
     }
 
     // Show modal
@@ -383,13 +413,16 @@
           return;
         }
 
+        const user = (window.KK_API && window.KK_API.auth.getCurrentUser()) || { name: 'Admin Kurator' };
+        const initials = (user.name || 'AK').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+
         const newCard = document.createElement('div');
         newCard.className = 'manual-comment-card';
         newCard.innerHTML = `
           <div class="comment-card-header">
             <div class="comment-author-pill">
-              <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">FI</div>
-              <span>Fajar Ilhami (Kurator)</span>
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">${initials}</div>
+              <span>${escapeHtml(user.name || 'Admin')} (Kurator)</span>
             </div>
             <button type="button" class="btn-mark-done" onclick="toggleCommentDone(this)">Selesai</button>
           </div>
@@ -399,8 +432,12 @@
         addContainer.prepend(newCard);
         inputComment.value = '';
 
+        if (window.KK_API && currentActiveArticleId) {
+          window.KK_API.admin.addComment(currentActiveArticleId, '', text).catch(e => console.warn(e));
+        }
+
         if (commentCountEl) {
-          const current = parseInt(commentCountEl.textContent, 10) || 2;
+          const current = parseInt(commentCountEl.textContent, 10) || 0;
           commentCountEl.textContent = current + 1;
         }
 
@@ -649,19 +686,77 @@
         const revisionCount = reviewQueueData.filter(i => i.status === 'revision').length;
         const readyCount = reviewQueueData.filter(i => i.status === 'ready').length;
 
-        const tabPills = document.querySelectorAll('.queue-tab-btn');
-        tabPills.forEach(p => {
-          const f = p.getAttribute('data-filter');
-          if (f === 'all') p.textContent = `Semua Antrean (${reviewQueueData.length})`;
-          else if (f === 'pending') p.textContent = `Menunggu Review (${pendingCount})`;
-          else if (f === 'revision') p.textContent = `Revisi Anggota (${revisionCount})`;
-          else if (f === 'ready') p.textContent = `Siap Terbit (${readyCount})`;
-        });
+        const badgeAll = document.getElementById('badgeAll');
+        const badgePending = document.getElementById('badgePending');
+        const badgeRevision = document.getElementById('badgeRevision');
+        const badgeReady = document.getElementById('badgeReady');
+
+        if (badgeAll) badgeAll.textContent = reviewQueueData.length;
+        if (badgePending) badgePending.textContent = pendingCount;
+        if (badgeRevision) badgeRevision.textContent = revisionCount;
+        if (badgeReady) badgeReady.textContent = readyCount;
+
+        const statQueue = document.getElementById('statAdminQueue');
+        const statQueueSub = document.getElementById('statAdminQueueSub');
+        const statAdminRevisionSub = document.getElementById('statAdminRevisionSub');
+        if (statQueue) statQueue.textContent = pendingCount;
+        if (statQueueSub) statQueueSub.textContent = `${pendingCount} Baru`;
+        if (statAdminRevisionSub) statAdminRevisionSub.textContent = `• ${revisionCount} Revisi`;
+
+        const heroQueueBtn = document.getElementById('heroQueueCountBtn');
+        if (heroQueueBtn) {
+          heroQueueBtn.textContent = reviewQueueData.length > 0 ? `Mulai Kurasi (${reviewQueueData.length} Naskah)` : 'Mulai Kurasi Naskah';
+        }
 
         renderQueueTable(activeFilter);
       }
     } catch (err) {
       console.warn('Gagal memuat antrean live API:', err.message);
+    }
+  }
+
+  async function loadAdminOverviewStatsFromApi() {
+    if (!window.KK_API) return;
+    try {
+      // Sinkronisasi identitas admin dari session
+      const user = window.KK_API.auth.getCurrentUser();
+      if (user) {
+        const initials = (user.name || 'AD')
+          .split(' ')
+          .map(n => n[0])
+          .join('')
+          .slice(0, 2)
+          .toUpperCase();
+
+        const pillAvatar = document.getElementById('adminPillAvatar');
+        const pillName = document.getElementById('adminPillName');
+        const dropAvatar = document.getElementById('adminDropdownAvatar');
+        const dropName = document.getElementById('adminDropdownName');
+        const dropEmail = document.getElementById('adminDropdownEmail');
+
+        if (pillAvatar) pillAvatar.textContent = initials;
+        if (pillName) pillName.textContent = user.name;
+        if (dropAvatar) dropAvatar.textContent = initials;
+        if (dropName) dropName.textContent = user.name;
+        if (dropEmail) dropEmail.textContent = user.email || 'admin@kertaskata.my.id';
+      }
+
+      const res = await window.KK_API.admin.getOverview();
+      if (res && res.success && res.data) {
+        const { totalMembers, publishedArticles, pendingReviews, totalEbooks } = res.data;
+
+        const statMembers = document.getElementById('statAdminMembers');
+        const statPublished = document.getElementById('statAdminPublished');
+        const statEbooks = document.getElementById('statAdminEbooks');
+        const sidebarBadge = document.getElementById('sidebarQueueBadge');
+
+        if (statMembers) statMembers.textContent = (totalMembers || 0).toLocaleString('id-ID');
+        if (statPublished) statPublished.textContent = (publishedArticles || 0).toLocaleString('id-ID');
+        if (statEbooks) statEbooks.textContent = (totalEbooks || 0).toLocaleString('id-ID');
+        if (sidebarBadge) sidebarBadge.textContent = pendingReviews || 0;
+      }
+    } catch (err) {
+      console.warn('Gagal memuat overview admin:', err.message);
     }
   }
 
@@ -675,8 +770,9 @@
     initQuickActions();
     initMobileDrawer();
 
-    // Muat data antrean nyata dari server jika terhubung
+    // Muat data antrean nyata & statistik overview dari server
     if (window.KK_API) {
+      await loadAdminOverviewStatsFromApi();
       await loadLiveQueueFromApi();
     }
   });

@@ -304,10 +304,13 @@ function initCoverUploadMock() {
   if (!dropBox) return;
 
   dropBox.addEventListener('click', () => {
-    const url = prompt('Masukkan URL foto sampul (atau gunakan gambar default):', 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=900&auto=format&fit=crop&q=80');
-    if (url) {
+    const url = prompt('Masukkan URL gambar/foto sampul:');
+    if (url && url.trim()) {
       const img = document.getElementById('coverThumbnail');
-      if (img) img.src = url;
+      if (img) {
+        img.src = url.trim();
+        img.style.display = 'block';
+      }
       showToast('✓ Gambar sampul artikel diperbarui!');
     }
   });
@@ -349,7 +352,7 @@ function populatePreview() {
   const lead = document.getElementById('authorLead').value || '';
   const category = document.getElementById('widgetCategorySelect').value || 'Refleksi Pedagogik';
   const bodyHtml = document.getElementById('authorBody').innerHTML;
-  const coverSrc = document.getElementById('coverThumbnail').src;
+  const coverEl = document.getElementById('coverThumbnail');
 
   const tagPills = document.querySelectorAll('#tagPillsList .widget-tag-pill span:first-child');
   let tagsHtml = '';
@@ -359,7 +362,33 @@ function populatePreview() {
 
   document.getElementById('modalPreviewCategory').textContent = category;
   document.getElementById('modalPreviewTitle').textContent = title;
-  document.getElementById('modalPreviewCover').src = coverSrc;
+
+  const modalCover = document.getElementById('modalPreviewCover');
+  if (modalCover) {
+    if (coverEl && coverEl.src && coverEl.style.display !== 'none' && coverEl.getAttribute('src') !== '') {
+      modalCover.src = coverEl.src;
+      modalCover.style.display = 'block';
+    } else {
+      modalCover.src = '';
+      modalCover.style.display = 'none';
+    }
+  }
+
+  if (window.KK_API) {
+    const user = window.KK_API.auth.getCurrentUser();
+    if (user) {
+      const uName = user.name || 'Penulis Komunitas';
+      const initials = uName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+      const region = user.originRegion || 'Kabupaten Tangerang';
+      const avatarEl = document.getElementById('previewAuthorAvatar');
+      const nameEl = document.getElementById('previewAuthorName');
+      const bioEl = document.getElementById('previewAuthorBio');
+      if (avatarEl) avatarEl.textContent = initials;
+      if (nameEl) nameEl.textContent = uName;
+      if (bioEl) bioEl.textContent = `Anggota Komunitas • ${region}`;
+    }
+  }
+
   document.getElementById('modalPreviewContent').innerHTML = `
     ${lead ? `<p style="font-size: 1.125rem; font-weight: 500; color: #475569; font-style: italic; margin-bottom: 1.5rem; line-height: 1.7;">${lead}</p>` : ''}
     ${bodyHtml}

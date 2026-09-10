@@ -129,45 +129,14 @@
       </div>
 
       <!-- Article Title -->
-      <textarea id="authorTitle" class="author-title-input" rows="1" placeholder="Judul Naskah...">Menghidupkan Denyut Literasi di Pesisir Teluknaga: Catatan Perjalanan Merawat Aksara Desa</textarea>
+      <textarea id="authorTitle" class="author-title-input" rows="1" placeholder="Judul Naskah..."></textarea>
 
       <!-- Subtitle / Premise -->
-      <textarea id="authorLead" class="author-lead-input" rows="1" placeholder="Tulis pengantar atau premis naskah...">Refleksi perjalanan menyusuri perkampungan nelayan di utara Tangerang, meretas keterbatasan akses buku bacaan menjadi gerakan perpustakaan kapal terapung berbasis kerelawanan warga.</textarea>
+      <textarea id="authorLead" class="author-lead-input" rows="1" placeholder="Tulis pengantar atau premis naskah..."></textarea>
 
       <!-- Article Body (Editable) -->
       <div id="authorBody" class="author-body-content" contenteditable="true">
-        <p>
-          Suara deru mesin perahu motor nelayan di muara Sungai Cisadane pagi itu berpadu harmonis dengan tawa riang anak-anak berseragam pramuka. Di ujung dermaga kayu Desa Tanjung Pasir, Kecamatan Teluknaga, sebuah gerobak kayu bercat biru laut bersandar tenang. Di atasnya, tersusun rapi puluhan buku cerita bergambar, ensiklopedia flora fauna pesisir, dan buku sejarah lokal Tangerang yang halamannya tampak mulai menguning namun tetap terawat.
-        </p>
-
-        <h2>Aroma Garam dan Semangat Aksara di Bibir Muara</h2>
-        <p>
-          Bagi sebagian orang, pesisir utara Kabupaten Tangerang identik dengan hasil tambak bandeng, pelelangan cumi segar, dan embusan angin laut yang sarat aroma garam. Namun, bagi Pak Hasan (48) dan sekelompok pemuda karang taruna setempat, muara ini adalah panggung perlawanan terhadap sunyinya bahan bacaan berkualitas.
-        </p>
-
-        <blockquote>
-          "Anak-anak pesisir di sini tidak kekurangan rasa ingin tahu. Yang selama ini luput adalah ketiadaan akses buku yang menyapa langsung beranda rumah mereka," tutur Pak Hasan sembari merapikan buku ensiklopedia kelautan.
-        </blockquote>
-
-        <p>
-          Melalui inisiatif <em>Pustaka Bahari Mandiri</em> yang kini terintegrasi dengan ekosistem <strong>KERTAS KATA Kabupaten Tangerang</strong>, warga mulai merasakan perubahan nyata. Buku tidak lagi dianggap sebagai benda kaku yang hanya bersemayam di ruang kelas sekolah formal, melainkan sahabat bermain di kala menunggu air laut pasang.
-        </p>
-
-        <!-- Embedded Photo inside Editor -->
-        <div class="media-box" contenteditable="false">
-          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=900&auto=format&fit=crop&q=80" alt="Anak-anak membaca buku di dermaga Tanjung Pasir">
-          <div class="media-caption">
-            Dokumentasi pojok baca warga di dermaga Tanjung Pasir, Teluknaga. (Foto: Dok. Komunitas Pesisir Teluknaga / Rahmat Hidayat)
-          </div>
-        </div>
-
-        <h2>Kolaborasi Literasi Gemilang Berkelanjutan</h2>
-        <p>
-          Langkah yang dirintis di Teluknaga ini menjadi bukti otentik bahwa literasi tumbuh subur ketika berakar pada kearifan lokal. Ketika cerita rakyat peranakan Benteng dan sejarah bandar niaga kuno Tangerang dihadirkan kembali lewat tulisan-tulisan warga yang lugas dan jujur, kebanggaan identitas daerah kian mengakar kuat di hati generasi penerus.
-        </p>
-        <p>
-          Tugas kita selanjutnya bukan sekadar menambah jumlah rak buku, melainkan terus mendampingi anak-anak ini agar berani menuliskan impian dan suaranya sendiri ke lembar-lembar masa depan.
-        </p>
+        <p><br></p>
       </div>
 
       <!-- Keterangan Standar Kurasi di Bawah Kolom Menulis -->
@@ -222,23 +191,14 @@
         <div class="form-field-group">
           <label for="widgetTagInput" class="field-label">Tag / Kata Kunci (3–5 Tag)</label>
           <input type="text" id="widgetTagInput" class="widget-tag-input" placeholder="Ketik tag lalu tekan Enter...">
-          <div id="tagPillsList" class="tag-pills-list">
-            <span class="widget-tag-pill">
-              <span>#RefleksiGuru</span>
-              <span class="widget-tag-pill-remove">&times;</span>
-            </span>
-            <span class="widget-tag-pill">
-              <span>#LiterasiSekolah</span>
-              <span class="widget-tag-pill-remove">&times;</span>
-            </span>
-          </div>
+          <div id="tagPillsList" class="tag-pills-list"></div>
         </div>
 
         <!-- 3. Gambar Sampul Artikel -->
         <div class="form-field-group">
           <label class="field-label">Gambar Sampul Artikel</label>
           <div id="coverUploadBox" class="cover-dashed-upload-box">
-            <img id="coverThumbnail" class="upload-thumbnail-preview" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=100&auto=format&fit=crop&q=80" alt="Sampul Thumbnail">
+            <img id="coverThumbnail" class="upload-thumbnail-preview" src="" alt="Sampul Thumbnail" style="display: none;">
             <div class="upload-action-text">Unggah Sampul</div>
             <div class="upload-hint-text">PNG, JPG max 3MB (Rasio 16:9 disarankan)</div>
           </div>
@@ -276,11 +236,11 @@
         </div>
 
         <div class="curation-checklist" style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <div id="checkMinWords" class="checklist-item valid" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #059669; font-weight: 600;">
-            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          <div id="checkMinWords" class="checklist-item" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #64748b; font-weight: 500;">
+            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span class="check-label">Target kata terpenuhi (Min. 500 kata)</span>
+            <span class="check-label">Panjang naskah (0/500 kata min.)</span>
           </div>
           <div class="checklist-item valid" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #059669; font-weight: 600;">
             <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
@@ -318,10 +278,10 @@
         <h1 id="modalPreviewTitle" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 1rem 0;">Judul</h1>
         
         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;">RH</div>
+          <div id="previewAuthorAvatar" style="width: 40px; height: 40px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;">U</div>
           <div>
-            <div style="font-weight: 700; font-size: 0.875rem; color: #0f172a;">Rahmat Hidayat</div>
-            <div style="font-size: 0.75rem; color: #64748b;">Pegiat Literasi Tigaraksa • Kab. Tangerang</div>
+            <div id="previewAuthorName" style="font-weight: 700; font-size: 0.875rem; color: #0f172a;">Penulis Komunitas</div>
+            <div id="previewAuthorBio" style="font-size: 0.75rem; color: #64748b;">Anggota Literasi Kabupaten Tangerang</div>
           </div>
         </div>
 

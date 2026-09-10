@@ -53,7 +53,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
           </svg>
           <span>Review Naskah</span>
-          <span class="nav-badge" style="background:#fee2e2; color:#b91c1c;">12 Baru</span>
+          <span class="nav-badge" id="sidebarQueueBadge" style="background:#fee2e2; color:#b91c1c;">0</span>
         </a>
 
         <!-- 3. Kelola Anggota -->
@@ -166,16 +166,16 @@
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
-            <span class="action-badge">3</span>
+            <span class="action-badge" id="adminNotifBadge" style="display: none;">0</span>
           </button>
 
-          <!-- User Identity Pill & Dropdown (FI - Fajar Ilhami) -->
+          <!-- User Identity Pill & Dropdown -->
           <div class="user-dropdown-container">
             <button type="button" class="user-pill" id="userPillBtn" aria-expanded="false" aria-haspopup="true" aria-label="Menu Profil Admin">
-              <div class="user-avatar-small">FI</div>
+              <div class="user-avatar-small" id="adminPillAvatar">AD</div>
               <div class="user-pill-info">
-                <span class="user-pill-name">Fajar Ilhami</span>
-                <span class="user-pill-role">Admin Kurator</span>
+                <span class="user-pill-name" id="adminPillName">Administrator</span>
+                <span class="user-pill-role" id="adminPillRole">Admin Kurator</span>
               </div>
               <svg class="user-pill-chevron" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -185,11 +185,11 @@
             <!-- User Profile Dropdown Menu -->
             <div id="userDropdownMenu" class="user-dropdown-menu" role="menu" aria-label="Menu Pengguna">
               <div class="user-dropdown-header">
-                <div class="user-dropdown-avatar">FI</div>
+                <div class="user-dropdown-avatar" id="adminDropdownAvatar">AD</div>
                 <div class="user-dropdown-info">
-                  <span class="user-dropdown-name">Fajar Ilhami</span>
-                  <span class="user-dropdown-role">Admin Kurator (Kab. Tangerang)</span>
-                  <span class="user-dropdown-email">fajar.ilhami@kertaskata.id</span>
+                  <span class="user-dropdown-name" id="adminDropdownName">Administrator</span>
+                  <span class="user-dropdown-role" id="adminDropdownRole">Admin Kurator (Kab. Tangerang)</span>
+                  <span class="user-dropdown-email" id="adminDropdownEmail">admin@kertaskata.my.id</span>
                 </div>
               </div>
               <div class="user-dropdown-items">
@@ -231,26 +231,8 @@
             <span style="font-size: 0.6875rem; color: var(--primary-600); cursor: pointer;" id="markAllNotifRead">Tandai semua dibaca</span>
           </div>
           <div class="popover-body">
-            <div class="popover-item unread">
-              <div class="notif-icon-box review">✏️</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Rahmat Hidayat</strong> mengajukan naskah baru <em>"Strategi Diferensiasi Pembelajaran Digital di SMPN 1 Curug"</em>.</div>
-                <div class="notif-time">10 menit yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item unread">
-              <div class="notif-icon-box forum">📚</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Nurul Fajriah</strong> mendaftarkan cerpen <em>"Lentera Pesisir Kronjo"</em> untuk antologi sastra.</div>
-                <div class="notif-time">1 jam yang lalu</div>
-              </div>
-            </div>
-            <div class="popover-item unread">
-              <div class="notif-icon-box published">🖨️</div>
-              <div class="notif-content">
-                <div class="notif-message"><strong>Ahmad Fauzi</strong> mengonfirmasi pembayaran cetak mandiri 15 eksemplar buku ber-ISBN.</div>
-                <div class="notif-time">3 jam yang lalu</div>
-              </div>
+            <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.8125rem;">
+              Belum ada notifikasi kurasi baru.
             </div>
           </div>
           <a href="#antrean-review" class="popover-footer">Buka Semua Antrean Review →</a>
@@ -279,7 +261,7 @@
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
-                <span>Mulai Kurasi (12 Naskah)</span>
+                <span id="heroQueueCountBtn">Mulai Kurasi Naskah</span>
               </a>
               <button type="button" class="btn btn-secondary" id="btnHeroAntologi" style="background: rgba(255,255,255,0.12); color:#fff; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px);">
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -297,7 +279,7 @@
           <div class="admin-stat-card">
             <div class="admin-stat-top">
               <div>
-                <div class="admin-stat-val">1.248</div>
+                <div class="admin-stat-val" id="statAdminMembers">0</div>
                 <div class="admin-stat-label">Total Anggota Terdaftar</div>
               </div>
               <div class="admin-stat-icon-wrap blue">
@@ -307,8 +289,8 @@
               </div>
             </div>
             <div class="admin-stat-footer">
-              <span style="color: #059669; font-weight: 700;">&uarr; +18</span>
-              <span style="color: var(--text-muted);">anggota baru minggu ini</span>
+              <span id="statAdminMembersBadge" style="color: #059669; font-weight: 700;">Aktif</span>
+              <span style="color: var(--text-muted);">Komunitas Literasi Kab. Tangerang</span>
             </div>
           </div>
 
@@ -316,7 +298,7 @@
           <div class="admin-stat-card" style="border-left: 4px solid #f59e0b;">
             <div class="admin-stat-top">
               <div>
-                <div class="admin-stat-val" style="color: #d97706;">12</div>
+                <div class="admin-stat-val" id="statAdminQueue" style="color: #d97706;">0</div>
                 <div class="admin-stat-label">Menunggu Review</div>
               </div>
               <div class="admin-stat-icon-wrap amber">
@@ -326,8 +308,8 @@
               </div>
             </div>
             <div class="admin-stat-footer">
-              <span style="color: #d97706; font-weight: 700;">8 Baru</span>
-              <span style="color: var(--text-muted);">&bull; 4 Revisi masuk</span>
+              <span id="statAdminQueueSub" style="color: #d97706; font-weight: 700;">0 Baru</span>
+              <span id="statAdminRevisionSub" style="color: var(--text-muted);">&bull; 0 Revisi</span>
             </div>
           </div>
 
@@ -335,7 +317,7 @@
           <div class="admin-stat-card">
             <div class="admin-stat-top">
               <div>
-                <div class="admin-stat-val">856</div>
+                <div class="admin-stat-val" id="statAdminPublished">0</div>
                 <div class="admin-stat-label">Artikel Diterbitkan</div>
               </div>
               <div class="admin-stat-icon-wrap emerald">
@@ -345,27 +327,27 @@
               </div>
             </div>
             <div class="admin-stat-footer">
-              <span style="color: #059669; font-weight: 700;">99.4%</span>
-              <span style="color: var(--text-muted);">kepatuhan standar PUEBI</span>
+              <span id="statAdminPublishedSub" style="color: #059669; font-weight: 700;">Portal Publikasi</span>
+              <span style="color: var(--text-muted);">&bull; Terkurasi</span>
             </div>
           </div>
 
-          <!-- Stat 4: Anggota Aktif Hari Ini -->
+          <!-- Stat 4: E-Book & Antologi -->
           <div class="admin-stat-card">
             <div class="admin-stat-top">
               <div>
-                <div class="admin-stat-val">342</div>
-                <div class="admin-stat-label">Aktif Hari Ini</div>
+                <div class="admin-stat-val" id="statAdminEbooks">0</div>
+                <div class="admin-stat-label">Koleksi E-Book & Antologi</div>
               </div>
               <div class="admin-stat-icon-wrap purple">
                 <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
               </div>
             </div>
             <div class="admin-stat-footer">
-              <span style="color: #7c3aed; font-weight: 700;">28 Kecamatan</span>
-              <span style="color: var(--text-muted);">Kabupaten Tangerang</span>
+              <span id="statAdminEbooksSub" style="color: #7c3aed; font-weight: 700;">Perpustakaan Digital</span>
+              <span style="color: var(--text-muted);">&bull; Kab. Tangerang</span>
             </div>
           </div>
         </section>
@@ -387,14 +369,14 @@
             <button type="button" class="btn-quick-card" id="btnQuickCert">
               <div class="quick-card-icon" style="background:#fef3c7; color:#d97706;">🎓</div>
               <strong>Generate Sertifikat 32 JP</strong>
-              <span>Terbitkan e-sertifikat bernomor resmi untuk 45 anggota yang tuntas modul.</span>
+              <span>Terbitkan e-sertifikat bernomor resmi untuk anggota yang telah tuntas modul.</span>
             </button>
 
             <!-- Action 2: Inisiasi Bunga Rampai -->
             <button type="button" class="btn-quick-card" id="btnQuickAntologi">
               <div class="quick-card-icon" style="background:#ede9fe; color:#7c3aed;">📖</div>
               <strong>Inisiasi Proyek Antologi</strong>
-              <span>Buka kurasi buku ber-ISBN baru: "Inovasi Pembelajaran Digital 2026".</span>
+              <span>Buka kurasi buku ber-ISBN baru dari karya-karya terbaik anggota.</span>
             </button>
 
             <!-- Action 3: Upload E-Book -->
@@ -408,7 +390,7 @@
             <button type="button" class="btn-quick-card" id="btnQuickHof">
               <div class="quick-card-icon" style="background:#ecfdf5; color:#059669;">🏆</div>
               <strong>Pembaruan Hall of Fame</strong>
-              <span>Tampilkan 5 penulis paling produktif dan berdedikasi bulan ini di beranda.</span>
+              <span>Tampilkan penulis berdedikasi dan aktif bulan ini di beranda.</span>
             </button>
           </div>
         </section>
@@ -429,19 +411,19 @@
             <div class="queue-filter-tabs">
               <button type="button" class="queue-tab-btn active" data-filter="all">
                 <span>Semua</span>
-                <span class="queue-tab-badge">12</span>
+                <span class="queue-tab-badge" id="badgeAll">0</span>
               </button>
               <button type="button" class="queue-tab-btn" data-filter="pending">
                 <span>Menunggu Review</span>
-                <span class="queue-tab-badge" style="background:#fee2e2; color:#b91c1c;">8</span>
+                <span class="queue-tab-badge" id="badgePending" style="background:#fee2e2; color:#b91c1c;">0</span>
               </button>
               <button type="button" class="queue-tab-btn" data-filter="revision">
                 <span>Revisi Anggota</span>
-                <span class="queue-tab-badge" style="background:#fef3c7; color:#b45309;">3</span>
+                <span class="queue-tab-badge" id="badgeRevision" style="background:#fef3c7; color:#b45309;">0</span>
               </button>
               <button type="button" class="queue-tab-btn" data-filter="ready">
                 <span>Siap Terbit</span>
-                <span class="queue-tab-badge" style="background:#dcfce7; color:#15803d;">1</span>
+                <span class="queue-tab-badge" id="badgeReady" style="background:#dcfce7; color:#15803d;">0</span>
               </button>
             </div>
           </div>
@@ -479,36 +461,11 @@
             <span style="font-size: 0.75rem; color: var(--text-muted);">Riwayat keputusan editorial dan integrasi otomatis AI</span>
           </div>
 
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon-bubble" style="background: #eff6ff; color: #2563eb;">🤖</div>
-              <div class="activity-content">
-                <p><strong>AI Copilot & Turnitin Scanner</strong> menyelesaikan pemeriksaan plagiarisme naskah <em>"Strategi Diferensiasi Pembelajaran Digital di SMPN 1 Curug"</em> dengan skor <strong>12% (Aman)</strong>.</p>
-                <div class="activity-time">12 menit yang lalu &bull; Otomatis oleh Sistem</div>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div class="activity-icon-bubble" style="background: #fef3c7; color: #d97706;">✏️</div>
-              <div class="activity-content">
-                <p><strong>Admin Fajar Ilhami</strong> mengirim 2 catatan revisi PUEBI dan diksi pada naskah cerpen <em>"Riwayat Nelayan Tanjung Pasir"</em> oleh Siti Aminah.</p>
-                <div class="activity-time">45 menit yang lalu &bull; Kurator Fajar Ilhami</div>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div class="activity-icon-bubble" style="background: #ecfdf5; color: #059669;">✅</div>
-              <div class="activity-content">
-                <p><strong>Naskah Disetujui:</strong> <em>"Optimalisasi Pojok Baca Komunitas dalam Penguatan Literasi Awal di Wilayah Balaraja"</em> karya Dewi Sartika telah disetujui terbit ke Portal Publikasi.</p>
-                <div class="activity-time">2 jam yang lalu &bull; Kurator Fajar Ilhami</div>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div class="activity-icon-bubble" style="background: #ede9fe; color: #7c3aed;">🖨️</div>
-              <div class="activity-content">
-                <p><strong>Pengajuan ISBN Baru:</strong> Admin mengajukan nomor ISBN resmi Perpusnas untuk Buku Antologi <em>"Merajut Asa di Ujung Barat Tangerang (35 Karya Anggota Terpilih)"</em>.</p>
-                <div class="activity-time">Kemarin, 16:30 &bull; Layanan Cetak & ISBN</div>
+          <div class="activity-list" id="activityListFeed">
+            <div class="activity-item" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); justify-content: center; width: 100%;">
+              <div style="text-align: center;">
+                <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">📋</div>
+                <div>Belum ada log aktivitas kurasi terbaru yang tercatat.</div>
               </div>
             </div>
           </div>
@@ -534,11 +491,11 @@
           </button>
           <div>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span id="modalCategoryBadge" style="font-size: 0.6875rem; font-weight: 700; background: #eff6ff; color: #1d4ed8; padding: 0.15rem 0.5rem; border-radius: 4px;">Artikel Ilmiah</span>
-              <span id="modalPlagBadge" class="plagiarism-badge safe">🛡️ 12% - Aman</span>
+              <span id="modalCategoryBadge" style="font-size: 0.6875rem; font-weight: 700; background: #eff6ff; color: #1d4ed8; padding: 0.15rem 0.5rem; border-radius: 4px;">Kategori</span>
+              <span id="modalPlagBadge" class="plagiarism-badge safe" style="display: none;">🛡️ 0% - Aman</span>
             </div>
             <div id="modalArticleAuthor" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
-              Oleh: Rahmat Hidayat &bull; SMPN 1 Curug, Kab. Tangerang
+              Pilih naskah untuk melihat detail penulis
             </div>
           </div>
         </div>
@@ -585,32 +542,22 @@
         <!-- Left Pane: Article Reader (60%) -->
         <div class="review-article-pane" id="articleReaderPane">
           <div class="article-review-header">
-            <h1 id="modalArticleTitle">Strategi Diferensiasi Pembelajaran Digital Berbasis Portofolio Siswa di SMPN 1 Curug</h1>
+            <h1 id="modalArticleTitle">Pilih Naskah untuk Ditinjau</h1>
             <div class="article-review-meta">
-              <span><strong>Kategori:</strong> Inovasi Pembelajaran (Best Practice)</span>
+              <span id="modalMetaCategory"><strong>Kategori:</strong> -</span>
               <span>&bull;</span>
-              <span><strong>Jumlah Kata:</strong> 1.420 kata</span>
+              <span id="modalMetaWordCount"><strong>Jumlah Kata:</strong> 0 kata</span>
               <span>&bull;</span>
-              <span><strong>Diajukan:</strong> 06 September 2026</span>
+              <span id="modalMetaDate"><strong>Diajukan:</strong> -</span>
             </div>
           </div>
 
           <!-- Dynamic Text with Highlights -->
           <div class="article-review-text" id="manuscriptContent">
-            <p>
-              Tantangan pembelajaran di era kurikulum merdeka menuntut anggota untuk senantiasa 
-              <span class="highlight-ai yellow" data-id="sugg-1" title="Saran AI: Diksi tidak baku">merubah</span> 
-              paradigma pengajaran yang seragam menjadi pendekatan yang lebih adaptif dan responsif terhadap gaya belajar peserta didik.
-            </p>
-            <p>
-              Dalam penerapannya di ruang belajar Komunitas Curug, observasi awal menunjukkan bahwa keberagaman kecepatan pemahaman seringkali menjadi kendala utama apabila fasilitator hanya menggunakan metode ceramah konvensional. Oleh karena itu, penerapan strategi asesmen diagnostik berkala <span class="highlight-ai green" data-id="sugg-2" title="Saran AI: PUEBI Tanda Baca">adalah merupakan</span> langkah esensial untuk memetakan kesiapan belajar sebelum materi inti disampaikan.
-            </p>
-            <p>
-              Melalui platform digital KERTAS KATA, anggota diajak mendokumentasikan setiap kemajuan literasi menulis secara mandiri. Pendidik tidak lagi berperan sebagai satu-satunya sumber pengetahuan melainkan <span class="highlight-ai red" data-id="sugg-3" title="Saran Kurator: Tambahkan tanda koma sebelum melainkan">sebagai fasilitator</span> yang membimbing eksplorasi kritis.
-            </p>
-            <p>
-              Hasil evaluasi siklus kedua menunjukkan peningkatan signifikan pada skor ketuntasan belajar sebesar 28,4%. Selain itu, antusiasme siswa dalam menyelesaikan tugas proyek literasi meningkat drastis karena materi disajikan sesuai minat dan profil belajar masing-masing.
-            </p>
+            <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+              <p>Pilih naskah dari tabel antrean di dashboard untuk membaca isi naskah dan menjalankan kurasi AI.</p>
+            </div>
           </div>
         </div>
 
@@ -619,10 +566,10 @@
           <!-- Pane Tabs -->
           <div class="side-pane-tabs">
             <button type="button" class="side-pane-tab-btn active" id="tabAiSuggestions" data-pane="ai">
-              ✨ Asisten Koreksi AI (<span id="aiCount">3</span>)
+              ✨ Asisten Koreksi AI (<span id="aiCount">0</span>)
             </button>
             <button type="button" class="side-pane-tab-btn editorial" id="tabCuratorNotes" data-pane="curator">
-              💬 Catatan Kurator (<span id="commentCount">2</span>)
+              💬 Catatan Kurator (<span id="commentCount">0</span>)
             </button>
           </div>
 
@@ -634,83 +581,20 @@
               <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.2rem;">Memeriksa keselarasan KBBI V, PUEBI, dan koherensi semantik</div>
             </div>
 
-            <!-- Card 1: Typo / Ejaan -->
-            <div class="ai-suggestion-card" id="card-sugg-1">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="ai-card-badge vocab">Diksi &amp; KBBI</span>
-                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 1</span>
-              </div>
-              <div class="ai-suggestion-text">
-                Kata <strong>"merubah"</strong> tidak baku dalam KBBI. Kata dasar <em>ubah</em> mendapatkan awalan <em>me-</em> menjadi <strong>"mengubah"</strong>.
-              </div>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-1', 'mengubah')">✓ Terapkan Koreksi</button>
-                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-1')">Abaikan</button>
-              </div>
-            </div>
-
-            <!-- Card 2: Keefektifan Kalimat -->
-            <div class="ai-suggestion-card" id="card-sugg-2">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="ai-card-badge structure">Kalimat Efektif</span>
-                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 2</span>
-              </div>
-              <div class="ai-suggestion-text">
-                Frasa <strong>"adalah merupakan"</strong> bersifat mubazir (pleonasme). Disarankan menggunakan salah satu: <strong>"merupakan"</strong> atau <strong>"adalah"</strong>.
-              </div>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-2', 'merupakan')">✓ Terapkan Koreksi</button>
-                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-2')">Abaikan</button>
-              </div>
-            </div>
-
-            <!-- Card 3: PUEBI Tanda Baca -->
-            <div class="ai-suggestion-card" id="card-sugg-3">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="ai-card-badge grammar">PUEBI Konjungsi</span>
-                <span style="font-size: 0.6875rem; color: var(--text-muted);">Paragraf 3</span>
-              </div>
-              <div class="ai-suggestion-text">
-                Sebelum konjungsi pertentangan <em>melainkan</em>, wajib didahului tanda koma (,). Ubah menjadi: <strong>", melainkan sebagai fasilitator"</strong>.
-              </div>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-                <button type="button" class="btn-apply-suggestion" onclick="applyAiSuggestion('sugg-3', ', melainkan sebagai fasilitator')">✓ Terapkan Koreksi</button>
-                <button type="button" class="btn-mark-done" onclick="dismissAiSuggestion('sugg-3')">Abaikan</button>
-              </div>
+            <div id="aiSuggestionEmptyState" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+              <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">✨</div>
+              <p style="font-size: 0.8125rem; margin: 0;">Klik tombol <strong>"Jalankan AI Koreksi"</strong> di atas untuk memindai kepatuhan PUEBI & KBBI pada naskah ini.</p>
             </div>
           </div>
 
           <!-- Tab Content 2: Editorial Notes Feed (Wireframe 6) -->
           <div class="side-pane-content" id="paneCuratorContent" style="display: none;">
-            <div class="manual-comment-card" id="comment-1">
-              <div class="comment-card-header">
-                <div class="comment-author-pill">
-                  <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">FI</div>
-                  <span>Fajar Ilhami (Kurator)</span>
-                </div>
-                <button type="button" class="btn-mark-done" onclick="toggleCommentDone(this)">Selesai</button>
-              </div>
-              <div style="font-size: 0.8125rem; color: var(--text-main); line-height: 1.5;">
-                Tolong sertakan lampiran grafik atau diagram data ketuntasan belajar siklus I dan II agar bukti empiris best practice semakin kuat untuk pembaca.
-              </div>
-              <div style="font-size: 0.6875rem; color: var(--text-muted);">Hari ini, 09:15</div>
+            <div id="curatorNotesEmptyState" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+              <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">💬</div>
+              <p style="font-size: 0.8125rem; margin: 0;">Belum ada catatan editorial untuk naskah ini.</p>
             </div>
-
-            <div class="manual-comment-card" id="comment-2">
-              <div class="comment-card-header">
-                <div class="comment-author-pill">
-                  <div style="width: 24px; height: 24px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;">FI</div>
-                  <span>Fajar Ilhami (Kurator)</span>
-                </div>
-                <button type="button" class="btn-mark-done" onclick="toggleCommentDone(this)">Selesai</button>
-              </div>
-              <div style="font-size: 0.8125rem; color: var(--text-main); line-height: 1.5;">
-                Daftar pustaka perlu disesuaikan dengan format APA Style edisi ke-7, terutama untuk rujukan jurnal digital KERTAS KATA.
-              </div>
-              <div style="font-size: 0.6875rem; color: var(--text-muted);">Hari ini, 09:30</div>
-            </div>
-
             <div id="additionalCommentsContainer"></div>
+          </div>
           </div>
 
           <!-- Bottom Comment Input Box (Wireframe 6) -->
@@ -742,17 +626,17 @@
         <button type="button" class="btn-close-modal" onclick="closeModal('modalCert')" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">✕</button>
       </div>
       <p style="font-size:0.8125rem; color:var(--text-muted); line-height:1.5; margin-bottom:1.25rem;">
-        Sistem mendeteksi <strong>45 Anggota</strong> telah menuntaskan seluruh 5 modul E-Learning dan lulus kuis kepenulisan dengan nilai di atas batas KKM (80).
+        Sistem mendeteksi anggota yang telah menuntaskan seluruh modul E-Learning dan lulus evaluasi kepenulisan dengan nilai di atas batas standar.
       </p>
       <div style="background:#f8fafc; border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; margin-bottom:1.25rem; font-size:0.8125rem;">
-        <div><strong>Nomor Seri:</strong> 421.2/KK-TNG/CERT/2026/IX</div>
+        <div><strong>Format Nomor Seri:</strong> 421.2/KK-TNG/CERT/2026/[BULAN]</div>
         <div style="margin-top:0.35rem;"><strong>Beban Jam Pelatihan:</strong> 32 Jam Pelajaran (JP)</div>
         <div style="margin-top:0.35rem;"><strong>Tanda Tangan Digital:</strong> Kepala Dinas Pendidikan Kab. Tangerang</div>
       </div>
       <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
         <button type="button" class="btn btn-secondary" onclick="closeModal('modalCert')">Batal</button>
         <button type="button" class="btn btn-primary" id="btnConfirmGenerateCert" style="background:#059669;">
-          Terbitkan 45 Sertifikat Sekarang
+          Terbitkan Sertifikat Sekarang
         </button>
       </div>
     </div>
@@ -770,16 +654,16 @@
       <div style="display:flex; flex-direction:column; gap:0.875rem; margin-bottom:1.25rem;">
         <div>
           <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Judul Buku Bunga Rampai</label>
-          <input type="text" id="antologiTitleInput" value="Inovasi Pembelajaran Digital Anggota Komunitas Kabupaten Tangerang 2026" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+          <input type="text" id="antologiTitleInput" placeholder="Contoh: Bunga Rampai Guru Literasi Kabupaten Tangerang 2026" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
           <div>
             <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Target Kuota Naskah</label>
-            <input type="number" id="antologiQuotaInput" value="25" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+            <input type="number" id="antologiQuotaInput" placeholder="Contoh: 25" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
           </div>
           <div>
             <label style="font-size:0.75rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:0.35rem;">Batas Akhir Pengiriman</label>
-            <input type="date" id="antologiDeadlineInput" value="2026-10-31" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
+            <input type="date" id="antologiDeadlineInput" style="width:100%; padding:0.65rem; border:1px solid var(--border-subtle); border-radius:8px; font-size:0.8125rem;">
           </div>
         </div>
       </div>
