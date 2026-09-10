@@ -98,14 +98,24 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
 
   return (
     <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`} id="adminSidebar">
-      <div className="sidebar-brand">
-        <div className="brand-logo-wrap">
-          <div className="brand-icon" style={{ background: '#7c3aed' }}>AD</div>
-          <div className="brand-text">
-            <span className="brand-title">PORTAL ADMIN</span>
-            <span className="brand-subtitle">KERTAS KATA Kab. Tangerang</span>
+      <div className="sidebar-brand" style={{ padding: '1.25rem 1.25rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        <Link href="/admin" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', textDecoration: 'none' }}>
+          <div style={{ background: '#ffffff', borderRadius: '10px', padding: '0.4rem 0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img
+              src="/logo-kertas-kata.png"
+              alt="KERTAS KATA"
+              style={{ height: '36px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+            />
           </div>
-        </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0.2rem' }}>
+            <span style={{ fontSize: '0.6875rem', fontWeight: 800, color: '#a78bfa', letterSpacing: '0.05em' }}>
+              PORTAL KURATOR
+            </span>
+            <span style={{ fontSize: '0.625rem', background: '#7c3aed', color: '#fff', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: 700 }}>
+              ADMIN
+            </span>
+          </div>
+        </Link>
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigasi Admin">

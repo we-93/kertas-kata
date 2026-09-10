@@ -87,11 +87,15 @@ export default function BacaArtikelPage() {
       {/* Sticky Reader Topbar */}
       <header className="reader-topbar">
         <div className="reader-topbar-inner">
-          <Link href="/publikasi" className="btn-back-home">
+          <Link href="/publikasi" className="btn-back-home" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            <span>KERTAS KATA</span>
+            <img
+              src="/logo-kertas-kata.png"
+              alt="KERTAS KATA"
+              style={{ height: "26px", width: "auto", objectFit: "contain" }}
+            />
           </Link>
 
           <div className="reader-topbar-title">

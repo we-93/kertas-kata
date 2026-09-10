@@ -101,14 +101,14 @@ export default function SidebarParticipant({ isOpen, onClose }) {
 
   return (
     <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
-      <div className="sidebar-brand">
-        <div className="brand-logo-wrap">
-          <div className="brand-icon">KK</div>
-          <div className="brand-text">
-            <span className="brand-title">KERTAS KATA</span>
-            <span className="brand-subtitle">Kabupaten Tangerang</span>
-          </div>
-        </div>
+      <div className="sidebar-brand" style={{ padding: '1.25rem 1.25rem 1rem' }}>
+        <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img
+            src="/logo-kertas-kata.png"
+            alt="KERTAS KATA Kabupaten Tangerang"
+            style={{ height: '44px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+          />
+        </Link>
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigasi Utama">
@@ -151,32 +151,6 @@ export default function SidebarParticipant({ isOpen, onClose }) {
           );
         })}
       </nav>
-
-      {/* Mode Switcher to Admin Portal */}
-      <div className="sidebar-switch-mode" style={{ padding: '1rem', borderTop: '1px solid var(--border-subtle)', marginTop: 'auto' }}>
-        <Link
-          href="/admin"
-          className="btn-switch-mode"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.65rem 0.85rem',
-            borderRadius: '10px',
-            background: 'rgba(124, 58, 237, 0.08)',
-            color: '#7c3aed',
-            fontSize: '0.8125rem',
-            fontWeight: '700',
-            textDecoration: 'none',
-          }}
-          onClick={onClose}
-        >
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-          </svg>
-          <span>Beralih ke Portal Admin</span>
-        </Link>
-      </div>
     </aside>
   );
 }

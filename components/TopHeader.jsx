@@ -46,6 +46,20 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
           </svg>
         </button>
 
+        {/* Header Official Brand Logo */}
+        <Link
+          href={isAdminMode ? "/admin" : "/dashboard"}
+          className="header-brand-link"
+          style={{ display: "flex", alignItems: "center", marginRight: "1rem", flexShrink: 0 }}
+          aria-label="KERTAS KATA"
+        >
+          <img
+            src="/logo-kertas-kata.png"
+            alt="KERTAS KATA Kabupaten Tangerang"
+            style={{ height: "36px", width: "auto", objectFit: "contain" }}
+          />
+        </Link>
+
         {/* Global Search Bar */}
         <div className="header-search">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,14 +163,14 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
                     </svg>
                     <span>Beralih Mode Anggota</span>
                   </Link>
-                ) : (
+                ) : user?.role === 'admin' ? (
                   <Link href="/admin" className="user-dropdown-item" onClick={() => setDropdownOpen(false)}>
                     <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                     <span>Beralih Mode Admin</span>
                   </Link>
-                )}
+                ) : null}
 
                 <div className="user-dropdown-divider"></div>
                 <button type="button" className="user-dropdown-item logout" onClick={logout}>

@@ -106,27 +106,24 @@ function LoginForm() {
           <Link href="/" style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.5rem",
             textDecoration: "none",
-            color: "#ffffff",
-            marginBottom: "0.75rem"
+            marginBottom: "0.85rem"
           }}>
             <div style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "10px",
-              background: "#2563eb",
+              background: "#ffffff",
+              borderRadius: "12px",
+              padding: "0.45rem 0.85rem",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center"
             }}>
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
+              <img
+                src="/logo-kertas-kata.png"
+                alt="KERTAS KATA Kabupaten Tangerang"
+                style={{ height: "42px", width: "auto", objectFit: "contain" }}
+              />
             </div>
-            <span style={{ fontSize: "1.25rem", fontWeight: 800, letterSpacing: "-0.025em" }}>
-              KERTAS<span style={{ color: "#60a5fa" }}>KATA</span>
-            </span>
           </Link>
           <h1 style={{ fontSize: "1.125rem", fontWeight: 700, margin: "0 0 0.25rem" }}>
             Masuk ke Dashboard Private

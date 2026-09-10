@@ -320,15 +320,79 @@ export default function KomunitasPage() {
 
       {/* Modal Buat Diskusi Baru */}
       {showCreateModal && (
-        <div className="modal-overlay active" onClick={() => setShowCreateModal(false)}>
-          <div className="modal-card" style={{ maxWidth: "560px" }} onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 style={{ fontSize: "1.125rem" }}>Mulai Topik Diskusi Baru</h3>
-              <button type="button" className="modal-close-btn" onClick={() => setShowCreateModal(false)}>
+        <div
+          className="modal-overlay active"
+          onClick={() => setShowCreateModal(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15, 23, 42, 0.65)",
+            backdropFilter: "blur(4px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            padding: "1rem",
+          }}
+        >
+          <div
+            className="modal-card"
+            style={{
+              maxWidth: "600px",
+              width: "100%",
+              maxHeight: "90vh",
+              display: "flex",
+              flexDirection: "column",
+              borderRadius: "18px",
+              background: "#ffffff",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.35)",
+              overflow: "hidden",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="modal-header"
+              style={{
+                flexShrink: 0,
+                padding: "1.25rem 1.5rem",
+                borderBottom: "1px solid #e2e8f0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                background: "#ffffff",
+              }}
+            >
+              <h3 style={{ fontSize: "1.125rem", fontWeight: 800, margin: 0, color: "#0f172a" }}>
+                Mulai Topik Diskusi Baru
+              </h3>
+              <button
+                type="button"
+                className="modal-close-btn"
+                onClick={() => setShowCreateModal(false)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "1.5rem",
+                  cursor: "pointer",
+                  color: "#64748b",
+                  lineHeight: 1,
+                }}
+              >
                 &times;
               </button>
             </div>
-            <form onSubmit={handleCreateThread} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <form
+              onSubmit={handleCreateThread}
+              style={{
+                padding: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                overflowY: "auto",
+                maxHeight: "calc(90vh - 75px)",
+                flex: 1,
+              }}
+            >
               <div>
                 <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: 700, marginBottom: "0.25rem" }}>
                   Judul Diskusi
@@ -516,11 +580,25 @@ export default function KomunitasPage() {
                 </div>
               )}
 
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "0.75rem",
+                  marginTop: "1rem",
+                  paddingTop: "1rem",
+                  borderTop: "1px solid #f1f5f9",
+                  position: "sticky",
+                  bottom: "-1.5rem",
+                  background: "#ffffff",
+                  paddingBottom: "0.5rem",
+                  zIndex: 10,
+                }}
+              >
                 <button type="button" className="btn-secondary" onClick={() => setShowCreateModal(false)}>
                   Batal
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary" style={{ padding: "0.65rem 1.25rem", fontWeight: 700 }}>
                   Terbitkan Diskusi
                 </button>
               </div>
