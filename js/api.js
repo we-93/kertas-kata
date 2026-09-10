@@ -182,7 +182,7 @@
         const hasToken = API.auth.isLoggedIn();
         if (hasToken && user) {
           if (requiredRole === 'admin' && (user.role === 'admin' || user.role === 'mentor')) return user;
-          if (requiredRole === 'participant' && user.role === 'participant') return user;
+          if (requiredRole === 'participant' && (user.role === 'participant' || user.role === 'admin' || user.role === 'mentor')) return user;
           if (requiredRole === 'any') return user;
         }
         // Auto-login di localhost jika belum ada sesi untuk memudahkan pengujian

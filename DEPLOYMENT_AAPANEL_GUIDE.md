@@ -154,28 +154,37 @@ node prisma/seed.js
    * Masih pada pop-up setting situs `kertaskata.my.id`, pilih tab **Configuration file** (atau **URL rewrite / Reverse Proxy**).
    * Tambahkan blok berikut tepat di dalam blok `server { ... }`:
 
-   ```nginx
-   # 1. Reverse Proxy ke Backend API Express (Port 5000)
-   location /api/ {
-       proxy_pass http://127.0.0.1:5000/api/;
-       proxy_http_version 1.1;
-       proxy_set_header Upgrade $http_upgrade;
-       proxy_set_header Connection 'upgrade';
-       proxy_set_header Host $host;
-       proxy_set_header X-Real-IP $remote_addr;
-       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-       proxy_set_header X-Forwarded-Proto $scheme;
-       proxy_cache_bypass $http_upgrade;
-   }
+    ```nginx
+    # 1. Clean URL: Hilangkan trailing slash dan otomatis buka .html tanpa mengetik .html di browser
+    if (!-d $request_filename) {
+        rewrite ^/(.+)/$ /$1 permanent;
+    }
 
-   # 2. Layanan File Unggahan (Cover, Naskah PDF, E-Book)
-   location /uploads/ {
-       alias /www/wwwroot/kertaskata.my.id/server/uploads/;
-       expires 30d;
-       access_log off;
-   }
-   ```
-   * Klik **Save**. Nginx akan otomatis memuat ulang konfigurasinya.
+    location / {
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+    # 2. Reverse Proxy ke Backend API Express (Port 5000)
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # 3. Layanan File Unggahan (Cover, Naskah PDF, E-Book)
+    location /uploads/ {
+        alias /www/wwwroot/kertaskata.my.id/server/uploads/;
+        expires 30d;
+        access_log off;
+    }
+    ```
+    * Klik **Save**. Nginx akan otomatis memuat ulang konfigurasinya.
 
 ---
 

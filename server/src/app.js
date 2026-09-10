@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import routes from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -29,7 +30,25 @@ app.use('/uploads', express.static(uploadsPath));
 
 // Static route untuk frontend (index.html, dashboard.html, css/, js/)
 const frontendPath = path.resolve(__dirname, '../../');
-app.use(express.static(frontendPath));
+
+// Clean URL Handler (mendukung rute tanpa .html seperti /elearning, /elearning/, /kelola-komunitas, dll)
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
+
+  const cleanPath = req.path.replace(/\/+$/, '');
+  if (!cleanPath) {
+    return res.sendFile(path.join(frontendPath, 'index.html'));
+  }
+
+  const htmlFile = path.join(frontendPath, `${cleanPath}.html`);
+  if (fs.existsSync(htmlFile)) {
+    return res.sendFile(htmlFile);
+  }
+  next();
+});
+
+app.use(express.static(frontendPath, { extensions: ['html'] }));
 
 // API Routes
 app.use('/api', routes);

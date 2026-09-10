@@ -10,7 +10,13 @@ export const getReviewQueue = async (req, res, next) => {
 
     const where = {};
     if (status === 'all') {
-      where.status = { in: ['in_review', 'revision', 'draft'] };
+      where.status = { in: ['in_review', 'revision', 'published', 'draft'] };
+    } else if (status === 'pending') {
+      where.status = 'in_review';
+    } else if (status === 'ready') {
+      where.status = 'published';
+    } else if (status === 'revision') {
+      where.status = 'revision';
     } else {
       where.status = status;
     }

@@ -114,11 +114,11 @@ export const submitForReview = async (req, res, next) => {
       });
     }
 
-    const minWords = process.env.NODE_ENV === 'production' ? 100 : 5;
+    const minWords = process.env.MIN_WORDS ? parseInt(process.env.MIN_WORDS, 10) : 1;
     if (article.wordCount < minWords) {
       return res.status(400).json({
         success: false,
-        message: `Naskah minimal harus memiliki ${minWords} kata sebelum dapat diajukan ke kurasi (saat ini: ${article.wordCount} kata).`,
+        message: `Naskah belum memiliki kata untuk diajukan ke kurasi.`,
       });
     }
 
