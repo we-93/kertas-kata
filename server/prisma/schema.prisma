@@ -177,7 +177,7 @@ model Ebook {
   title         String
   slug          String          @unique
   author        String
-  authorOrg     String?         // Organisasi / Kecamatan asal
+  authorOrg     String?         // Organisasi / Daerah asal
   category      String
   isbn          String?
   accessType    String          @default("free") // free, premium
@@ -189,6 +189,8 @@ model Ebook {
   fileSize      String?
   coverUrl      String?
   filePath      String?
+  downloadUrl   String?         // URL berkas unduhan langsung (S3 / Cloud Storage)
+  whatsappUrl   String?         // URL kontak WhatsApp admin untuk E-Book premium
   synopsis      String?
   sampleChapter String?
   status        String          @default("published")

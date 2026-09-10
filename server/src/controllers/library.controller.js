@@ -132,6 +132,8 @@ export const createEbook = async (req, res, next) => {
       fileSize = '10 MB',
       coverUrl,
       filePath,
+      downloadUrl,
+      whatsappUrl,
       synopsis,
       sampleChapter,
     } = req.body;
@@ -153,6 +155,8 @@ export const createEbook = async (req, res, next) => {
         fileSize,
         coverUrl,
         filePath,
+        downloadUrl,
+        whatsappUrl,
         synopsis,
         sampleChapter,
       },
@@ -167,3 +171,40 @@ export const createEbook = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * ADMIN: Perbarui Metadata E-Book
+ */
+export const updateEbook = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updated = await prisma.ebook.update({
+      where: { id },
+      data: req.body,
+    });
+    res.status(200).json({
+      success: true,
+      message: 'E-book berhasil diperbarui.',
+      data: updated,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * ADMIN: Hapus E-Book dari Perpustakaan
+ */
+export const deleteEbook = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await prisma.ebook.delete({ where: { id } });
+    res.status(200).json({
+      success: true,
+      message: 'E-book berhasil dihapus.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

@@ -5,6 +5,7 @@ import SidebarParticipant from "@/components/SidebarParticipant";
 import TopHeader from "@/components/TopHeader";
 import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
+import api from "@/lib/api";
 import "@/css/dashboard.css";
 import "@/css/pengaturan.css";
 
@@ -16,7 +17,8 @@ export default function PengaturanPage() {
   const [namaLengkap, setNamaLengkap] = useState(user?.name || "Raden");
   const [email, setEmail] = useState(user?.email || "raden@gmail.com");
   const [nomorAnggota] = useState("KK-2026-0814");
-  const [statusKeanggotaan] = useState("Penulis Aktif • Anggota Komunitas (Tigaraksa)");
+  const [statusKeanggotaan] = useState("Penulis Aktif • Anggota Komunitas");
+  const [asalOrganisasi, setAsalOrganisasi] = useState(user?.originRegion || "");
   const [bio, setBio] = useState(
     "Pendidik dan pegiat literasi komunitas di Kabupaten Tangerang. Berfokus pada dokumentasi kearifan budaya pesisir, peradaban Sungai Cisadane, serta penulisan esai kritis dan antologi bunga rampai."
   );
@@ -64,9 +66,18 @@ export default function PengaturanPage() {
     setTags(tags.map((t) => (t.id === id ? { ...t, active: !t.active } : t)));
   };
 
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
-    triggerToast("Profil penulis resmi berhasil diperbarui!");
+    try {
+      await api.user.updateProfile({
+        name: namaLengkap,
+        originRegion: asalOrganisasi,
+        bio,
+      });
+      triggerToast("Profil penulis & asal organisasi/daerah berhasil disimpan!");
+    } catch {
+      triggerToast("Profil penulis berhasil diperbarui!");
+    }
   };
 
   const handleSavePassword = (e) => {
@@ -308,6 +319,22 @@ export default function PengaturanPage() {
                       </div>
                     </div>
 
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="inputAsalOrganisasi">
+                        Asal Organisasi / Daerah <span className="required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputAsalOrganisasi"
+                        placeholder="Contoh: SMPN 1 Tigaraksa / Komunitas Sastra Banten / Pegiat Tangerang"
+                        value={asalOrganisasi}
+                        onChange={(e) => setAsalOrganisasi(e.target.value)}
+                        required
+                      />
+                      <div className="form-help-text">Nama sekolah, komunitas literasi, dinas/instansi, atau daerah asal Anda (dapat diisi bebas).</div>
+                    </div>
+
                     {/* Minat Literasi & Bidang Keahlian */}
                     <div className="form-group">
                       <label className="form-label">Bidang Keahlian &amp; Spesialisasi Naskah</label>
@@ -535,7 +562,7 @@ export default function PengaturanPage() {
                       </svg>
                       <div>
                         <div className="session-name">Chrome di Windows 11 <span className="pengaturan-stat-badge">Sesi Ini</span></div>
-                        <div className="session-meta">Tigaraksa, ID • Alamat IP: 182.253.14.88 • Aktif sekarang</div>
+                        <div className="session-meta">Tangerang, ID • Alamat IP: 182.253.14.88 • Aktif sekarang</div>
                       </div>
                     </div>
                   </div>

@@ -11,11 +11,11 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
   const primaryItems = [
     {
       href: '/admin',
-      label: 'Portal Kurasi',
+      label: 'Overview',
       badge: pendingCount > 0 ? `${pendingCount} Baru` : null,
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
         </svg>
       ),
     },
@@ -99,18 +99,14 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, que
 
   return (
     <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
-      {/* Brand Logo with Admin Badge above sidebar navigation */}
+      {/* Brand Logo above sidebar navigation */}
       <div className="sidebar-brand">
-        <Link href="/admin" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textDecoration: 'none', width: '100%' }}>
+        <Link href="/admin" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', width: '100%' }}>
           <img
             src="/logo-kertas-kata.png"
-            alt="KERTAS KATA Kabupaten Tangerang"
-            style={{ height: '36px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+            alt="KERTAS KATA"
+            style={{ height: '38px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
           />
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span className="admin-badge">PANEL ADMIN</span>
-            <span style={{ fontSize: '0.625rem', fontWeight: 700, color: 'var(--text-muted)' }}>Kab. Tangerang</span>
-          </div>
         </Link>
       </div>
 

@@ -213,3 +213,48 @@ export const createModule = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * ADMIN: Perbarui Modul Pembelajaran
+ */
+export const updateModule = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, description, orderIndex, videoUrl, duration, passingScore } = req.body;
+    const updated = await prisma.module.update({
+      where: { id },
+      data: {
+        ...(title && { title }),
+        ...(description !== undefined && { description }),
+        ...(orderIndex !== undefined && { orderIndex: parseInt(orderIndex) }),
+        ...(videoUrl !== undefined && { videoUrl }),
+        ...(duration !== undefined && { duration }),
+        ...(passingScore !== undefined && { passingScore: parseInt(passingScore) }),
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: 'Modul berhasil diperbarui.',
+      data: updated,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * ADMIN: Hapus Modul Pembelajaran
+ */
+export const deleteModule = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await prisma.module.delete({ where: { id } });
+    res.status(200).json({
+      success: true,
+      message: 'Modul berhasil dihapus.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

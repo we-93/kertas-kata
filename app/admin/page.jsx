@@ -131,7 +131,7 @@ export default function AdminDashboardPage() {
             <div className="admin-banner-glow"></div>
             <div className="admin-banner-content">
               <div className="admin-banner-texts">
-                <h1>Portal Kurasi &amp; Manajemen Literasi <span>Admin KERTAS KATA</span></h1>
+                <h1>Overview &amp; Manajemen Literasi <span>Admin KERTAS KATA</span></h1>
                 <p>
                   Kelola verifikasi naskah ilmiah &amp; sastra anggota, integrasi AI koreksi PUEBI/KBBI, penerbitan ISBN buku bunga rampai, dan pemantauan analitik membaca se-Kabupaten Tangerang.
                 </p>
@@ -183,7 +183,7 @@ export default function AdminDashboardPage() {
               </div>
               <div className="admin-stat-footer">
                 <span style={{ color: "#059669", fontWeight: "700" }}>Aktif</span>
-                <span style={{ color: "var(--text-muted)" }}>Komunitas Literasi Kab. Tangerang</span>
+                <span style={{ color: "var(--text-muted)" }}>Platform Literasi Kab. Tangerang</span>
               </div>
             </div>
 
@@ -255,28 +255,28 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="quick-actions-grid">
-              <Link href="/kelola-sertifikat" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
+              <Link href="/admin/kelola-sertifikat" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="quick-card-icon" style={{ background: "#fef3c7", color: "#d97706" }}>🎓</div>
                 <strong>Generate Sertifikat 32 JP</strong>
                 <span>Terbitkan e-sertifikat bernomor resmi untuk anggota yang telah tuntas modul.</span>
               </Link>
 
-              <Link href="/kelola-cetak" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
+              <Link href="/admin/kelola-cetak" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="quick-card-icon" style={{ background: "#ede9fe", color: "#7c3aed" }}>📖</div>
                 <strong>Inisiasi Proyek Antologi</strong>
                 <span>Buka kurasi buku ber-ISBN baru dari karya-karya terbaik anggota.</span>
               </Link>
 
-              <Link href="/kelola-perpustakaan" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
+              <Link href="/admin/kelola-perpustakaan" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="quick-card-icon" style={{ background: "#eff6ff", color: "#2563eb" }}>📚</div>
                 <strong>Unggah E-Book Komunitas</strong>
                 <span>Tambahkan literatur pegangan dan referensi literasi komunitas ke perpustakaan.</span>
               </Link>
 
-              <Link href="/kelola-komunitas" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
+              <Link href="/admin/kelola-komunitas" className="btn-quick-card" style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="quick-card-icon" style={{ background: "#ecfdf5", color: "#059669" }}>🏆</div>
-                <strong>Pembaruan Hall of Fame</strong>
-                <span>Tampilkan penulis berdedikasi dan aktif bulan ini di beranda komunitas.</span>
+                <strong>Pembaruan Forum Diskusi</strong>
+                <span>Moderasi topik komunitas dan kelola diskusi aktif anggota.</span>
               </Link>
             </div>
           </section>
@@ -341,7 +341,7 @@ export default function AdminDashboardPage() {
               <table className="admin-data-table">
                 <thead>
                   <tr>
-                    <th>Penulis &amp; Asal Kecamatan</th>
+                    <th>Penulis &amp; Asal Organisasi / Daerah</th>
                     <th>Judul Naskah &amp; Kategori</th>
                     <th>Tanggal Masuk</th>
                     <th>Skor Plagiarisme</th>

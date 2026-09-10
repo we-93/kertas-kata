@@ -143,7 +143,7 @@ export default function ProfilPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <span>{user?.originRegion || "Kecamatan Tigaraksa, Kab. Tangerang"}</span>
+                    <span>{user?.originRegion || "Asal Organisasi / Daerah Belum Diatur"}</span>
                   </div>
                   <div className="profil-meta-item">
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +160,7 @@ export default function ProfilPage() {
                 </div>
 
                 <p className="profil-bio-text">
-                  Pendidik dan pegiat literasi komunitas di Tigaraksa. Gemar meneliti sejarah akulturasi peranakan pesisir Tangerang dan menulis esai kebijakan tata ruang ramah anak berkelanjutan.
+                  {user?.bio || "Pendidik dan pegiat literasi komunitas di Kabupaten Tangerang. Gemar meneliti sejarah akulturasi peranakan pesisir Tangerang dan menulis esai kebijakan tata ruang ramah anak berkelanjutan."}
                 </p>
 
                 {/* Action Buttons */}
@@ -607,10 +607,10 @@ export default function ProfilPage() {
                   <div className="pdf-author-details">
                     <h3>{user?.name || "Raden"}</h3>
                     <p><strong>Peran:</strong> Anggota Terdaftar Komunitas Literasi Kabupaten Tangerang</p>
-                    <p><strong>Wilayah:</strong> {user?.originRegion || "Kecamatan Tigaraksa, Kabupaten Tangerang"}</p>
-                    <p><strong>Spesialisasi:</strong> Sejarah Lokal Tangerang, Opini &amp; Esai Kebijakan Publik</p>
+                    <p><strong>Wilayah:</strong> {user?.originRegion || "Kabupaten Tangerang"}</p>
+                    <p><strong>Spesialisasi:</strong> {user?.specialization || "Literasi Umum, Opini & Esai Publik"}</p>
                     <p style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "0.35rem" }}>
-                      <em>&quot;Pendidik dan pegiat literasi komunitas di Tigaraksa. Meneliti akulturasi sejarah pesisir dan esai tata ruang ramah anak.&quot;</em>
+                      <em>&quot;{user?.bio || "Pendidik dan pegiat literasi komunitas di Kabupaten Tangerang."}&quot;</em>
                     </p>
                   </div>
                 </div>
@@ -665,7 +665,7 @@ export default function ProfilPage() {
                 {/* Footer Tanda Tangan & QR Validasi */}
                 <div className="pdf-footer-signatures" style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div>
-                    <p style={{ margin: 0, fontWeight: 600 }}>Tigaraksa, Kabupaten Tangerang</p>
+                    <p style={{ margin: 0, fontWeight: 600 }}>Kabupaten Tangerang</p>
                     <p style={{ margin: "0.25rem 0 0", color: "#64748b" }}>Dicetak otomatis via Sistem Digital KERTAS KATA</p>
                     <p style={{ margin: "0.25rem 0 0", color: "#059669", fontWeight: 700 }}>Kode Validasi: KTK-2026-TGR-09882</p>
                   </div>

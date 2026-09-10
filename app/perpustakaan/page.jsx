@@ -64,12 +64,11 @@ export default function PerpustakaanPage() {
   const [filterType, setFilterType] = useState("all"); // all, free, premium, bookmark
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [bookmarks, setBookmarks] = useState([]);
-  const [readingBook, setReadingBook] = useState(null);
 
   useEffect(() => {
     async function loadBooks() {
       try {
-        const res = await api.library.getBooks();
+        const res = await api.library.getEbooks();
         if (res && res.success && res.data && res.data.length > 0) {
           setBooks(res.data);
         }
@@ -222,14 +221,64 @@ export default function PerpustakaanPage() {
                   </p>
 
                   <div style={{ display: "flex", gap: "0.5rem", marginTop: "auto" }}>
-                    <button
-                      type="button"
-                      className="btn-primary"
-                      style={{ flex: 1, padding: "0.5rem", fontSize: "0.8125rem", borderRadius: "8px", border: "none", cursor: "pointer", color: "#fff" }}
-                      onClick={() => setReadingBook(book)}
-                    >
-                      Baca Sekarang
-                    </button>
+                    {book.accessType === "premium" || !book.isFree ? (
+                      <a
+                        href={book.whatsappUrl || `https://wa.me/?text=${encodeURIComponent(`Halo Admin Kertas Kata, saya tertarik untuk mengunduh e-book: ${book.title}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                        style={{
+                          flex: 1,
+                          padding: "0.55rem",
+                          fontSize: "0.8125rem",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#fff",
+                          background: "linear-gradient(135deg, #059669 0%, #10b981 100%)",
+                          textDecoration: "none",
+                          textAlign: "center",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "0.35rem",
+                          fontWeight: 700,
+                        }}
+                      >
+                        <span>Unduh via WhatsApp</span>
+                        <span>💬</span>
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        style={{
+                          flex: 1,
+                          padding: "0.55rem",
+                          fontSize: "0.8125rem",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#fff",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "0.35rem",
+                          fontWeight: 700,
+                        }}
+                        onClick={() => {
+                          if (book.downloadUrl) {
+                            window.open(book.downloadUrl, "_blank");
+                          } else {
+                            alert("Berkas unduhan untuk buku ini sedang disiapkan oleh Admin.");
+                          }
+                        }}
+                      >
+                        <span>Unduh E-Book</span>
+                        <span>📥</span>
+                      </button>
+                    )}
+
                     <button
                       type="button"
                       style={{
@@ -252,41 +301,6 @@ export default function PerpustakaanPage() {
           </section>
         </main>
       </div>
-
-      {/* Reader Modal */}
-      {readingBook && (
-        <div className="modal-overlay active" onClick={() => setReadingBook(null)}>
-          <div className="modal-card" style={{ maxWidth: "720px", maxHeight: "80vh" }} onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <div>
-                <span style={{ fontSize: "0.75rem", color: "var(--primary-600)", fontWeight: 700 }}>PEMBACA DIGITAL KERTAS KATA</span>
-                <h3 style={{ fontSize: "1.15rem", margin: "0.2rem 0 0" }}>{readingBook.title}</h3>
-              </div>
-              <button type="button" className="modal-close-btn" onClick={() => setReadingBook(null)}>
-                &times;
-              </button>
-            </div>
-            <div style={{ padding: "1.5rem", overflowY: "auto", maxHeight: "60vh" }}>
-              <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: "1px solid var(--border-subtle)" }}>
-                <img src={readingBook.coverUrl} alt="Cover" style={{ width: "90px", height: "120px", objectFit: "cover", borderRadius: "8px" }} />
-                <div>
-                  <h4 style={{ margin: 0, fontWeight: 700 }}>{readingBook.title}</h4>
-                  <div style={{ fontSize: "0.8125rem", color: "#64748b", marginTop: "0.25rem" }}>Penulis: {readingBook.author}</div>
-                  <div style={{ fontSize: "0.75rem", color: "#64748b" }}>ISBN: {readingBook.isbn} &bull; {readingBook.pages} Halaman</div>
-                </div>
-              </div>
-
-              <h4 style={{ fontWeight: 700, color: "var(--text-main)", marginBottom: "0.5rem" }}>Bab 1: Prakata &amp; Pengantar Kurator</h4>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.8, color: "#334155" }}>
-                {readingBook.desc}
-              </p>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.8, color: "#334155" }}>
-                Platform Literasi Digital KERTAS KATA Kabupaten Tangerang mempersembahkan karya ini sebagai bagian dari upaya pelestarian ingatan kolektif, pemajuan kebudayaan lokal, dan penyebarluasan karya sastra bermutu kepada khalayak umum.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -4,6 +4,8 @@ import {
   getEbookById,
   buyPremiumEbook,
   createEbook,
+  updateEbook,
+  deleteEbook,
 } from '../controllers/library.controller.js';
 import { authenticate, optionalAuth, requireRole } from '../middlewares/auth.middleware.js';
 import { upload } from '../middlewares/upload.middleware.js';
@@ -16,6 +18,8 @@ router.post('/ebooks/:id/buy', authenticate, buyPremiumEbook);
 
 // Admin routes
 router.post('/ebooks', authenticate, requireRole('admin'), createEbook);
+router.put('/ebooks/:id', authenticate, requireRole('admin'), updateEbook);
+router.delete('/ebooks/:id', authenticate, requireRole('admin'), deleteEbook);
 
 // Upload PDF / Ebook file
 router.post('/upload-file', authenticate, requireRole('admin'), upload.single('ebook'), (req, res) => {
