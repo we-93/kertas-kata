@@ -46,20 +46,6 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
           </svg>
         </button>
 
-        {/* Header Official Brand Logo */}
-        <Link
-          href={isAdminMode ? "/admin" : "/dashboard"}
-          className="header-brand-link"
-          style={{ display: "flex", alignItems: "center", marginRight: "1rem", flexShrink: 0 }}
-          aria-label="KERTAS KATA"
-        >
-          <img
-            src="/logo-kertas-kata.png"
-            alt="KERTAS KATA Kabupaten Tangerang"
-            style={{ height: "36px", width: "auto", objectFit: "contain" }}
-          />
-        </Link>
-
         {/* Global Search Bar */}
         <div className="header-search">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

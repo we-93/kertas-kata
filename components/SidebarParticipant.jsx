@@ -101,12 +101,12 @@ export default function SidebarParticipant({ isOpen, onClose }) {
 
   return (
     <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
-      <div className="sidebar-brand" style={{ padding: '1.25rem 1.25rem 1rem' }}>
-        <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+      <div className="sidebar-brand">
+        <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', width: '100%' }}>
           <img
             src="/logo-kertas-kata.png"
             alt="KERTAS KATA Kabupaten Tangerang"
-            style={{ height: '44px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+            style={{ height: '38px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
           />
         </Link>
       </div>

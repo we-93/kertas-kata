@@ -43,7 +43,7 @@ export default function KelolaPerpustakaanPage() {
       <SidebarAdmin activePath="/admin/kelola-perpustakaan" />
 
       <div className="main-wrapper" style={{ marginRight: 0 }}>
-        <TopHeader />
+        <TopHeader isAdminMode={true} />
 
         <main className="content-body" style={{ marginRight: 0, maxWidth: "100%", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "1.75rem" }}>
           <section className="admin-welcome-banner">

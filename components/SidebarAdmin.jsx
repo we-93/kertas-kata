@@ -4,14 +4,15 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
+export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0, queueCount = 0 }) {
   const pathname = usePathname();
+  const pendingCount = queueBadgeCount || queueCount || 0;
 
   const primaryItems = [
     {
       href: '/admin',
       label: 'Portal Kurasi',
-      badge: queueBadgeCount > 0 ? `${queueBadgeCount} Baru` : null,
+      badge: pendingCount > 0 ? `${pendingCount} Baru` : null,
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -19,7 +20,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-anggota',
+      href: '/admin/kelola-anggota',
       label: 'Kelola Anggota',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,7 +29,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-elearning',
+      href: '/admin/kelola-elearning',
       label: 'Kelola E-Learning',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,7 +38,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-publikasi',
+      href: '/admin/kelola-publikasi',
       label: 'Kelola Publikasi',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +50,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
 
   const serviceItems = [
     {
-      href: '/kelola-perpustakaan',
+      href: '/admin/kelola-perpustakaan',
       label: 'Kelola Perpustakaan',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,7 +59,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-komunitas',
+      href: '/admin/kelola-komunitas',
       label: 'Kelola Komunitas',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +68,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-cetak',
+      href: '/admin/kelola-cetak',
       label: 'Kelola Cetak & ISBN',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +77,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-sertifikat',
+      href: '/admin/kelola-sertifikat',
       label: 'Sertifikat & Hall of Fame',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +86,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       ),
     },
     {
-      href: '/kelola-pengaturan',
+      href: '/admin/kelola-pengaturan',
       label: 'Pengaturan Sistem',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,23 +98,18 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
   ];
 
   return (
-    <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`} id="adminSidebar">
-      <div className="sidebar-brand" style={{ padding: '1.25rem 1.25rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <Link href="/admin" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', textDecoration: 'none' }}>
-          <div style={{ background: '#ffffff', borderRadius: '10px', padding: '0.4rem 0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img
-              src="/logo-kertas-kata.png"
-              alt="KERTAS KATA"
-              style={{ height: '36px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-            />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0.2rem' }}>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 800, color: '#a78bfa', letterSpacing: '0.05em' }}>
-              PORTAL KURATOR
-            </span>
-            <span style={{ fontSize: '0.625rem', background: '#7c3aed', color: '#fff', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: 700 }}>
-              ADMIN
-            </span>
+    <aside className={`sidebar-left ${isOpen ? 'open' : ''}`} id="sidebarLeft">
+      {/* Brand Logo with Admin Badge above sidebar navigation */}
+      <div className="sidebar-brand">
+        <Link href="/admin" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textDecoration: 'none', width: '100%' }}>
+          <img
+            src="/logo-kertas-kata.png"
+            alt="KERTAS KATA Kabupaten Tangerang"
+            style={{ height: '36px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span className="admin-badge">PANEL ADMIN</span>
+            <span style={{ fontSize: '0.625rem', fontWeight: 700, color: 'var(--text-muted)' }}>Kab. Tangerang</span>
           </div>
         </Link>
       </div>
@@ -133,7 +129,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
               {item.icon}
               <span>{item.label}</span>
               {item.badge && (
-                <span className="badge" style={{ marginLeft: 'auto', fontSize: '0.6875rem', background: '#fee2e2', color: '#b91c1c', padding: '0.15rem 0.5rem', borderRadius: '999px', fontWeight: 700 }}>
+                <span className="nav-badge" style={{ marginLeft: 'auto', fontSize: '0.6875rem', background: '#fee2e2', color: '#b91c1c', padding: '0.15rem 0.5rem', borderRadius: '999px', fontWeight: 700 }}>
                   {item.badge}
                 </span>
               )}
@@ -141,7 +137,7 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
           );
         })}
 
-        <div className="nav-section-label">LAYANAN & DISTRIBUSI</div>
+        <div className="nav-section-label" style={{ marginTop: '0.5rem' }}>LAYANAN &amp; DISTRIBUSI</div>
 
         {serviceItems.map((item) => {
           const isActive = pathname === item.href;
@@ -160,22 +156,11 @@ export default function SidebarAdmin({ isOpen, onClose, queueBadgeCount = 0 }) {
       </nav>
 
       {/* Mode Switcher to Member Dashboard */}
-      <div className="sidebar-switch-mode" style={{ padding: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: 'auto' }}>
+      <div className="sidebar-switch-mode">
         <Link
           href="/dashboard"
           className="btn-switch-mode"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.65rem 0.85rem',
-            borderRadius: '10px',
-            background: 'rgba(255,255,255,0.08)',
-            color: '#ffffff',
-            fontSize: '0.8125rem',
-            fontWeight: '700',
-            textDecoration: 'none',
-          }}
+          id="switchModeMemberBtn"
           onClick={onClose}
         >
           <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
