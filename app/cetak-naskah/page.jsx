@@ -53,7 +53,7 @@ export default function CetakNaskahPage() {
   };
 
   return (
-    <AuthGuard requiredRole="participant">
+    <AuthGuard requiredRole="anggota">
       <div className="app-container">
         <SidebarParticipant activePath="/cetak-naskah" />
 

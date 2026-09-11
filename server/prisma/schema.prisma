@@ -25,7 +25,7 @@ model User {
   bio             String?
   originRegion    String?        // Contoh: Kecamatan Tigaraksa, Teluknaga, Curug, dll.
   specialization  String?        // Contoh: Esai Pendidikan, Sejarah Lokal, Cerpen
-  role            String         @default("participant") // participant, mentor, admin
+  role            String         @default("anggota") // anggota, mentor, admin
   status          String         @default("active")      // active, suspended
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt

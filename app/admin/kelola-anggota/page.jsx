@@ -23,10 +23,11 @@ export default function KelolaAnggotaPage() {
   const fetchMembers = async () => {
     try {
       setLoading(true);
-      const res = await api.admin.getMembers({
-        search: search.trim() || undefined,
-        region: filterRegion.trim() || undefined,
-      });
+      const params = {};
+      if (search.trim()) params.search = search.trim();
+      if (filterRegion.trim()) params.region = filterRegion.trim();
+      
+      const res = await api.admin.getMembers(params);
       if (res?.data?.members) {
         setMembers(res.data.members);
       } else {

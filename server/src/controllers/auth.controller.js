@@ -56,7 +56,7 @@ export const googleAuth = async (req, res, next) => {
           name,
           googleId,
           photoUrl,
-          role: 'participant',
+          role: 'anggota',
           originRegion: req.body.originRegion || 'Kabupaten Tangerang',
           specialization: req.body.specialization || 'Literasi Umum',
           status: 'active',
@@ -190,7 +190,7 @@ export const register = async (req, res, next) => {
         password: hashedPassword,
         originRegion: originRegion || 'Kabupaten Tangerang',
         specialization: specialization || 'Literasi Umum',
-        role: 'participant',
+        role: 'anggota',
       },
     });
 

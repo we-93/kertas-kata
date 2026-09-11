@@ -20,6 +20,60 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
   const region = user?.originRegion || 'Kabupaten Tangerang';
   const roleLabel = isAdminMode ? 'Kurator Tangerang' : user?.role === 'mentor' ? 'Mentor' : 'Anggota';
 
+  const [notifications, setNotifications] = useState([]);
+
+  // Fetch dynamic notifications (revisions & feedback)
+  useEffect(() => {
+    async function fetchNotifs() {
+      if (!user) return;
+      try {
+        if (isAdminMode) {
+          const res = await api.admin.getQueue("pending");
+          if (res?.data && Array.isArray(res.data)) {
+            setNotifications(res.data.slice(0, 5).map(item => ({
+              id: item.id,
+              title: `Antrean Naskah: "${item.title}"`,
+              desc: `Penulis: ${item.user?.name || item.author || "Anggota"}`,
+              link: `/admin#antrean-review`,
+              date: item.updatedAt || new Date(),
+              badge: "Butuh Kurasi"
+            })));
+          }
+        } else {
+          const res = await api.articles.getMy();
+          if (res?.data?.articles && Array.isArray(res.data.articles)) {
+            const notifList = [];
+            res.data.articles.forEach(art => {
+              if (art.status === 'revision') {
+                notifList.push({
+                  id: art.id,
+                  title: `Perlu Revisi: "${art.title}"`,
+                  desc: art.reviews?.[0]?.comment || "Kurator meminta perbaikan naskah Anda.",
+                  link: `/menulis?id=${art.id}`,
+                  date: art.updatedAt || art.createdAt,
+                  badge: "Revisi"
+                });
+              } else if (art.reviews && art.reviews.length > 0) {
+                notifList.push({
+                  id: art.id,
+                  title: `Umpan Balik Admin: "${art.title}"`,
+                  desc: art.reviews[0].comment,
+                  link: art.status === 'published' ? `/baca-artikel/${art.slug || art.id}` : `/menulis?id=${art.id}`,
+                  date: art.reviews[0].createdAt || art.updatedAt,
+                  badge: art.status === 'published' ? 'Terbit' : 'Catatan'
+                });
+              }
+            });
+            setNotifications(notifList.slice(0, 5));
+          }
+        }
+      } catch (err) {
+        console.warn("Gagal memuat notifikasi:", err.message);
+      }
+    }
+    fetchNotifs();
+  }, [user, isAdminMode]);
+
   // Tutup dropdown jika klik di luar
   useEffect(() => {
     function handleClickOutside(event) {
@@ -96,6 +150,7 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
             type="button"
             className="header-action-btn"
             aria-label="Notifikasi"
+            style={{ position: 'relative' }}
             onClick={() => {
               setNotifOpen(!notifOpen);
               setDropdownOpen(false);
@@ -104,17 +159,61 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
+            {notifications.length > 0 && (
+              <span style={{
+                position: 'absolute',
+                top: '4px',
+                right: '4px',
+                width: '8px',
+                height: '8px',
+                background: '#ef4444',
+                borderRadius: '50%',
+                border: '1.5px solid #ffffff'
+              }} />
+            )}
           </button>
 
           {notifOpen && (
-            <div className="notification-popover" style={{ display: 'block', position: 'absolute', right: 0, top: '48px', width: '300px' }}>
-              <div className="popover-header">
-                <span className="popover-title">Notifikasi</span>
+            <div className="notification-popover" style={{ display: 'block', position: 'absolute', right: 0, top: '48px', width: '320px', background: '#ffffff', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)', border: '1px solid #e2e8f0', zIndex: 110 }}>
+              <div className="popover-header" style={{ padding: '0.85rem 1rem', borderBottom: '1px solid #f1f5f9', fontWeight: '700', fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span className="popover-title">Notifikasi ({notifications.length})</span>
+                {notifications.length > 0 && (
+                  <span style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: '600' }}>Terbaru</span>
+                )}
               </div>
-              <div className="popover-body">
-                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
-                  Belum ada notifikasi baru.
-                </div>
+              <div className="popover-body" style={{ maxHeight: '320px', overflowY: 'auto' }}>
+                {notifications.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
+                    Belum ada notifikasi baru.
+                  </div>
+                ) : (
+                  notifications.map((n) => (
+                    <Link
+                      key={n.id}
+                      href={n.link}
+                      onClick={() => setNotifOpen(false)}
+                      style={{
+                        display: 'block',
+                        padding: '0.85rem 1rem',
+                        borderBottom: '1px solid #f8fafc',
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        transition: 'background 0.12s ease',
+                      }}
+                      className="notif-item-hover"
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
+                        <span style={{ fontWeight: '700', fontSize: '0.8125rem', color: '#0f172a' }}>{n.title}</span>
+                        <span style={{ fontSize: '0.6875rem', background: n.badge === 'Revisi' ? '#fef3c7' : '#dcfce7', color: n.badge === 'Revisi' ? '#b45309' : '#15803d', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: '700' }}>
+                          {n.badge}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.775rem', color: '#475569', lineHeight: '1.4' }}>
+                        {n.desc}
+                      </div>
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           )}

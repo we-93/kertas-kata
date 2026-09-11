@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
    * Memvalidasi apakah user sedang login dan memiliki role yang sesuai.
    * Tidak ada auto-login dummy. Jika belum login, mengembalikan null.
    */
-  const ensureAuth = async (requiredRole = 'participant') => {
+  const ensureAuth = async (requiredRole = 'anggota') => {
     let currentUser = user;
     if (!currentUser && typeof window !== 'undefined') {
       const stored = localStorage.getItem(USER_KEY);
@@ -81,7 +81,7 @@ export function AuthProvider({ children }) {
       if (requiredRole === 'admin' && (currentUser.role === 'admin' || currentUser.role === 'mentor')) {
         return currentUser;
       }
-      if (requiredRole === 'participant' || requiredRole === 'any') {
+      if (requiredRole === 'anggota' || requiredRole === 'any') {
         return currentUser;
       }
     }

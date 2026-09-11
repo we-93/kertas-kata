@@ -363,17 +363,21 @@ export default function AdminDashboardPage() {
                       </td>
                     </tr>
                   ) : (
-                    filteredQueue.map((item) => (
-                      <tr key={item.id}>
-                        <td>
-                          <div className="author-cell-info">
-                            <div className="author-avatar-chip">{item.authorInitials || "P"}</div>
-                            <div className="author-meta-text">
-                              <span className="author-name-bold">{item.author || "Penulis Komunitas"}</span>
-                              <span className="author-sub-region">{item.region || "Kabupaten Tangerang"}</span>
+                    filteredQueue.map((item) => {
+                      const authorName = item.user?.name || item.author || "Penulis Komunitas";
+                      const originRegion = item.user?.originRegion || item.region || "Kabupaten Tangerang";
+                      const initials = authorName.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase() || "P";
+                      return (
+                        <tr key={item.id}>
+                          <td>
+                            <div className="author-cell-info">
+                              <div className="author-avatar-chip">{initials}</div>
+                              <div className="author-meta-text">
+                                <span className="author-name-bold">{authorName}</span>
+                                <span className="author-sub-region">{originRegion}</span>
+                              </div>
                             </div>
-                          </div>
-                        </td>
+                          </td>
                         <td>
                           <div className="article-title-cell">{item.title}</div>
                           <span style={{ display: "inline-block", marginTop: "0.25rem", fontSize: "0.6875rem", color: "var(--primary-700)", background: "var(--primary-50)", padding: "0.1rem 0.4rem", borderRadius: "4px" }}>
@@ -407,8 +411,9 @@ export default function AdminDashboardPage() {
                           </button>
                         </td>
                       </tr>
-                    ))
-                  )}
+                    );
+                  })
+                )}
                 </tbody>
               </table>
             </div>

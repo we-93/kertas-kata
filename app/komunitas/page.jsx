@@ -140,7 +140,7 @@ export default function KomunitasPage() {
   };
 
   return (
-    <AuthGuard requiredRole="participant">
+    <AuthGuard requiredRole="anggota">
       <div className="app-container">
       <SidebarParticipant activePath="/komunitas" />
 

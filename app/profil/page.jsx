@@ -21,7 +21,7 @@ export default function ProfilPage() {
 
   useEffect(() => {
     async function loadData() {
-      await ensureAuth("participant");
+      await ensureAuth("anggota");
       try {
         const res = await api.articles.getMy();
         if (res && res.success && res.data) {
@@ -108,7 +108,7 @@ export default function ProfilPage() {
   };
 
   return (
-    <AuthGuard requiredRole="participant">
+    <AuthGuard requiredRole="anggota">
       <div className="app-container">
       <SidebarParticipant activePath="/profil" />
 

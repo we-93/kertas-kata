@@ -79,7 +79,7 @@ async function main() {
       name: 'Raden',
       email: memberEmail,
       password: memberPasswordHash,
-      role: 'participant',
+      role: 'anggota',
       originRegion: 'Kecamatan Tigaraksa',
       specialization: 'Literasi Umum',
       bio: 'Penulis dan anggota komunitas literasi KERTAS KATA Kabupaten Tangerang.',

@@ -87,15 +87,15 @@ export const getAllMembers = async (req, res, next) => {
     const { search, region, role, status, page = 1, limit = 20 } = req.query;
 
     const where = {};
-    if (search) {
+    if (search && search !== 'undefined') {
       where.OR = [
         { name: { contains: search } },
         { email: { contains: search } },
       ];
     }
-    if (region) where.originRegion = { contains: region };
-    if (role) where.role = role;
-    if (status) where.status = status;
+    if (region && region !== 'undefined') where.originRegion = { contains: region };
+    if (role && role !== 'undefined') where.role = role;
+    if (status && status !== 'undefined') where.status = status;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const take = parseInt(limit);

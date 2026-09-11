@@ -14,7 +14,7 @@ export const getPlatformStats = async (req, res, next) => {
       topAuthorsRaw,
     ] = await Promise.all([
       prisma.article.count({ where: { status: 'published' } }),
-      prisma.user.count({ where: { role: 'participant' } }),
+      prisma.user.count({ where: { role: 'anggota' } }),
       prisma.ebook.count({ where: { status: 'published' } }),
       // Artikel Spotlight: Utamakan isFeatured, atau artikel published terbaru
       prisma.article.findFirst({

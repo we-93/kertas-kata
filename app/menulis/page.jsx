@@ -18,7 +18,7 @@ function MenulisForm() {
   const [title, setTitle] = useState("");
   const [lead, setLead] = useState("");
   const [contentHtml, setContentHtml] = useState("<p><br></p>");
-  const [category, setCategory] = useState("Refleksi Pedagogik");
+  const [category, setCategory] = useState("Pendidikan");
   const [tags, setTags] = useState(["Literasi", "Tangerang"]);
   const [tagInput, setTagInput] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
@@ -36,7 +36,7 @@ function MenulisForm() {
   // Load article if editing existing
   useEffect(() => {
     async function init() {
-      await ensureAuth("participant");
+      await ensureAuth("anggota");
       if (editId) {
         try {
           const res = await api.articles.getById(editId);
@@ -49,7 +49,11 @@ function MenulisForm() {
             if (editorRef.current) {
               editorRef.current.innerHTML = art.content || "<p><br></p>";
             }
-            if (art.category) setCategory(art.category);
+            if (art.category && art.category !== "Refleksi Pedagogik") {
+              setCategory(art.category);
+            } else {
+              setCategory("Pendidikan");
+            }
             if (art.coverUrl) setCoverUrl(art.coverUrl);
             if (art.tags && Array.isArray(art.tags)) {
               setTags(art.tags.map((t) => (typeof t === "string" ? t : t.name)));
@@ -66,7 +70,7 @@ function MenulisForm() {
   // Recalculate word count whenever text changes
   const updateWordMetrics = () => {
     const bodyText = editorRef.current ? editorRef.current.innerText : "";
-    const allText = `${title} ${lead} ${bodyText}`.trim();
+    const allText = `${title} ${bodyText}`.trim();
     const words = allText ? allText.split(/\s+/).filter((w) => w.length > 0).length : 0;
     setWordCount(words);
     setReadTime(`~${Math.max(1, Math.ceil(words / 200))} mnt`);
@@ -74,7 +78,35 @@ function MenulisForm() {
 
   useEffect(() => {
     updateWordMetrics();
-  }, [title, lead]);
+  }, [title]);
+
+  // Handle Ctrl+V paste safely without React VDOM crash
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData("text/plain");
+    if (document.queryCommandSupported("insertText")) {
+      document.execCommand("insertText", false, text);
+    } else {
+      document.execCommand("insertHTML", false, text.replace(/\n/g, "<br>"));
+    }
+    onContentChange();
+  };
+
+  // Handle Cover Image Upload
+  const handleCoverUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ukuran gambar maksimal 5 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setCoverUrl(event.target.result);
+      onContentChange();
+    };
+    reader.readAsDataURL(file);
+  };
 
   // Autosave handler
   const triggerAutoSave = async () => {
@@ -298,37 +330,31 @@ function MenulisForm() {
           </div>
 
           {/* Title Input */}
-          <textarea
-            className="author-title-input"
-            rows={1}
-            placeholder="Judul Naskah..."
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-              onContentChange();
-            }}
-          />
-
-          {/* Subtitle / Lead Input */}
-          <textarea
-            className="author-lead-input"
-            rows={1}
-            placeholder="Tulis pengantar atau premis naskah..."
-            value={lead}
-            onChange={(e) => {
-              setLead(e.target.value);
-              onContentChange();
-            }}
-          />
+          <div className="author-title-container">
+            <label className="author-field-label">Judul Artikel (Wajib)</label>
+            <textarea
+              className="author-title-input"
+              rows={1}
+              placeholder="Ketikkan Judul Artikel..."
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                onContentChange();
+              }}
+            />
+          </div>
 
           {/* Body Contenteditable */}
-          <div
-            ref={editorRef}
-            className="author-body-content"
-            contentEditable
-            onInput={onContentChange}
-            dangerouslySetInnerHTML={{ __html: contentHtml }}
-          />
+          <div className="author-body-container">
+            <label className="author-field-label">Isi Tulisan Artikel (Wajib)</label>
+            <div
+              ref={editorRef}
+              className="author-body-content"
+              contentEditable
+              onInput={onContentChange}
+              onPaste={handlePaste}
+            />
+          </div>
 
           <div className="curation-standard-notice" style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: "1px solid #f1f5f9", display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8125rem", color: "#64748b", fontWeight: "500" }}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#059669" style={{ flexShrink: 0 }}>
@@ -346,11 +372,11 @@ function MenulisForm() {
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
-              <span>Pengaturan Naskah</span>
+              <span>Pengaturan Artikel</span>
             </div>
 
             <div className="form-field-group">
-              <label htmlFor="widgetCategorySelect" className="field-label">Kategori Naskah (Wajib)</label>
+              <label htmlFor="widgetCategorySelect" className="field-label">Kategori Artikel (Wajib)</label>
               <div className="widget-select-wrapper">
                 <select
                   id="widgetCategorySelect"
@@ -361,7 +387,6 @@ function MenulisForm() {
                     onContentChange();
                   }}
                 >
-                  <option value="Refleksi Pedagogik">Refleksi Pedagogik</option>
                   <option value="Pendidikan">Pendidikan</option>
                   <option value="Sejarah">Sejarah</option>
                   <option value="Politik">Politik</option>
@@ -420,20 +445,40 @@ function MenulisForm() {
             </div>
 
             <div className="form-field-group">
-              <label className="field-label">URL Sampul Artikel</label>
+              <label className="field-label">Gambar Sampul Artikel (Upload)</label>
               <input
-                type="text"
+                type="file"
+                accept="image/*"
                 className="widget-tag-input"
-                placeholder="https://images.unsplash.com/..."
-                value={coverUrl}
-                onChange={(e) => {
-                  setCoverUrl(e.target.value);
-                  onContentChange();
-                }}
+                style={{ padding: "0.4rem", fontSize: "0.8125rem" }}
+                onChange={handleCoverUpload}
               />
               {coverUrl && (
-                <div style={{ marginTop: "0.5rem", borderRadius: "8px", overflow: "hidden", maxHeight: "120px" }}>
-                  <img src={coverUrl} alt="Sampul" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div style={{ marginTop: "0.6rem", borderRadius: "10px", overflow: "hidden", position: "relative", border: "1px solid #e2e8f0" }}>
+                  <img src={coverUrl} alt="Sampul Artikel" style={{ width: "100%", maxHeight: "140px", objectFit: "cover", display: "block" }} />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCoverUrl("");
+                      onContentChange();
+                    }}
+                    style={{
+                      position: "absolute",
+                      top: "6px",
+                      right: "6px",
+                      background: "rgba(220, 38, 38, 0.9)",
+                      color: "#ffffff",
+                      border: "none",
+                      borderRadius: "6px",
+                      padding: "0.25rem 0.6rem",
+                      fontSize: "0.75rem",
+                      fontWeight: "700",
+                      cursor: "pointer",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    Hapus Sampul
+                  </button>
                 </div>
               )}
             </div>
@@ -592,7 +637,7 @@ function MenulisForm() {
 
 export default function MenulisPage() {
   return (
-    <AuthGuard requiredRole="participant">
+    <AuthGuard requiredRole="anggota">
       <Suspense fallback={<div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b" }}>Memuat studio menulis...</div>}>
         <MenulisForm />
       </Suspense>

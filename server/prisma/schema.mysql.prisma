@@ -25,7 +25,7 @@ model User {
   bio             String?        @db.Text
   originRegion    String?        @db.VarChar(100)
   specialization  String?        @db.VarChar(100)
-  role            String         @default("participant") @db.VarChar(50)
+  role            String         @default("anggota") @db.VarChar(50)
   status          String         @default("active") @db.VarChar(50)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt

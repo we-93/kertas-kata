@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
-export default function AuthGuard({ children, requiredRole = "participant" }) {
+export default function AuthGuard({ children, requiredRole = "anggota" }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -19,7 +19,7 @@ export default function AuthGuard({ children, requiredRole = "participant" }) {
         if (requiredRole === "admin" && user.role !== "admin" && user.role !== "mentor") {
           // Pengguna akun anggota dilarang keras akses admin -> alihkan ke dashboard anggota
           router.replace("/dashboard");
-        } else if (requiredRole === "participant" && (user.role === "admin" || user.role === "mentor")) {
+        } else if (requiredRole === "anggota" && (user.role === "admin" || user.role === "mentor")) {
           // Pengguna akun admin dilarang keras akses anggota -> alihkan ke portal admin
           router.replace("/admin");
         } else {

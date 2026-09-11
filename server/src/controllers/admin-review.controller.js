@@ -221,7 +221,7 @@ export const getPlatformOverview = async (req, res, next) => {
       totalEbooks,
       totalPrintOrders,
     ] = await Promise.all([
-      prisma.user.count({ where: { role: 'participant' } }),
+      prisma.user.count({ where: { role: 'anggota' } }),
       prisma.article.count({ where: { status: 'published' } }),
       prisma.article.count({ where: { status: 'in_review' } }),
       prisma.ebook.count({ where: { status: 'published' } }),

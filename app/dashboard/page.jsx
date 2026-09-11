@@ -13,7 +13,7 @@ export default function DashboardPage() {
   const { user, ensureAuth } = useAuth();
   const [loading, setLoading] = useState(true);
   const [articlesData, setArticlesData] = useState([]);
-  const [counts, setCounts] = useState({ published: 0, in_review: 0, draft: 0 });
+  const [counts, setCounts] = useState({ published: 0, in_review: 0, revision: 0, draft: 0 });
   const [activeTab, setActiveTab] = useState("published");
   const [chartPeriod, setChartPeriod] = useState("7");
 
@@ -29,7 +29,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        await ensureAuth("participant");
+        await ensureAuth("anggota");
         const res = await api.articles.getMy();
         if (res && res.success && res.data) {
           const { articles, counts: apiCounts } = res.data;
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const printRemaining = Math.max(0, 10 - (counts.published || 0));
 
   return (
-    <AuthGuard requiredRole="participant">
+    <AuthGuard requiredRole="anggota">
       <div className="app-container">
         {/* Left Sidebar */}
         <SidebarParticipant activePath="/dashboard" />
@@ -87,14 +87,14 @@ export default function DashboardPage() {
               <div className="welcome-actions">
                 <Link href="/menulis" className="btn-primary" id="btnQuickWrite">
                   <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                   </svg>
                   <span>Tulis Naskah Baru</span>
                 </Link>
                 <Link href="/elearning" className="btn-secondary" id="btnQuickLearn">
                   <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Mulai Belajar</span>
                 </Link>
@@ -109,7 +109,7 @@ export default function DashboardPage() {
                 <span className="stat-title">Tulisan Diterbitkan</span>
                 <div className="stat-icon green">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function DashboardPage() {
                 <span className="stat-title">Sedang Dikurasi</span>
                 <div className="stat-icon orange">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
               </div>
@@ -139,8 +139,8 @@ export default function DashboardPage() {
                 <span className="stat-title">Total Pembaca</span>
                 <div className="stat-icon blue">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function DashboardPage() {
                 <span className="stat-title">Draf Belum Dikirim</span>
                 <div className="stat-icon purple">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                 </div>
               </div>
@@ -193,6 +193,14 @@ export default function DashboardPage() {
                 </button>
                 <button
                   type="button"
+                  className={`tab-btn ${activeTab === "revision" ? "active" : ""}`}
+                  onClick={() => setActiveTab("revision")}
+                >
+                  <span>Perlu Revisi</span>
+                  <span className="tab-pill" style={{ background: "#fef3c7", color: "#b45309" }}>{counts.revision || 0}</span>
+                </button>
+                <button
+                  type="button"
                   className={`tab-btn ${activeTab === "published" ? "active" : ""}`}
                   onClick={() => setActiveTab("published")}
                 >
@@ -211,7 +219,7 @@ export default function DashboardPage() {
                 <div style={{ textAlign: "center", padding: "3.5rem 1.5rem", color: "var(--text-muted)" }}>
                   <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>📝</div>
                   <h4 style={{ fontWeight: "700", color: "var(--text-main)", marginBottom: "0.25rem" }}>
-                    Belum ada naskah dengan status {activeTab === "published" ? "Terbit" : activeTab === "in_review" ? "In Review" : "Draf"}
+                    Belum ada naskah dengan status {activeTab === "published" ? "Terbit" : activeTab === "in_review" ? "In Review" : activeTab === "revision" ? "Perlu Revisi" : "Draf"}
                   </h4>
                   <p style={{ fontSize: "0.875rem", maxWidth: "420px", margin: "0 auto 1.25rem" }}>
                     Mulai tulis karya terbaik Anda sekarang dan terbitkan ke etalase literasi Kertas Kata Kabupaten Tangerang.
@@ -222,42 +230,67 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 filteredArticles.map((art) => (
-                  <div key={art.id} className="article-item" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem", borderBottom: "1px solid var(--border-subtle)" }}>
-                    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                      <div style={{ width: "44px", height: "44px", borderRadius: "10px", background: "rgba(37, 99, 235, 0.08)", color: "var(--primary-600)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700" }}>
-                        {art.category ? art.category.substring(0, 2).toUpperCase() : "KK"}
+                  <div key={art.id} className="article-item" style={{ padding: "1.25rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                        <div style={{ width: "44px", height: "44px", borderRadius: "10px", background: "rgba(37, 99, 235, 0.08)", color: "var(--primary-600)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700" }}>
+                          {art.category ? art.category.substring(0, 2).toUpperCase() : "KK"}
+                        </div>
+                        <div>
+                          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "0.25rem" }}>
+                            <span className="nav-badge" style={{ textTransform: "capitalize", fontSize: "0.6875rem" }}>
+                              {art.category || "Umum"}
+                            </span>
+                            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                              • {new Date(art.updatedAt || art.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                            </span>
+                          </div>
+                          <h4 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-main)", margin: 0 }}>
+                            {art.title}
+                          </h4>
+                          <div style={{ fontSize: "0.8125rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
+                            {art.wordCount || 0} kata • {art.viewCount || 0} pembaca • Status:{" "}
+                            <strong style={{ color: art.status === "published" ? "var(--success-600)" : art.status === "in_review" ? "var(--accent-600)" : art.status === "revision" ? "#d97706" : "var(--purple-600)" }}>
+                              {art.status === "published" ? "Terbit" : art.status === "in_review" ? "Sedang Dikurasi" : art.status === "revision" ? "Perlu Revisi Admin" : "Draf"}
+                            </strong>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "0.25rem" }}>
-                          <span className="nav-badge" style={{ textTransform: "capitalize", fontSize: "0.6875rem" }}>
-                            {art.category || "Umum"}
-                          </span>
-                          <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                            • {new Date(art.updatedAt || art.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
-                          </span>
-                        </div>
-                        <h4 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-main)", margin: 0 }}>
-                          {art.title}
-                        </h4>
-                        <div style={{ fontSize: "0.8125rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
-                          {art.wordCount || 0} kata • {art.viewCount || 0} pembaca • Status:{" "}
-                          <strong style={{ color: art.status === "published" ? "var(--success-600)" : art.status === "in_review" ? "var(--accent-600)" : "var(--purple-600)" }}>
-                            {art.status === "published" ? "Terbit" : art.status === "in_review" ? "Sedang Dikurasi" : "Draf"}
-                          </strong>
-                        </div>
+                      <div style={{ display: "flex", gap: "0.5rem" }}>
+                        {art.status === "published" ? (
+                          <Link href={`/baca-artikel/${art.slug || art.id}`} className="btn-secondary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
+                            Baca Karya
+                          </Link>
+                        ) : art.status === "revision" ? (
+                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none", background: "#d97706", borderColor: "#d97706" }}>
+                            ✏️ Revisi Naskah Ini
+                          </Link>
+                        ) : (
+                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
+                            Edit Naskah
+                          </Link>
+                        )}
                       </div>
                     </div>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      {art.status === "published" ? (
-                        <Link href={`/baca-artikel/${art.slug || art.id}`} className="btn-secondary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
-                          Baca Karya
-                        </Link>
-                      ) : (
-                        <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
-                          Edit Naskah
-                        </Link>
-                      )}
-                    </div>
+
+                    {/* Feedback / Review Notes from Curator */}
+                    {art.reviews && art.reviews.length > 0 && (
+                      <div style={{
+                        padding: "0.85rem 1.1rem",
+                        background: "#fffbe6",
+                        border: "1.5px solid #ffe58f",
+                        borderRadius: "10px",
+                        fontSize: "0.8125rem",
+                        color: "#722ed1"
+                      }}>
+                        <div style={{ fontWeight: "700", marginBottom: "0.3rem", display: "flex", alignItems: "center", gap: "0.4rem", color: "#531dab" }}>
+                          <span>💬 Catatan Umpan Balik Kurator Admin:</span>
+                        </div>
+                        <div style={{ color: "#1f1f1f", lineHeight: "1.5", fontSize: "0.85rem", background: "#ffffff", padding: "0.6rem 0.8rem", borderRadius: "6px", border: "1px solid #ffd591" }}>
+                          {art.reviews[0].comment}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))
               )}

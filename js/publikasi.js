@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadMyArticlesFromApi() {
   try {
-    await window.KK_API.auth.ensureUserAuth('participant');
+    await window.KK_API.auth.ensureUserAuth('anggota');
     const res = await window.KK_API.articles.getMy();
     if (!res || !res.success || !res.data) return;
 

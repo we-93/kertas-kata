@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Integrasi Backend API: Pastikan login & load naskah jika ada id di URL
   if (window.KK_API) {
-    await window.KK_API.auth.ensureUserAuth('participant');
+    await window.KK_API.auth.ensureUserAuth('anggota');
     const urlParams = new URLSearchParams(window.location.search);
     const editId = urlParams.get('id');
     if (editId) {

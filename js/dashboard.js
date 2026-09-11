@@ -65,7 +65,7 @@ let articlesData = [];
 async function loadDashboardDataFromApi() {
   if (!window.KK_API) return;
   try {
-    await window.KK_API.auth.ensureUserAuth('participant');
+    await window.KK_API.auth.ensureUserAuth('anggota');
 
     // Sinkronisasi info profil pengguna di header & banner sambutan
     const currentUser = window.KK_API.auth.getCurrentUser();
