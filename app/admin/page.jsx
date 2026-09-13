@@ -549,6 +549,12 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
+                {selectedArticle.coverUrl && (
+                  <div style={{ margin: "1.5rem 0" }}>
+                    <img src={selectedArticle.coverUrl} alt="Cover Artikel" style={{ width: "100%", maxHeight: "300px", objectFit: "cover", borderRadius: "12px", border: "1px solid #e2e8f0" }} />
+                  </div>
+                )}
+
                 <div
                   className="article-review-text"
                   dangerouslySetInnerHTML={{ __html: selectedArticle.content || "<p>Naskah tidak memiliki teks.</p>" }}

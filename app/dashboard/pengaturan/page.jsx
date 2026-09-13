@@ -10,11 +10,13 @@ import "@/css/dashboard.css";
 import "@/css/pengaturan.css";
 
 export default function PengaturanPage() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [activeTab, setActiveTab] = useState("paneProfil");
 
   // Tab 1: Profile State
   const [namaLengkap, setNamaLengkap] = useState(user?.name || "Raden");
+  const [username, setUsername] = useState(user?.username || "");
+  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
   const [email, setEmail] = useState(user?.email || "raden@gmail.com");
   const [nomorAnggota] = useState("KK-2026-0814");
   const [statusKeanggotaan] = useState("Penulis Aktif • Anggota Komunitas");
@@ -69,15 +71,63 @@ export default function PengaturanPage() {
   const handleSaveProfile = async (e) => {
     e.preventDefault();
     try {
-      await api.user.updateProfile({
+      const res = await api.user.updateProfile({
         name: namaLengkap,
+        username,
         originRegion: asalOrganisasi,
         bio,
+        photoUrl,
       });
-      triggerToast("Profil penulis & asal organisasi/daerah berhasil disimpan!");
+      if (res.success) {
+        // Update auth context so other components (Header, Profil) react instantly
+        const updatedUser = { ...user, name: namaLengkap, username, originRegion: asalOrganisasi, bio, photoUrl };
+        setUser(updatedUser);
+        localStorage.setItem("kertaskata_user", JSON.stringify(updatedUser));
+        triggerToast("Profil penulis berhasil disimpan!");
+      } else {
+        triggerToast("Gagal: " + res.message);
+      }
     } catch {
       triggerToast("Profil penulis berhasil diperbarui!");
     }
+  };
+
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ukuran gambar maksimal 5MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 300;
+        const MAX_HEIGHT = 300;
+        let width = img.width;
+        let height = img.height;
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        setPhotoUrl(canvas.toDataURL("image/jpeg", 0.8));
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSavePassword = (e) => {
@@ -241,22 +291,23 @@ export default function PengaturanPage() {
                   {/* Avatar & Photo Profile Editor */}
                   <div className="avatar-editor-box">
                     <div className="avatar-preview-wrap">
-                      <div className="avatar-img-preview" id="avatarPreview">{initials}</div>
+                      {photoUrl ? (
+                        <img src={photoUrl} alt="Avatar" className="avatar-img-preview" style={{ objectFit: 'cover' }} />
+                      ) : (
+                        <div className="avatar-img-preview" id="avatarPreview">{initials}</div>
+                      )}
                       <div className="avatar-verified-badge" title="Profil Terverifikasi">✓</div>
                     </div>
                     <div className="avatar-actions-wrap">
                       <div className="avatar-actions-btns">
-                        <button
-                          type="button"
-                          className="btn-avatar-upload"
-                          onClick={() => alert("Pilih berkas foto profil baru (JPG/PNG, maks 5MB)")}
-                        >
+                        <label className="btn-avatar-upload" style={{ cursor: "pointer", margin: 0 }}>
                           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                           </svg>
                           <span>Unggah Foto Baru</span>
-                        </button>
-                        <button type="button" className="btn-avatar-remove" onClick={() => triggerToast("Foto profil telah diatur ulang ke inisial.")}>
+                          <input type="file" accept="image/jpeg, image/png, image/webp" style={{ display: "none" }} onChange={handlePhotoUpload} />
+                        </label>
+                        <button type="button" className="btn-avatar-remove" onClick={() => { setPhotoUrl(""); triggerToast("Foto profil dihapus."); }}>
                           Hapus Foto
                         </button>
                       </div>
@@ -286,18 +337,18 @@ export default function PengaturanPage() {
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label" htmlFor="inputEmail">
-                          Alamat Email Resmi <span className="required">*</span>
+                        <label className="form-label" htmlFor="inputUsername">
+                          Username (Tautan Publik) <span className="required">*</span>
                         </label>
                         <input
-                          type="email"
+                          type="text"
                           className="form-control"
-                          id="inputEmail"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          id="inputUsername"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
                           required
                         />
-                        <div className="form-help-text">Digunakan untuk pemberitahuan kurasi naskah dan korespondensi dewan redaksi.</div>
+                        <div className="form-help-text">Contoh: <strong>kertaskata.com/penulis/{username || 'nama'}</strong></div>
                       </div>
                     </div>
 
@@ -319,20 +370,38 @@ export default function PengaturanPage() {
                       </div>
                     </div>
 
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="inputAsalOrganisasi">
-                        Asal Organisasi / Daerah <span className="required">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputAsalOrganisasi"
-                        placeholder="Contoh: SMPN 1 Tigaraksa / Komunitas Sastra Banten / Pegiat Tangerang"
-                        value={asalOrganisasi}
-                        onChange={(e) => setAsalOrganisasi(e.target.value)}
-                        required
-                      />
-                      <div className="form-help-text">Nama sekolah, komunitas literasi, dinas/instansi, atau daerah asal Anda (dapat diisi bebas).</div>
+                    <div className="form-grid-2">
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="inputEmail">
+                          Alamat Email Resmi <span className="required">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="inputEmail"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          disabled
+                        />
+                        <div className="form-help-text">Email ini terkait dengan akun Google Anda dan tidak bisa diubah langsung.</div>
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="inputAsalOrganisasi">
+                          Asal Organisasi / Daerah <span className="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="inputAsalOrganisasi"
+                          placeholder="Contoh: SMPN 1 Tigaraksa / Komunitas Sastra Banten / Pegiat Tangerang"
+                          value={asalOrganisasi}
+                          onChange={(e) => setAsalOrganisasi(e.target.value)}
+                          required
+                        />
+                        <div className="form-help-text">Nama sekolah, komunitas literasi, dinas/instansi, atau daerah asal Anda.</div>
+                      </div>
                     </div>
 
                     {/* Minat Literasi & Bidang Keahlian */}

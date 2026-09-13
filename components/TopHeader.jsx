@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import api from '@/lib/api';
 
 export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
   const { user, logout } = useAuth();
@@ -49,7 +50,7 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
                   id: art.id,
                   title: `Perlu Revisi: "${art.title}"`,
                   desc: art.reviews?.[0]?.comment || "Kurator meminta perbaikan naskah Anda.",
-                  link: `/menulis?id=${art.id}`,
+                  link: `/dashboard/menulis?id=${art.id}`,
                   date: art.updatedAt || art.createdAt,
                   badge: "Revisi"
                 });
@@ -58,7 +59,7 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
                   id: art.id,
                   title: `Umpan Balik Admin: "${art.title}"`,
                   desc: art.reviews[0].comment,
-                  link: art.status === 'published' ? `/baca-artikel/${art.slug || art.id}` : `/menulis?id=${art.id}`,
+                  link: art.status === 'published' ? `/${(art.category || "umum").toLowerCase().replace(/\s+/g, '-')}/${art.slug || art.id}` : `/dashboard/menulis?id=${art.id}`,
                   date: art.reviews[0].createdAt || art.updatedAt,
                   badge: art.status === 'published' ? 'Terbit' : 'Catatan'
                 });
@@ -230,8 +231,10 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
               setNotifOpen(false);
             }}
           >
-            <div className="user-avatar-small" style={{ background: isAdminMode ? '#7c3aed' : '#2563eb', color: '#fff' }}>
-              {initials}
+            <div className="user-avatar-small" style={{ background: isAdminMode ? '#7c3aed' : '#2563eb', color: '#fff', overflow: 'hidden' }}>
+              {user?.photoUrl ? (
+                <img src={user.photoUrl} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : initials}
             </div>
             <div className="user-pill-info">
               <span className="user-pill-name">{uName}</span>
@@ -245,8 +248,10 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
           {dropdownOpen && (
             <div className="user-dropdown-menu" style={{ display: 'block', position: 'absolute', right: 0, top: '48px', width: '260px' }}>
               <div className="user-dropdown-header">
-                <div className="user-dropdown-avatar" style={{ background: isAdminMode ? '#7c3aed' : '#2563eb', color: '#fff' }}>
-                  {initials}
+                <div className="user-dropdown-avatar" style={{ background: isAdminMode ? '#7c3aed' : '#2563eb', color: '#fff', overflow: 'hidden' }}>
+                  {user?.photoUrl ? (
+                    <img src={user.photoUrl} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : initials}
                 </div>
                 <div className="user-dropdown-info">
                   <span className="user-dropdown-name">{uName}</span>
@@ -266,14 +271,14 @@ export default function TopHeader({ onToggleMenu, isAdminMode = false }) {
                   </Link>
                 ) : (
                   <>
-                    <Link href="/profil" className="user-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                    <Link href="/dashboard/profil" className="user-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                       </svg>
                       <span>Profil Saya</span>
                     </Link>
 
-                    <Link href="/pengaturan" className="user-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                    <Link href="/dashboard/pengaturan" className="user-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>

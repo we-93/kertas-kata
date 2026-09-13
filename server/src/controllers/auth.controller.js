@@ -5,6 +5,26 @@ import prisma from '../config/prisma.js';
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+function slugify(text) {
+  return text.toString().toLowerCase().trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
+async function generateUniqueUsername(name, id = null) {
+  let base = slugify(name);
+  if (!base) base = "user";
+  const existing = await prisma.user.findUnique({ where: { username: base } });
+  if (existing) {
+    const idToUse = id || Date.now().toString();
+    return `${base}-${idToUse.substring(0, 4)}`;
+  }
+  return base;
+}
+
 const generateToken = (user) => {
   return jwt.sign(
     { userId: user.id, email: user.email, role: user.role },
@@ -50,10 +70,14 @@ export const googleAuth = async (req, res, next) => {
     });
 
     if (!user) {
+      const newId = crypto.randomUUID ? crypto.randomUUID() : null;
+      const generatedUsername = await generateUniqueUsername(name, newId);
       user = await prisma.user.create({
         data: {
+          id: newId || undefined,
           email,
           name,
+          username: generatedUsername,
           googleId,
           photoUrl,
           role: 'anggota',
@@ -86,6 +110,7 @@ export const googleAuth = async (req, res, next) => {
         user: {
           id: user.id,
           name: user.name,
+          username: user.username,
           email: user.email,
           role: user.role,
           photoUrl: user.photoUrl,
@@ -148,6 +173,7 @@ export const login = async (req, res, next) => {
         user: {
           id: user.id,
           name: user.name,
+          username: user.username,
           email: user.email,
           role: user.role,
           photoUrl: user.photoUrl,
@@ -182,10 +208,14 @@ export const register = async (req, res, next) => {
       });
     }
 
+    const newId = crypto.randomUUID ? crypto.randomUUID() : null;
+    const generatedUsername = await generateUniqueUsername(name, newId);
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: {
+        id: newId || undefined,
         name,
+        username: generatedUsername,
         email,
         password: hashedPassword,
         originRegion: originRegion || 'Kabupaten Tangerang',
@@ -204,6 +234,7 @@ export const register = async (req, res, next) => {
         user: {
           id: user.id,
           name: user.name,
+          username: user.username,
           email: user.email,
           role: user.role,
           originRegion: user.originRegion,

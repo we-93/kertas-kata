@@ -7,6 +7,28 @@ import { usePathname } from 'next/navigation';
 export default function SidebarParticipant({ isOpen, onClose }) {
   const pathname = usePathname();
 
+  const [activeModuleBadge, setActiveModuleBadge] = React.useState('Modul ...');
+
+  React.useEffect(() => {
+    async function loadStatus() {
+      try {
+        const api = (await import('@/lib/api')).default;
+        const res = await api.elearning.getModules();
+        if (res?.success && res.data) {
+          const idx = res.data.findIndex(m => !m.isCompleted);
+          if (idx !== -1) {
+            setActiveModuleBadge(`Modul ${res.data[idx].orderIndex}`);
+          } else if (res.data.length > 0) {
+            setActiveModuleBadge('Selesai');
+          } else {
+            setActiveModuleBadge('0 Modul');
+          }
+        }
+      } catch (e) {}
+    }
+    loadStatus();
+  }, []);
+
   const navItems = [
     {
       href: '/dashboard',
@@ -18,9 +40,9 @@ export default function SidebarParticipant({ isOpen, onClose }) {
       ),
     },
     {
-      href: '/elearning',
+      href: '/dashboard/elearning',
       label: 'E-Learning',
-      badge: 'Modul 5',
+      badge: activeModuleBadge,
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
@@ -29,7 +51,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
       ),
     },
     {
-      href: '/menulis',
+      href: '/dashboard/menulis',
       label: 'Menulis',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +71,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
       ),
     },
     {
-      href: '/profil',
+      href: '/dashboard/profil',
       label: 'Profil',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +101,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
       ),
     },
     {
-      href: '/cetak-naskah',
+      href: '/dashboard/cetak-naskah',
       label: 'Cetak Naskah',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -88,7 +110,7 @@ export default function SidebarParticipant({ isOpen, onClose }) {
       ),
     },
     {
-      href: '/pengaturan',
+      href: '/dashboard/pengaturan',
       label: 'Pengaturan',
       icon: (
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

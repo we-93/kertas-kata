@@ -23,26 +23,43 @@ const CATEGORIES = [
 ];
 
 export default function PublikasiPage() {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState([]); // Publik
+  const [myArticles, setMyArticles] = useState([]); // Milik Sendiri
+  const [counts, setCounts] = useState({ published: 0, in_review: 0, revision: 0, draft: 0 });
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("katalog"); // 'katalog', 'draft', 'in_review', 'revision', 'published'
 
   useEffect(() => {
-    async function fetchArticles() {
+    async function fetchData() {
       try {
-        const res = await api.articles.getAll({ status: "published" });
-        if (res && res.success && res.data) {
-          setArticles(res.data.articles || []);
+        // Fetch Katalog Publik
+        const resPublic = await api.articles.getPublic({ status: "published" });
+        if (resPublic && resPublic.success && resPublic.data) {
+          setArticles(resPublic.data.articles || []);
+        }
+
+        // Fetch Karya Sendiri (Status Tulisan)
+        const resMy = await api.articles.getMy();
+        if (resMy && resMy.success && resMy.data) {
+          setMyArticles(resMy.data.articles || []);
+          if (resMy.data.counts) {
+            setCounts(resMy.data.counts);
+          }
         }
       } catch (err) {
-        console.warn("Gagal mengambil publikasi artikel:", err.message);
+        console.warn("Gagal memuat data publikasi:", err.message);
       } finally {
         setLoading(false);
       }
     }
-    fetchArticles();
+    fetchData();
   }, []);
+
+  const filteredMyArticles = useMemo(() => {
+    return myArticles.filter((a) => a.status === activeTab);
+  }, [myArticles, activeTab]);
 
   const filteredArticles = useMemo(() => {
     return articles.filter((a) => {
@@ -144,11 +161,60 @@ export default function PublikasiPage() {
             />
           </div>
 
-          {/* Articles Grid */}
-          {loading ? (
-            <div style={{ textAlign: "center", padding: "4rem 1rem", color: "var(--text-muted)" }}>
-              Memuat karya publikasi...
+          <div className="section-box-header" style={{ marginBottom: "1.5rem" }}>
+            <div className="section-heading-group">
+              <h2 className="section-title">Koleksi Karya</h2>
             </div>
+
+            <div className="tab-nav">
+              <button
+                type="button"
+                className={`tab-btn ${activeTab === "katalog" ? "active" : ""}`}
+                onClick={() => setActiveTab("katalog")}
+              >
+                <span>Katalog Publik</span>
+              </button>
+              <button
+                type="button"
+                className={`tab-btn ${activeTab === "draft" ? "active" : ""}`}
+                onClick={() => setActiveTab("draft")}
+              >
+                <span>Draft</span>
+                <span className="tab-pill">{counts.draft || 0}</span>
+              </button>
+              <button
+                type="button"
+                className={`tab-btn ${activeTab === "in_review" ? "active" : ""}`}
+                onClick={() => setActiveTab("in_review")}
+              >
+                <span>In Review</span>
+                <span className="tab-pill">{counts.in_review || 0}</span>
+              </button>
+              <button
+                type="button"
+                className={`tab-btn ${activeTab === "revision" ? "active" : ""}`}
+                onClick={() => setActiveTab("revision")}
+              >
+                <span>Perlu Revisi</span>
+                <span className="tab-pill" style={{ background: "#fef3c7", color: "#b45309" }}>{counts.revision || 0}</span>
+              </button>
+              <button
+                type="button"
+                className={`tab-btn ${activeTab === "published" ? "active" : ""}`}
+                onClick={() => setActiveTab("published")}
+              >
+                <span>Karya Saya (Terbit)</span>
+                <span className="tab-pill">{counts.published || 0}</span>
+              </button>
+            </div>
+          </div>
+
+          {activeTab === "katalog" ? (
+            /* Articles Grid (Katalog Publik) */
+            loading ? (
+              <div style={{ textAlign: "center", padding: "4rem 1rem", color: "var(--text-muted)" }}>
+                Memuat karya publikasi...
+              </div>
           ) : filteredArticles.length === 0 ? (
             <div style={{ textAlign: "center", padding: "4rem 1.5rem", background: "#fff", borderRadius: "14px", border: "1px solid var(--border-subtle)" }}>
               <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>📖</div>
@@ -211,7 +277,7 @@ export default function PublikasiPage() {
                       </div>
 
                       <Link
-                        href={`/baca-artikel/${art.slug || art.id}`}
+                        href={`/${(art.category || "umum").toLowerCase().replace(/\s+/g, '-')}/${art.slug || art.id}`}
                         style={{
                           fontSize: "0.8125rem",
                           fontWeight: "700",
@@ -219,12 +285,99 @@ export default function PublikasiPage() {
                           textDecoration: "none",
                         }}
                       >
-                        Baca Karya →
+                        Baca Artikel →
                       </Link>
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
+          )) : (
+            /* Status Tulisan (Karya Sendiri) */
+            <div className="article-list">
+              {loading ? (
+                <div style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--text-muted)" }}>
+                  Memuat naskah tulisan...
+                </div>
+              ) : filteredMyArticles.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "3.5rem 1.5rem", color: "var(--text-muted)" }}>
+                  <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>📝</div>
+                  <h4 style={{ fontWeight: "700", color: "var(--text-main)", marginBottom: "0.25rem" }}>
+                    Belum ada naskah dengan status {activeTab === "published" ? "Terbit" : activeTab === "in_review" ? "In Review" : activeTab === "revision" ? "Perlu Revisi" : "Draf"}
+                  </h4>
+                  <p style={{ fontSize: "0.875rem", maxWidth: "420px", margin: "0 auto 1.25rem" }}>
+                    Mulai tulis karya terbaik Anda sekarang dan terbitkan ke etalase literasi Kertas Kata Kabupaten Tangerang.
+                  </p>
+                  <Link href="/menulis" className="btn-primary" style={{ display: "inline-flex", textDecoration: "none" }}>
+                    Tulis Naskah Sekarang
+                  </Link>
+                </div>
+              ) : (
+                filteredMyArticles.map((art) => (
+                  <div key={art.id} className="article-item" style={{ padding: "1.25rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column", gap: "0.75rem", background: "#fff", borderRadius: "12px", marginBottom: "1rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                        <div style={{ width: "44px", height: "44px", borderRadius: "10px", background: "rgba(37, 99, 235, 0.08)", color: "var(--primary-600)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700" }}>
+                          {art.category ? art.category.substring(0, 2).toUpperCase() : "KK"}
+                        </div>
+                        <div>
+                          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "0.25rem" }}>
+                            <span className="nav-badge" style={{ textTransform: "capitalize", fontSize: "0.6875rem" }}>
+                              {art.category || "Umum"}
+                            </span>
+                            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                              • {new Date(art.updatedAt || art.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                            </span>
+                          </div>
+                          <h4 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-main)", margin: 0 }}>
+                            {art.title}
+                          </h4>
+                          <div style={{ fontSize: "0.8125rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
+                            {art.wordCount || 0} kata • {art.viewCount || 0} pembaca • Status:{" "}
+                            <strong style={{ color: art.status === "published" ? "var(--success-600)" : art.status === "in_review" ? "var(--accent-600)" : art.status === "revision" ? "#d97706" : "var(--purple-600)" }}>
+                              {art.status === "published" ? "Terbit" : art.status === "in_review" ? "Sedang Dikurasi" : art.status === "revision" ? "Perlu Revisi Admin" : "Draf"}
+                            </strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", gap: "0.5rem" }}>
+                        {art.status === "published" ? (
+                          <Link href={`/${(art.category || "umum").toLowerCase().replace(/\s+/g, '-')}/${art.slug || art.id}`} className="btn-secondary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
+                            Baca Karya
+                          </Link>
+                        ) : art.status === "revision" ? (
+                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none", background: "#d97706", borderColor: "#d97706" }}>
+                            ✏️ Revisi Naskah Ini
+                          </Link>
+                        ) : (
+                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
+                            Edit Naskah
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Feedback / Review Notes from Curator */}
+                    {art.reviews && art.reviews.length > 0 && (
+                      <div style={{
+                        padding: "0.85rem 1.1rem",
+                        background: "#fffbe6",
+                        border: "1.5px solid #ffe58f",
+                        borderRadius: "10px",
+                        fontSize: "0.8125rem",
+                        color: "#722ed1"
+                      }}>
+                        <div style={{ fontWeight: "700", marginBottom: "0.3rem", display: "flex", alignItems: "center", gap: "0.4rem", color: "#531dab" }}>
+                          <span>💬 Catatan Umpan Balik Kurator Admin:</span>
+                        </div>
+                        <div style={{ color: "#1f1f1f", lineHeight: "1.5", fontSize: "0.85rem", background: "#ffffff", padding: "0.6rem 0.8rem", borderRadius: "6px", border: "1px solid #ffd591" }}>
+                          {art.reviews[0].comment}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
             </div>
           )}
         </main>

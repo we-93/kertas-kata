@@ -258,3 +258,47 @@ export const deleteModule = async (req, res, next) => {
   }
 };
 
+/**
+ * ADMIN: Tambah Kuis ke Modul
+ */
+export const createQuiz = async (req, res, next) => {
+  try {
+    const { id } = req.params; // moduleId
+    const { question, options, correctAnswer, explanation } = req.body;
+
+    const quiz = await prisma.quiz.create({
+      data: {
+        moduleId: id,
+        question,
+        optionsJson: JSON.stringify(options),
+        correctAnswer,
+        explanation
+      }
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Kuis berhasil ditambahkan.',
+      data: quiz
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * ADMIN: Hapus Kuis
+ */
+export const deleteQuiz = async (req, res, next) => {
+  try {
+    const { quizId } = req.params;
+    await prisma.quiz.delete({ where: { id: quizId } });
+    res.status(200).json({
+      success: true,
+      message: 'Kuis berhasil dihapus.'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

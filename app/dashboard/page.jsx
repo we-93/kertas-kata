@@ -85,13 +85,13 @@ export default function DashboardPage() {
                 </p>
               </div>
               <div className="welcome-actions">
-                <Link href="/menulis" className="btn-primary" id="btnQuickWrite">
+                <Link href="/dashboard/menulis" className="btn-primary" id="btnQuickWrite">
                   <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                   </svg>
                   <span>Tulis Naskah Baru</span>
                 </Link>
-                <Link href="/elearning" className="btn-secondary" id="btnQuickLearn">
+                <Link href="/dashboard/elearning" className="btn-secondary" id="btnQuickLearn">
                   <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -166,136 +166,7 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* Status Tulisan with Tabs */}
-          <section className="section-box">
-            <div className="section-box-header">
-              <div className="section-heading-group">
-                <h2 className="section-title">Status Tulisan</h2>
-                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>(Karya Penulis)</span>
-              </div>
 
-              <div className="tab-nav">
-                <button
-                  type="button"
-                  className={`tab-btn ${activeTab === "draft" ? "active" : ""}`}
-                  onClick={() => setActiveTab("draft")}
-                >
-                  <span>Draft</span>
-                  <span className="tab-pill">{counts.draft || 0}</span>
-                </button>
-                <button
-                  type="button"
-                  className={`tab-btn ${activeTab === "in_review" ? "active" : ""}`}
-                  onClick={() => setActiveTab("in_review")}
-                >
-                  <span>In Review</span>
-                  <span className="tab-pill">{counts.in_review || 0}</span>
-                </button>
-                <button
-                  type="button"
-                  className={`tab-btn ${activeTab === "revision" ? "active" : ""}`}
-                  onClick={() => setActiveTab("revision")}
-                >
-                  <span>Perlu Revisi</span>
-                  <span className="tab-pill" style={{ background: "#fef3c7", color: "#b45309" }}>{counts.revision || 0}</span>
-                </button>
-                <button
-                  type="button"
-                  className={`tab-btn ${activeTab === "published" ? "active" : ""}`}
-                  onClick={() => setActiveTab("published")}
-                >
-                  <span>Published</span>
-                  <span className="tab-pill">{counts.published || 0}</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="article-list">
-              {loading ? (
-                <div style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--text-muted)" }}>
-                  Memuat naskah tulisan...
-                </div>
-              ) : filteredArticles.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "3.5rem 1.5rem", color: "var(--text-muted)" }}>
-                  <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>📝</div>
-                  <h4 style={{ fontWeight: "700", color: "var(--text-main)", marginBottom: "0.25rem" }}>
-                    Belum ada naskah dengan status {activeTab === "published" ? "Terbit" : activeTab === "in_review" ? "In Review" : activeTab === "revision" ? "Perlu Revisi" : "Draf"}
-                  </h4>
-                  <p style={{ fontSize: "0.875rem", maxWidth: "420px", margin: "0 auto 1.25rem" }}>
-                    Mulai tulis karya terbaik Anda sekarang dan terbitkan ke etalase literasi Kertas Kata Kabupaten Tangerang.
-                  </p>
-                  <Link href="/menulis" className="btn-primary" style={{ display: "inline-flex", textDecoration: "none" }}>
-                    Tulis Naskah Sekarang
-                  </Link>
-                </div>
-              ) : (
-                filteredArticles.map((art) => (
-                  <div key={art.id} className="article-item" style={{ padding: "1.25rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                        <div style={{ width: "44px", height: "44px", borderRadius: "10px", background: "rgba(37, 99, 235, 0.08)", color: "var(--primary-600)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700" }}>
-                          {art.category ? art.category.substring(0, 2).toUpperCase() : "KK"}
-                        </div>
-                        <div>
-                          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "0.25rem" }}>
-                            <span className="nav-badge" style={{ textTransform: "capitalize", fontSize: "0.6875rem" }}>
-                              {art.category || "Umum"}
-                            </span>
-                            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                              • {new Date(art.updatedAt || art.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
-                            </span>
-                          </div>
-                          <h4 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--text-main)", margin: 0 }}>
-                            {art.title}
-                          </h4>
-                          <div style={{ fontSize: "0.8125rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
-                            {art.wordCount || 0} kata • {art.viewCount || 0} pembaca • Status:{" "}
-                            <strong style={{ color: art.status === "published" ? "var(--success-600)" : art.status === "in_review" ? "var(--accent-600)" : art.status === "revision" ? "#d97706" : "var(--purple-600)" }}>
-                              {art.status === "published" ? "Terbit" : art.status === "in_review" ? "Sedang Dikurasi" : art.status === "revision" ? "Perlu Revisi Admin" : "Draf"}
-                            </strong>
-                          </div>
-                        </div>
-                      </div>
-                      <div style={{ display: "flex", gap: "0.5rem" }}>
-                        {art.status === "published" ? (
-                          <Link href={`/baca-artikel/${art.slug || art.id}`} className="btn-secondary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
-                            Baca Karya
-                          </Link>
-                        ) : art.status === "revision" ? (
-                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none", background: "#d97706", borderColor: "#d97706" }}>
-                            ✏️ Revisi Naskah Ini
-                          </Link>
-                        ) : (
-                          <Link href={`/menulis?id=${art.id}`} className="btn-primary" style={{ padding: "0.45rem 0.85rem", fontSize: "0.8125rem", textDecoration: "none" }}>
-                            Edit Naskah
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Feedback / Review Notes from Curator */}
-                    {art.reviews && art.reviews.length > 0 && (
-                      <div style={{
-                        padding: "0.85rem 1.1rem",
-                        background: "#fffbe6",
-                        border: "1.5px solid #ffe58f",
-                        borderRadius: "10px",
-                        fontSize: "0.8125rem",
-                        color: "#722ed1"
-                      }}>
-                        <div style={{ fontWeight: "700", marginBottom: "0.3rem", display: "flex", alignItems: "center", gap: "0.4rem", color: "#531dab" }}>
-                          <span>💬 Catatan Umpan Balik Kurator Admin:</span>
-                        </div>
-                        <div style={{ color: "#1f1f1f", lineHeight: "1.5", fontSize: "0.85rem", background: "#ffffff", padding: "0.6rem 0.8rem", borderRadius: "6px", border: "1px solid #ffd591" }}>
-                          {art.reviews[0].comment}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
-          </section>
 
           {/* Author Analytics Chart */}
           <section className="section-box">

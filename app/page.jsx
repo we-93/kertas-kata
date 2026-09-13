@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
+import PublicNavbar from '@/components/PublicNavbar';
 import '../css/landing.css';
 
 export default function LandingPage() {
@@ -77,48 +78,7 @@ export default function LandingPage() {
 
   return (
     <div className="landing-wrapper">
-      {/* 1. STICKY GLASSMORPHISM NAVBAR */}
-      <header className="landing-nav" id="landingNav">
-        <div className="container nav-inner">
-          <Link href="/" className="nav-brand" aria-label="Beranda KERTAS KATA" style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="/logo-kertas-kata.png"
-              alt="KERTAS KATA - Komunitas Literasi Kabupaten Tangerang"
-              style={{ height: "42px", width: "auto", objectFit: "contain" }}
-            />
-          </Link>
-
-          <nav aria-label="Menu Utama">
-            <ul className="nav-menu">
-              <li><Link href="/" className="nav-link active">Beranda</Link></li>
-              <li><Link href="/publikasi" className="nav-link">Jelajah Artikel</Link></li>
-              <li><Link href="/elearning" className="nav-link">E-Learning</Link></li>
-              <li><Link href="/perpustakaan" className="nav-link">E-Library</Link></li>
-              <li><Link href="/komunitas" className="nav-link">Komunitas</Link></li>
-            </ul>
-          </nav>
-
-          <div className="nav-actions">
-            {user ? (
-              <Link href={user.role === 'admin' ? '/admin' : '/dashboard'} className="btn-nav-login" style={{ background: '#eff6ff', color: '#1d4ed8' }}>
-                Buka Dashboard ({user.role === 'admin' ? 'Admin' : 'Anggota'})
-              </Link>
-            ) : (
-              <button
-                type="button"
-                className="btn-nav-login"
-                onClick={() => setIsLoginModalOpen(true)}
-              >
-                Masuk
-              </button>
-            )}
-
-            <Link href="/menulis" className="btn-nav-cta">
-              <span>✍️ Mulai Menulis</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <PublicNavbar onLoginClick={() => setIsLoginModalOpen(true)} />
 
       <main>
         {/* 2. HERO SECTION */}

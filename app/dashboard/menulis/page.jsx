@@ -22,6 +22,7 @@ function MenulisForm() {
   const [tags, setTags] = useState(["Literasi", "Tangerang"]);
   const [tagInput, setTagInput] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
+  const [coverCaption, setCoverCaption] = useState("");
 
   const [autoSaveStatus, setAutoSaveStatus] = useState("Draf tersimpan otomatis");
   const [wordCount, setWordCount] = useState(0);
@@ -55,6 +56,7 @@ function MenulisForm() {
               setCategory("Pendidikan");
             }
             if (art.coverUrl) setCoverUrl(art.coverUrl);
+            if (art.coverCaption) setCoverCaption(art.coverCaption);
             if (art.tags && Array.isArray(art.tags)) {
               setTags(art.tags.map((t) => (typeof t === "string" ? t : t.name)));
             }
@@ -121,6 +123,7 @@ function MenulisForm() {
         content: currentBody,
         category,
         coverUrl,
+        coverCaption,
         tags,
       });
       if (res && res.success && res.data?.id) {
@@ -192,6 +195,7 @@ function MenulisForm() {
         content: currentBody,
         category,
         coverUrl,
+        coverCaption,
         tags,
       });
 
@@ -254,7 +258,9 @@ function MenulisForm() {
           <button
             type="button"
             className="btn-minimal-submit"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               if (!title.trim()) {
                 alert("Silakan masukkan judul naskah terlebih dahulu!");
                 return;
@@ -460,6 +466,7 @@ function MenulisForm() {
                     type="button"
                     onClick={() => {
                       setCoverUrl("");
+                      setCoverCaption("");
                       onContentChange();
                     }}
                     style={{
@@ -479,6 +486,21 @@ function MenulisForm() {
                   >
                     Hapus Sampul
                   </button>
+                </div>
+              )}
+              {coverUrl && (
+                <div style={{ marginTop: "0.5rem" }}>
+                  <label className="field-label" style={{ fontSize: "0.75rem" }}>Keterangan Gambar (Opsional)</label>
+                  <input
+                    type="text"
+                    className="widget-tag-input"
+                    placeholder="Contoh: Ilustrasi sekolah..."
+                    value={coverCaption}
+                    onChange={(e) => {
+                      setCoverCaption(e.target.value);
+                      onContentChange();
+                    }}
+                  />
                 </div>
               )}
             </div>

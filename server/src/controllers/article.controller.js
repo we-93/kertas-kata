@@ -14,7 +14,7 @@ const createSlug = (title) => {
  */
 export const saveDraft = async (req, res, next) => {
   try {
-    const { id, title, lead, content, category, coverUrl, tags = [] } = req.body;
+    const { id, title, lead, content, category, coverUrl, coverCaption, tags = [] } = req.body;
 
     if (!title) {
       return res.status(400).json({
@@ -46,6 +46,7 @@ export const saveDraft = async (req, res, next) => {
           content: content || '',
           category: category || 'Opini Pendidikan',
           coverUrl: coverUrl || existing.coverUrl,
+          coverCaption: coverCaption || existing.coverCaption,
           wordCount,
           status: existing.status === 'revision' ? 'revision' : 'draft',
         },
@@ -62,6 +63,7 @@ export const saveDraft = async (req, res, next) => {
           content: content || '',
           category: category || 'Opini Pendidikan',
           coverUrl: coverUrl || null,
+          coverCaption: coverCaption || null,
           wordCount,
           status: 'draft',
         },
@@ -303,6 +305,7 @@ export const getArticleBySlug = async (req, res, next) => {
           select: {
             id: true,
             name: true,
+            username: true,
             photoUrl: true,
             bio: true,
             originRegion: true,
@@ -345,12 +348,51 @@ export const getArticleBySlug = async (req, res, next) => {
       },
     });
 
+    // Ambil 5 artikel terbaru dari penulis yang sama
+    const authorArticles = await prisma.article.findMany({
+      where: {
+        userId: article.userId,
+        status: 'published',
+        NOT: { id: article.id },
+      },
+      orderBy: { publishedAt: 'desc' },
+      take: 5,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        category: true,
+        publishedAt: true,
+      },
+    });
+
+    // Ambil 5 artikel terbaru secara global
+    const latestArticles = await prisma.article.findMany({
+      where: {
+        status: 'published',
+        NOT: { id: article.id },
+      },
+      orderBy: { publishedAt: 'desc' },
+      take: 5,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        category: true,
+        coverUrl: true,
+        publishedAt: true,
+        user: { select: { name: true } },
+      },
+    });
+
     res.status(200).json({
       success: true,
       data: {
         ...article,
         viewCount: article.viewCount + 1,
         relatedArticles: related,
+        authorArticles,
+        latestArticles,
       },
     });
   } catch (error) {

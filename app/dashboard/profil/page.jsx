@@ -16,6 +16,7 @@ export default function ProfilPage() {
   const [counts, setCounts] = useState({ published: 0, in_review: 0, draft: 0 });
   const [activeCategory, setActiveCategory] = useState("all");
   const [showPdfModal, setShowPdfModal] = useState(false);
+  const [profileInfo, setProfileInfo] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [copiedShare, setCopiedShare] = useState(false);
 
@@ -32,6 +33,11 @@ export default function ProfilPage() {
           if (myCounts) {
             setCounts(myCounts);
           }
+        }
+        
+        const profileRes = await api.auth.getMe();
+        if (profileRes && profileRes.success && profileRes.data) {
+          setProfileInfo(profileRes.data);
         }
       } catch (err) {
         console.warn("Gagal memuat artikel profil:", err.message);
@@ -65,13 +71,13 @@ export default function ProfilPage() {
   }, [displayArticles]);
 
   const handleShareProfile = async () => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
+    const url = typeof window !== "undefined" ? `${window.location.origin}/penulis/${user?.username || ''}` : "";
     let shared = false;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Profil Penulis ${user?.name || "Raden"} - KERTAS KATA`,
-          text: `Lihat portofolio karya literasi resmi ${user?.name || "Raden"} di KERTAS KATA Kabupaten Tangerang.`,
+          title: `Profil Penulis ${user?.name || "Kertas Kata"} - KERTAS KATA`,
+          text: `Lihat portofolio karya literasi resmi ${user?.name || ""} di KERTAS KATA Kabupaten Tangerang.`,
           url: url,
         });
         shared = true;
@@ -125,8 +131,8 @@ export default function ProfilPage() {
               <div className="profil-avatar-box">
                 <img
                   className="profil-avatar-img"
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
-                  alt={`Foto Profil ${user?.name || "Raden"}`}
+                  src={user?.photoUrl || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user?.name || "Penulis") + "&background=random"}
+                  alt={`Foto Profil ${user?.name || ""}`}
                 />
                 <div className="profil-verified-badge" title="Akun Terverifikasi Sekolah Literasi">✓</div>
               </div>
@@ -134,7 +140,7 @@ export default function ProfilPage() {
               {/* Identity Details */}
               <div className="profil-identity-info">
                 <div className="profil-name-row">
-                  <h1>{user?.name || "Raden"}</h1>
+                  <h1>{user?.name || ""}</h1>
                 </div>
 
                 <div className="profil-meta-tags">
@@ -143,29 +149,38 @@ export default function ProfilPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <span>{user?.originRegion || "Asal Organisasi / Daerah Belum Diatur"}</span>
+                    <span>{user?.originRegion || ""}</span>
                   </div>
-                  <div className="profil-meta-item">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
-                    <span>Spesialisasi: Sejarah Lokal &amp; Opini Kebijakan Publik</span>
-                  </div>
-                  <div className="profil-meta-item">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span>Bergabung: Agustus 2026</span>
-                  </div>
+                  {user?.specialization && (
+                    <div className="profil-meta-item">
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                      </svg>
+                      <span>Spesialisasi: {user.specialization}</span>
+                    </div>
+                  )}
+                  {profileInfo?.createdAt && (
+                    <div className="profil-meta-item">
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span>Bergabung: {new Date(profileInfo.createdAt).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
+                    </div>
+                  )}
                 </div>
 
-                <p className="profil-bio-text">
-                  {user?.bio || "Pendidik dan pegiat literasi komunitas di Kabupaten Tangerang. Gemar meneliti sejarah akulturasi peranakan pesisir Tangerang dan menulis esai kebijakan tata ruang ramah anak berkelanjutan."}
-                </p>
+                {user?.bio && (
+                  <div style={{ marginBottom: "1rem" }}>
+                    <strong style={{ fontSize: "0.875rem", color: "#1e293b", display: "block", marginBottom: "0.25rem" }}>Biografi Singkat Penulis:</strong>
+                    <p className="profil-bio-text" style={{ margin: 0 }}>
+                      {user.bio}
+                    </p>
+                  </div>
+                )}
 
                 {/* Action Buttons */}
                 <div className="profil-action-buttons">
-                  <Link href="/pengaturan" className="btn-profil-action btn-profil-edit">
+                  <Link href="/dashboard/pengaturan" className="btn-profil-action btn-profil-edit">
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                     </svg>
@@ -221,7 +236,7 @@ export default function ProfilPage() {
             <div className="profil-stat-card">
               <div className="stat-icon-wrapper amber">💬</div>
               <div className="stat-content">
-                <span className="stat-val-number">45</span>
+                <span className="stat-val-number">0</span>
                 <span className="stat-val-desc">Diskusi/Komentar</span>
               </div>
             </div>
@@ -229,7 +244,7 @@ export default function ProfilPage() {
             <div className="profil-stat-card">
               <div className="stat-icon-wrapper purple">❤️</div>
               <div className="stat-content">
-                <span className="stat-val-number">142</span>
+                <span className="stat-val-number">0</span>
                 <span className="stat-val-desc">Apresiasi/Suka</span>
               </div>
             </div>
@@ -248,74 +263,6 @@ export default function ProfilPage() {
                     <span>🏆</span>
                     <span>Lencana &amp; Prestasi</span>
                   </h3>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#059669", background: "#ecfdf5", padding: "0.25rem 0.625rem", borderRadius: "9999px" }}>
-                    4 Diraih
-                  </span>
-                </div>
-
-                <div className="badges-list">
-                  <div className="badge-item-row">
-                    <div className="badge-icon-bubble">🏆</div>
-                    <div className="badge-info-meta">
-                      <div className="badge-name-title">
-                        <span>Penulis Produktif</span>
-                        <span className="badge-tag-status earned">✓ Diraih</span>
-                      </div>
-                      <div className="badge-desc-text">Menerbitkan minimal 3 karya lolos kurasi resmi redaksi KERTAS KATA.</div>
-                      <div style={{ fontSize: "0.6875rem", color: "#94a3b8", marginTop: "0.25rem" }}>Diperoleh: 24 Agt 2026</div>
-                    </div>
-                  </div>
-
-                  <div className="badge-item-row">
-                    <div className="badge-icon-bubble">📖</div>
-                    <div className="badge-info-meta">
-                      <div className="badge-name-title">
-                        <span>Top Reader</span>
-                        <span className="badge-tag-status earned">✓ Diraih</span>
-                      </div>
-                      <div className="badge-desc-text">Menyelesaikan 4 modul pembelajaran literasi dan lulus kuis evaluasi.</div>
-                      <div style={{ fontSize: "0.6875rem", color: "#94a3b8", marginTop: "0.25rem" }}>Diperoleh: 18 Agt 2026</div>
-                    </div>
-                  </div>
-
-                  <div className="badge-item-row">
-                    <div className="badge-icon-bubble">💬</div>
-                    <div className="badge-info-meta">
-                      <div className="badge-name-title">
-                        <span>Kritikus Aktif</span>
-                        <span className="badge-tag-status earned">✓ Diraih</span>
-                      </div>
-                      <div className="badge-desc-text">Memberikan 10+ ulasan dan tanggapan berbobot di forum komunitas.</div>
-                      <div style={{ fontSize: "0.6875rem", color: "#94a3b8", marginTop: "0.25rem" }}>Diperoleh: 01 Sep 2026</div>
-                    </div>
-                  </div>
-
-                  <div className="badge-item-row">
-                    <div className="badge-icon-bubble">🌟</div>
-                    <div className="badge-info-meta">
-                      <div className="badge-name-title">
-                        <span>Riset Sejarah Tangerang</span>
-                        <span className="badge-tag-status earned">✓ Diraih</span>
-                      </div>
-                      <div className="badge-desc-text">Mendapatkan skor 95 pada Modul 3: Riset Budaya &amp; Sejarah Lokal.</div>
-                      <div style={{ fontSize: "0.6875rem", color: "#94a3b8", marginTop: "0.25rem" }}>Diperoleh: 28 Agt 2026</div>
-                    </div>
-                  </div>
-
-                  <div className="badge-item-row locked">
-                    <div className="badge-icon-bubble">🎓</div>
-                    <div className="badge-info-meta">
-                      <div className="badge-name-title">
-                        <span>Lulusan Terbaik 32 JP</span>
-                        <span className="badge-tag-status progress">5/8 Modul</span>
-                      </div>
-                      <div className="badge-desc-text">Selesaikan seluruh 8 Modul Pembelajaran dengan nilai rata-rata min. 80.</div>
-                      <div className="badge-progress-track">
-                        <div className="badge-progress-fill" style={{ width: "62.5%" }}></div>
-                      </div>
-                    </div>
-                  </div>
-
                   <div className="badge-item-row locked">
                     <div className="badge-icon-bubble">📚</div>
                     <div className="badge-info-meta">
@@ -332,30 +279,6 @@ export default function ProfilPage() {
                 </div>
               </div>
 
-              {/* Card 2: E-Sertifikat 32 JP Pelatihan */}
-              <div className="profil-card">
-                <div className="profil-card-header">
-                  <h3>
-                    <span>📜</span>
-                    <span>Sertifikat Pelatihan</span>
-                  </h3>
-                </div>
-
-                <div className="certificate-preview-card">
-                  <div className="cert-header">
-                    <span className="cert-title">E-Sertifikat 32 JP KERTAS KATA</span>
-                    <span className="cert-stamp">Dalam Progres</span>
-                  </div>
-                  <div className="cert-body-note">
-                    Sertifikat resmi Gerakan Tangerang Gemilang Membaca &amp; Menulis bersertifikasi Komunitas.
-                  </div>
-                  <div className="cert-footer-meta">
-                    <span>Syarat: 8 Modul + 3 Artikel Terbit</span>
-                    <span style={{ fontWeight: 700, color: "#2563eb" }}>Progress: 65%</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Card 3: Informasi Anggota */}
               <div className="profil-card">
                 <div className="profil-card-header">
@@ -368,7 +291,7 @@ export default function ProfilPage() {
                 <div className="info-list-group">
                   <div className="info-list-item">
                     <span className="info-label">Email Terdaftar</span>
-                    <span className="info-val">{user?.email || "raden@gmail.com"}</span>
+                    <span className="info-val">{user?.email || ""}</span>
                   </div>
                   <div className="info-list-item">
                     <span className="info-label">Status Akun</span>
@@ -439,23 +362,29 @@ export default function ProfilPage() {
                 {filteredPortfolio.length > 0 ? (
                   <div className="portfolio-articles-grid">
                     {filteredPortfolio.map((art) => (
-                      <article key={art.id} className="port-card">
-                        <div className="port-cover-wrapper">
-                          <img className="port-cover-img" src={art.coverUrl} alt={art.title} />
-                          <span className="port-category-tag">{art.category}</span>
-                        </div>
-                        <div className="port-card-body">
-                          <h4 className="port-card-title">{art.title}</h4>
-                          <p className="port-card-excerpt">{art.lead}</p>
-                          <div className="port-card-footer">
-                            <span>Rilis: {art.date}</span>
-                            <div className="port-meta-metrics">
-                              <span>👁 {art.views}</span>
-                              <span>💬 {art.comments}</span>
+                      <Link 
+                        key={art.id} 
+                        href={`/${(art.category || 'umum').toLowerCase().replace(/\s+/g, '-')}/${art.slug || art.id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <article className="port-card" style={{ cursor: "pointer", height: "100%", display: "flex", flexDirection: "column" }}>
+                          <div className="port-cover-wrapper">
+                            <img className="port-cover-img" src={art.coverUrl} alt={art.title} />
+                            <span className="port-category-tag">{art.category}</span>
+                          </div>
+                          <div className="port-card-body" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                            <h4 className="port-card-title" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{art.title}</h4>
+                            <p className="port-card-excerpt" style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", flex: 1 }}>{art.lead}</p>
+                            <div className="port-card-footer" style={{ marginTop: "auto" }}>
+                              <span>Rilis: {art.date}</span>
+                              <div className="port-meta-metrics">
+                                <span>👁 {art.views}</span>
+                                <span>💬 {art.comments}</span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </article>
+                        </article>
+                      </Link>
                     ))}
                   </div>
                 ) : (
@@ -475,7 +404,7 @@ export default function ProfilPage() {
                       Koleksi portofolio resmi Anda masih bersih. Mulai tulis artikel opini, riset, atau sastra pertama Anda di Studio Menulis untuk dikurasi redaksi.
                     </p>
                     <Link
-                      href="/menulis"
+                      href="/dashboard/menulis"
                       className="btn-profil-action"
                       style={{
                         background: "#2563eb",
@@ -495,69 +424,7 @@ export default function ProfilPage() {
                 )}
               </div>
 
-              {/* Card Riwayat Aktivitas & Kontribusi Komunitas */}
-              <div className="profil-card">
-                <div className="profil-card-header">
-                  <h3>
-                    <span>⏱️</span>
-                    <span>Jejak Aktivitas &amp; Literasi Terkini</span>
-                  </h3>
-                </div>
-
-                <div className="timeline-list">
-                  <div className="timeline-item">
-                    <div className="timeline-icon-dot">📝</div>
-                    <div className="timeline-item-content">
-                      <div className="timeline-item-header">
-                        <span className="timeline-action-title">Menyelesaikan Draf Naskah Cerpen</span>
-                        <span className="timeline-time-text">15 menit lalu</span>
-                      </div>
-                      <div className="timeline-desc">
-                        Menyimpan draf naskah <em>&quot;Antologi Kisah Pendek: Kabut Senja di Dermaga Tanjung Pasir&quot;</em> (1.450 kata).
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="timeline-item">
-                    <div className="timeline-icon-dot">💬</div>
-                    <div className="timeline-item-content">
-                      <div className="timeline-item-header">
-                        <span className="timeline-action-title">Menerima Catatan Kurasi dari Mentor Dian Pratama</span>
-                        <span className="timeline-time-text">Kemarin, 14:35</span>
-                      </div>
-                      <div className="timeline-desc">
-                        Ulasan kurator untuk naskah <em>&quot;Menyusuri Jejak Klenteng Boen Tek Bio: Mozaik Harmoni Pesisir&quot;</em> (status: Sedang Kurasi).
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="timeline-item">
-                    <div className="timeline-icon-dot">🎓</div>
-                    <div className="timeline-item-content">
-                      <div className="timeline-item-header">
-                        <span className="timeline-action-title">Menyelesaikan Modul 4 E-Learning</span>
-                        <span className="timeline-time-text">3 hari lalu</span>
-                      </div>
-                      <div className="timeline-desc">
-                        Lulus kuis evaluasi materi <em>&quot;Menulis Opini Publik &amp; Esai Kebijakan&quot;</em> dengan skor 80.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="timeline-item">
-                    <div className="timeline-icon-dot">🏆</div>
-                    <div className="timeline-item-content">
-                      <div className="timeline-item-header">
-                        <span className="timeline-action-title">Meraih Lencana &quot;Penulis Produktif&quot;</span>
-                        <span className="timeline-time-text">24 Agt 2026</span>
-                      </div>
-                      <div className="timeline-desc">
-                        Dianugerahi lencana kehormatan dewan redaksi setelah artikel ke-3 resmi tayang dan diverifikasi publik.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Card Riwayat Aktivitas & Kontribusi Komunitas removed as requested */}
             </div>
           </div>
         </main>
@@ -601,22 +468,24 @@ export default function ProfilPage() {
                 <div className="pdf-author-profile-row">
                   <img
                     className="pdf-author-img"
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
-                    alt={user?.name || "Raden"}
+                    src={user?.photoUrl || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user?.name || "Penulis") + "&background=random"}
+                    alt={user?.name || ""}
                   />
                   <div className="pdf-author-details">
-                    <h3>{user?.name || "Raden"}</h3>
+                    <h3>{user?.name || ""}</h3>
                     <p><strong>Peran:</strong> Anggota Terdaftar Komunitas Literasi Kabupaten Tangerang</p>
-                    <p><strong>Wilayah:</strong> {user?.originRegion || "Kabupaten Tangerang"}</p>
-                    <p><strong>Spesialisasi:</strong> {user?.specialization || "Literasi Umum, Opini & Esai Publik"}</p>
-                    <p style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "0.35rem" }}>
-                      <em>&quot;{user?.bio || "Pendidik dan pegiat literasi komunitas di Kabupaten Tangerang."}&quot;</em>
-                    </p>
+                    <p><strong>Wilayah:</strong> {user?.originRegion || ""}</p>
+                    {user?.specialization && <p><strong>Spesialisasi:</strong> {user.specialization}</p>}
+                    {user?.bio && (
+                      <p style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "0.35rem" }}>
+                        <em>&quot;{user.bio}&quot;</em>
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 {/* Ringkasan Metrik Publikasi */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem", textAlign: "center" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem", textAlign: "center" }}>
                   <div style={{ background: "#f8fafc", padding: "0.75rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
                     <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#1e3a8a" }}>{displayArticles.length}</div>
                     <div style={{ fontSize: "0.6875rem", color: "#64748b", fontWeight: 600 }}>Karya Terbit</div>
@@ -624,14 +493,6 @@ export default function ProfilPage() {
                   <div style={{ background: "#f8fafc", padding: "0.75rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
                     <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#1e3a8a" }}>{totalViews}</div>
                     <div style={{ fontSize: "0.6875rem", color: "#64748b", fontWeight: 600 }}>Total Pembaca</div>
-                  </div>
-                  <div style={{ background: "#f8fafc", padding: "0.75rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
-                    <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#1e3a8a" }}>45</div>
-                    <div style={{ fontSize: "0.6875rem", color: "#64748b", fontWeight: 600 }}>Apresiasi Pembaca</div>
-                  </div>
-                  <div style={{ background: "#f8fafc", padding: "0.75rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
-                    <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#1e3a8a" }}>4 Badges</div>
-                    <div style={{ fontSize: "0.6875rem", color: "#64748b", fontWeight: 600 }}>Prestasi Literasi</div>
                   </div>
                 </div>
 

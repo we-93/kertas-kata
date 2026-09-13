@@ -18,6 +18,7 @@ datasource db {
 model User {
   id              String         @id @default(uuid())
   googleId        String?        @unique
+  username        String?        @unique
   name            String
   email           String         @unique
   password        String?        // Digunakan untuk akun admin / login manual
@@ -57,6 +58,7 @@ model Article {
   content         String          // Isi lengkap artikel
   category        String          // 10 Kategori resmi KERTAS KATA
   coverUrl        String?
+  coverCaption    String?         // Keterangan gambar sampul
   status          String          @default("draft") // draft, in_review, revision, published, rejected
   wordCount       Int             @default(0)
   plagiarismScore Int             @default(0)

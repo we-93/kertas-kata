@@ -25,6 +25,14 @@ export default function KelolaElearningPage() {
   const [passingScore, setPassingScore] = useState(80);
   const [submitting, setSubmitting] = useState(false);
 
+  // Quiz Modal states
+  const [showQuizModal, setShowQuizModal] = useState(false);
+  const [activeQuizModule, setActiveQuizModule] = useState(null);
+  const [quizzes, setQuizzes] = useState([]);
+  const [newQuizQuestion, setNewQuizQuestion] = useState("");
+  const [newQuizOptions, setNewQuizOptions] = useState(["", "", "", ""]);
+  const [newQuizCorrectAnswer, setNewQuizCorrectAnswer] = useState("A");
+
   const fetchModules = async () => {
     try {
       setLoading(true);
@@ -116,6 +124,57 @@ export default function KelolaElearningPage() {
       }
     } catch (err) {
       alert("Gagal menghapus: " + err.message);
+    }
+  };
+
+  const openQuizModal = async (m) => {
+    setActiveQuizModule(m);
+    setQuizzes([]);
+    setShowQuizModal(true);
+    try {
+      const res = await api.elearning.getClassroom(m.id || m.slug);
+      if (res.success && res.data.quizzes) {
+        setQuizzes(res.data.quizzes);
+      }
+    } catch(e) {}
+  };
+
+  const handleAddQuiz = async (e) => {
+    e.preventDefault();
+    if (newQuizOptions.some(opt => !opt.trim())) return alert("Isi semua 4 opsi jawaban");
+    try {
+      setSubmitting(true);
+      const res = await api.elearning.createQuiz(activeQuizModule.id, {
+        question: newQuizQuestion,
+        options: newQuizOptions,
+        correctAnswer: newQuizCorrectAnswer,
+        explanation: ""
+      });
+      if (res.success) {
+        alert("Kuis berhasil ditambahkan");
+        setNewQuizQuestion("");
+        setNewQuizOptions(["", "", "", ""]);
+        setNewQuizCorrectAnswer("A");
+        openQuizModal(activeQuizModule); // refresh
+        fetchModules(); // refresh counts
+      }
+    } catch(err) {
+      alert("Terjadi kesalahan: " + err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteQuiz = async (quizId) => {
+    if (!confirm("Hapus soal kuis ini?")) return;
+    try {
+      const res = await api.elearning.deleteQuiz(quizId);
+      if (res.success) {
+        openQuizModal(activeQuizModule);
+        fetchModules();
+      }
+    } catch(err) {
+      alert("Gagal menghapus kuis: " + err.message);
     }
   };
 
@@ -309,6 +368,14 @@ export default function KelolaElearningPage() {
                     <button
                       type="button"
                       className="btn-module-action primary"
+                      onClick={() => openQuizModal(m)}
+                      style={{ padding: "0.5rem 0.85rem", borderRadius: "8px", background: "#e0e7ff", border: "1px solid #c7d2fe", color: "#4338ca", fontWeight: 600, cursor: "pointer", fontSize: "0.8125rem" }}
+                    >
+                      📋 Kelola Kuis
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-module-action primary"
                       onClick={() => openEditModal(m)}
                       style={{ padding: "0.5rem 0.85rem", borderRadius: "8px", background: "var(--primary-50)", border: "1px solid var(--primary-200)", color: "var(--primary-700)", fontWeight: 600, cursor: "pointer", fontSize: "0.8125rem" }}
                     >
@@ -443,6 +510,101 @@ export default function KelolaElearningPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Kelola Kuis */}
+      {showQuizModal && activeQuizModule && (
+        <div className="modal-overlay active" onClick={() => setShowQuizModal(false)}>
+          <div className="modal-card" style={{ maxWidth: "700px", width: "92%", maxHeight: "90vh", display: "flex", flexDirection: "column" }} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header" style={{ padding: "1.25rem 1.5rem" }}>
+              <div>
+                <span style={{ fontSize: "0.75rem", color: "var(--primary-600)", fontWeight: 700 }}>KELOLA KUIS</span>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: "0.2rem 0 0" }}>
+                  {activeQuizModule.title}
+                </h3>
+              </div>
+              <button type="button" className="modal-close-btn" onClick={() => setShowQuizModal(false)}>&times;</button>
+            </div>
+            
+            <div style={{ padding: "1.5rem", overflowY: "auto", flex: 1 }}>
+              <div style={{ marginBottom: "2rem" }}>
+                <h4 style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "1rem", color: "#1e293b" }}>Daftar Soal Kuis ({quizzes.length})</h4>
+                {quizzes.length === 0 ? (
+                  <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontStyle: "italic" }}>Belum ada kuis untuk modul ini.</p>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    {quizzes.map((q, i) => (
+                      <div key={q.id} style={{ padding: "1rem", border: "1px solid #e2e8f0", borderRadius: "10px", background: "#f8fafc" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "flex-start" }}>
+                          <p style={{ fontWeight: 600, fontSize: "0.85rem", margin: "0 0 0.5rem", color: "#334155" }}>
+                            {i + 1}. {q.question}
+                          </p>
+                          <button onClick={() => handleDeleteQuiz(q.id)} style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontSize: "0.85rem", flexShrink: 0 }}>Hapus</button>
+                        </div>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem", fontSize: "0.8125rem", color: "#64748b" }}>
+                          {q.options && q.options.map((opt, idx) => {
+                            const labels = ["A", "B", "C", "D"];
+                            // the activeQuizModule doesn't give us correctAnswer directly from getClassroom as it's hidden,
+                            // but we will just show options.
+                            return <div key={idx}>{labels[idx]}. {opt}</div>;
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div style={{ borderTop: "1px solid #e2e8f0", paddingTop: "1.5rem" }}>
+                <h4 style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "1rem", color: "#1e293b" }}>+ Tambah Soal Baru</h4>
+                <form onSubmit={handleAddQuiz} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: 700, marginBottom: "0.25rem" }}>Pertanyaan</label>
+                    <textarea 
+                      required rows="2" 
+                      value={newQuizQuestion} 
+                      onChange={(e) => setNewQuizQuestion(e.target.value)} 
+                      style={{ width: "100%", padding: "0.65rem", borderRadius: "8px", border: "1px solid #cbd5e1" }}
+                    ></textarea>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    {["A", "B", "C", "D"].map((label, idx) => (
+                      <div key={label}>
+                        <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: 700, marginBottom: "0.25rem" }}>Opsi {label}</label>
+                        <input 
+                          required type="text" 
+                          value={newQuizOptions[idx]} 
+                          onChange={(e) => {
+                            const newOpts = [...newQuizOptions];
+                            newOpts[idx] = e.target.value;
+                            setNewQuizOptions(newOpts);
+                          }} 
+                          style={{ width: "100%", padding: "0.65rem", borderRadius: "8px", border: "1px solid #cbd5e1" }} 
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: 700, marginBottom: "0.25rem" }}>Kunci Jawaban</label>
+                    <select 
+                      value={newQuizCorrectAnswer} 
+                      onChange={(e) => setNewQuizCorrectAnswer(e.target.value)} 
+                      style={{ width: "100%", padding: "0.65rem", borderRadius: "8px", border: "1px solid #cbd5e1", backgroundColor: "#fff" }}
+                    >
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                    </select>
+                  </div>
+                  <button type="submit" disabled={submitting} className="btn-primary" style={{ marginTop: "0.5rem" }}>
+                    {submitting ? "Menyimpan..." : "Simpan Soal"}
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       )}

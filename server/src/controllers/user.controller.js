@@ -6,12 +6,20 @@ import prisma from '../config/prisma.js';
  */
 export const updateProfile = async (req, res, next) => {
   try {
-    const { name, bio, originRegion, specialization, photoUrl } = req.body;
+    const { name, username, bio, originRegion, specialization, photoUrl } = req.body;
+
+    if (username) {
+      const existing = await prisma.user.findUnique({ where: { username } });
+      if (existing && existing.id !== req.user.id) {
+        return res.status(400).json({ success: false, message: 'Username sudah digunakan oleh anggota lain.' });
+      }
+    }
 
     const updated = await prisma.user.update({
       where: { id: req.user.id },
       data: {
         ...(name && { name }),
+        ...(username && { username }),
         ...(bio !== undefined && { bio }),
         ...(originRegion && { originRegion }),
         ...(specialization && { specialization }),
@@ -20,6 +28,7 @@ export const updateProfile = async (req, res, next) => {
       select: {
         id: true,
         name: true,
+        username: true,
         email: true,
         bio: true,
         originRegion: true,
@@ -153,6 +162,64 @@ export const updateMemberStatus = async (req, res, next) => {
       success: true,
       message: 'Status anggota berhasil diperbarui.',
       data: updated,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Mendapatkan Profil Publik Penulis
+ */
+export const getPublicProfile = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        bio: true,
+        originRegion: true,
+        specialization: true,
+        photoUrl: true,
+        createdAt: true,
+        badges: {
+          include: { badge: true }
+        },
+        articles: {
+          where: { status: 'published' },
+          orderBy: { publishedAt: 'desc' },
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            lead: true,
+            category: true,
+            coverUrl: true,
+            viewCount: true,
+            publishedAt: true,
+            createdAt: true,
+            _count: {
+              select: { reviews: true } // simple proxy for comments/discussion
+            }
+          }
+        }
+      }
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Profil penulis tidak ditemukan.'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: user,
     });
   } catch (error) {
     next(error);
